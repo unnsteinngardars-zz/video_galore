@@ -1,0 +1,12 @@
+C:\HONN\P2\Galore.Repositories\bin\Debug\netstandard2.0\Galore.Repositories.deps.json
+C:\HONN\P2\Galore.Repositories\bin\Debug\netstandard2.0\Galore.Repositories.dll
+C:\HONN\P2\Galore.Repositories\bin\Debug\netstandard2.0\Galore.Repositories.pdb
+C:\HONN\P2\Galore.Repositories\bin\Debug\netstandard2.0\Galore.Models.dll
+C:\HONN\P2\Galore.Repositories\bin\Debug\netstandard2.0\Galore.Models.pdb
+C:\HONN\P2\Galore.Repositories\obj\Debug\netstandard2.0\Galore.Repositories.csprojAssemblyReference.cache
+C:\HONN\P2\Galore.Repositories\obj\Debug\netstandard2.0\Galore.Repositories.csproj.CoreCompileInputs.cache
+C:\HONN\P2\Galore.Repositories\obj\Debug\netstandard2.0\Galore.Repositories.AssemblyInfoInputs.cache
+C:\HONN\P2\Galore.Repositories\obj\Debug\netstandard2.0\Galore.Repositories.AssemblyInfo.cs
+C:\HONN\P2\Galore.Repositories\obj\Debug\netstandard2.0\Galore.Repositories.csproj.CopyComplete
+C:\HONN\P2\Galore.Repositories\obj\Debug\netstandard2.0\Galore.Repositories.dll
+C:\HONN\P2\Galore.Repositories\obj\Debug\netstandard2.0\Galore.Repositories.pdb

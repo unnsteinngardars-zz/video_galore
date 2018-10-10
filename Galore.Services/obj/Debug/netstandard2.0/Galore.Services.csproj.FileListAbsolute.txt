@@ -1,0 +1,14 @@
+C:\HONN\P2\Galore.Services\bin\Debug\netstandard2.0\Galore.Services.deps.json
+C:\HONN\P2\Galore.Services\bin\Debug\netstandard2.0\Galore.Services.dll
+C:\HONN\P2\Galore.Services\bin\Debug\netstandard2.0\Galore.Services.pdb
+C:\HONN\P2\Galore.Services\bin\Debug\netstandard2.0\Galore.Models.dll
+C:\HONN\P2\Galore.Services\bin\Debug\netstandard2.0\Galore.Repositories.dll
+C:\HONN\P2\Galore.Services\bin\Debug\netstandard2.0\Galore.Models.pdb
+C:\HONN\P2\Galore.Services\bin\Debug\netstandard2.0\Galore.Repositories.pdb
+C:\HONN\P2\Galore.Services\obj\Debug\netstandard2.0\Galore.Services.csprojAssemblyReference.cache
+C:\HONN\P2\Galore.Services\obj\Debug\netstandard2.0\Galore.Services.csproj.CoreCompileInputs.cache
+C:\HONN\P2\Galore.Services\obj\Debug\netstandard2.0\Galore.Services.AssemblyInfoInputs.cache
+C:\HONN\P2\Galore.Services\obj\Debug\netstandard2.0\Galore.Services.AssemblyInfo.cs
+C:\HONN\P2\Galore.Services\obj\Debug\netstandard2.0\Galore.Services.csproj.CopyComplete
+C:\HONN\P2\Galore.Services\obj\Debug\netstandard2.0\Galore.Services.dll
+C:\HONN\P2\Galore.Services\obj\Debug\netstandard2.0\Galore.Services.pdb
