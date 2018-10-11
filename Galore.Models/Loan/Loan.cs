@@ -2,7 +2,7 @@ using System;
 
 namespace Galore.Models.Loan {
     public class Loan {
-        public int Id { get; set; }
+        // PK is TapeId and UserId together
         public int TapeId { get; set; }
         public int UserId { get; set; }
         public string BorrowDate { get; set; }
