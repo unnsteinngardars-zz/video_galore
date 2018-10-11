@@ -17,22 +17,7 @@ namespace Galore.Repositories.Implementations
             throw new System.NotImplementedException();
         }
 
-        public void DeleteUserReviewForTape(Review review)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Review> GetAllTapeReviews()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public IEnumerable<Tape> GetAllTapes()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Tape> GetReportByDate(string loanDate)
         {
             throw new System.NotImplementedException();
         }
@@ -42,22 +27,7 @@ namespace Galore.Repositories.Implementations
             throw new System.NotImplementedException();
         }
 
-        public Review GetTapeReviewById(int tapeId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Review GetUserReviewForTape(int tapeId, int userId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateTapeById(TapeInputModel tape, int tapeId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateUserReviewForTape(ReviewInputModel review, int tapeId, int userId)
+        public void UpdateTapeById(Tape tape, int tapeId)
         {
             throw new System.NotImplementedException();
         }
