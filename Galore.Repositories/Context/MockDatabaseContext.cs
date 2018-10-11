@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Galore.Models.Loan;
 using Galore.Models.Tape;
 using Galore.Models.User;
 using Galore.Repositories.Interfaces;
@@ -34,11 +35,96 @@ namespace Galore.Repositories.Context
             }
         };
 
-        // private static List<Tape> _tapes = new List<Tape>
-        // {
+        private static List<Tape> _tapes = new List<Tape>
+        {
+            new Tape
+            {
+                Id = 1,
+                Title = "The Shining",
+                DirectorFirstName = "Stanley",
+                DirectorLastName = "Kubrick",
+                Type = "VHS",
+                EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
+                ReleaseDate = new DateTime(1980, 10, 5),
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            },
+            new Tape
+            {
+                Id = 2,
+                Title = "The Lion King",
+                DirectorFirstName = "Roger",
+                DirectorLastName = "Allers",
+                Type = "VHS",
+                EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
+                ReleaseDate = new DateTime(1994, 12, 2),
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            },
+            new Tape
+            {
+                Id = 3,
+                Title = "Psycho",
+                DirectorFirstName = "Alfred",
+                DirectorLastName = "Hitchcock",
+                Type = "Betamax",
+                EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
+                ReleaseDate = new DateTime(1960, 6, 16),
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            },
+            new Tape 
+            {
+                Id = 4,
+                Title = "Toy Story",
+                DirectorFirstName = "John",
+                DirectorLastName = "Lasseter",
+                Type = "VHS",
+                EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
+                ReleaseDate = new DateTime(1995, 11, 19),
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            },
+            new Tape
+            {
+                Id = 5,
+                Title = "The Sound of Music",
+                DirectorFirstName = "Robert",
+                DirectorLastName = "Wise",
+                Type = "Betamax",
+                EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
+                ReleaseDate = new DateTime(1065, 3, 2),
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            }
+        };
 
-        // }
+        private static List<Loan> _loans = new List<Loan>
+        {
+            new Loan
+            {
+                TapeId = 1,
+                UserId = 1,
+                BorrowDate = new DateTime(2018, 4, 15),
+                ReturnDate = DateTime.MinValue,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            },
+            new Loan
+            {
+                TapeId = 2,
+                UserId = 2,
+                BorrowDate = new DateTime(2018, 1, 1),
+                ReturnDate = new DateTime(2018, 6, 6),
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            }
+        };
+
+        
 
         public List<User> getAllUsers { get => _users; set => _users = value;}
+        public List<Tape> getAllTapes { get => _tapes; set => _tapes = value;}
+        public List<Loan> getAllLoans { get => _loans; set => _loans = value;}
     }
 }

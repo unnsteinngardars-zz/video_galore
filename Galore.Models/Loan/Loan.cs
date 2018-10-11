@@ -5,8 +5,8 @@ namespace Galore.Models.Loan {
         // PK is TapeId and UserId together
         public int TapeId { get; set; }
         public int UserId { get; set; }
-        public string BorrowDate { get; set; }
-        public string ReturnDate { get; set; }
+        public DateTime BorrowDate { get; set; }
+        public DateTime ReturnDate { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
     }
