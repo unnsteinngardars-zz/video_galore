@@ -1,9 +1,0 @@
-C:\HONN\P2\Galore.Models\bin\Debug\netstandard2.0\Galore.Models.deps.json
-C:\HONN\P2\Galore.Models\bin\Debug\netstandard2.0\Galore.Models.dll
-C:\HONN\P2\Galore.Models\bin\Debug\netstandard2.0\Galore.Models.pdb
-C:\HONN\P2\Galore.Models\obj\Debug\netstandard2.0\Galore.Models.csprojAssemblyReference.cache
-C:\HONN\P2\Galore.Models\obj\Debug\netstandard2.0\Galore.Models.csproj.CoreCompileInputs.cache
-C:\HONN\P2\Galore.Models\obj\Debug\netstandard2.0\Galore.Models.AssemblyInfoInputs.cache
-C:\HONN\P2\Galore.Models\obj\Debug\netstandard2.0\Galore.Models.AssemblyInfo.cs
-C:\HONN\P2\Galore.Models\obj\Debug\netstandard2.0\Galore.Models.dll
-C:\HONN\P2\Galore.Models\obj\Debug\netstandard2.0\Galore.Models.pdb
