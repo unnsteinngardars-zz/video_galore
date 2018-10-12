@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Galore.Models.Loan;
+using Galore.Models.Review;
 using Galore.Models.Tape;
 using Galore.Models.User;
 using Galore.Repositories.Interfaces;
@@ -121,10 +122,34 @@ namespace Galore.Repositories.Context
             }
         };
 
+        private static List<Review> _reviews = new List<Review>
+        {
+            new Review
+            {
+                Id = 1,
+                UserId = 1,
+                TapeId = 1,
+                Score = 10,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            },
+            new Review
+            {
+                Id = 2,
+                UserId = 2,
+                TapeId = 2,
+                Score = 5,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            }
+
+        };
         
 
         public List<User> getAllUsers { get => _users; set => _users = value;}
         public List<Tape> getAllTapes { get => _tapes; set => _tapes = value;}
         public List<Loan> getAllLoans { get => _loans; set => _loans = value;}
+
+        public List<Review> getAllReviews { get => _reviews; set => _reviews = value; }
     }
 }

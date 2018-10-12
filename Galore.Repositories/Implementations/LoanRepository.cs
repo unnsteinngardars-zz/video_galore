@@ -1,35 +1,32 @@
 using System.Collections.Generic;
+using Galore.Models.Loan;
 using Galore.Models.Review;
 using Galore.Models.Tape;
 using Galore.Repositories.Interfaces;
 
 namespace Galore.Repositories.Implementations
 {
-    public class TapeRepository : ITapeRepository
+    public class LoanRepository : ILoanRepository
     {
-        public int CreateTape(Tape tape)
+        public IEnumerable<Tape> GetTapesOnLoanForUser(int userId) 
         {
             throw new System.NotImplementedException();
-        }
 
-        public void DeleteTape(Tape tape)
-        {
-            throw new System.NotImplementedException();
         }
-
-        public IEnumerable<Tape> GetAllTapes()
+        public int RegisterTapeOnLoan(Loan loan, int userId, int tapeId) 
         {
             throw new System.NotImplementedException();
+
         }
-
-        public Tape GetTapeById(int tapeId)
+        public void ReturnTapeLoan(int userId, int tapeId) 
         {
             throw new System.NotImplementedException();
+
         }
-
-        public void UpdateTapeById(Tape tape, int tapeId)
+        public void UpdateTapeLoan(Loan loan, int userId, int tapeId) 
         {
             throw new System.NotImplementedException();
+
         }
     }
 }

@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using Galore.Models.Loan;
+using Galore.Models.Tape;
+
 namespace Galore.Repositories.Interfaces
 {
     public interface ILoanRepository

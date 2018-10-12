@@ -6,7 +6,7 @@ namespace Galore.Models.Review {
         public int Id { get; set; }
         public int UserId { get; set; }
         public int TapeId { get; set; }
-        public double Score { get; set; }
+        public int Score { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
     }

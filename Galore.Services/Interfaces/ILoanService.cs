@@ -1,9 +1,13 @@
+using System.Collections.Generic;
+using Galore.Models.Loan;
+using Galore.Models.Tape;
+
 namespace Galore.Services.Interfaces
 {
     public interface ILoanService
     {
         // user/userId/tapes: get tapes that user has on loan( user id, tape id)
-        IEnumberable<TapeDTO> GetTapesOnLoanForUser(int userId);
+        IEnumerable<TapeDTO> GetTapesOnLoanForUser(int userId);
 
         // user/userId/tapes/tapeId: Register new loan
         int CreateLoan(LoanInputModel loan, int userId, int tapeId);

@@ -4,113 +4,68 @@ using Microsoft.AspNetCore.Mvc;
 using Galore.Models.Loan;
 using Galore.Models.Review;
 using System;
+using Galore.Services.Interfaces;
 
 namespace Galore.WebApi.Controllers
 {
-    [Route("/v1/api/users/")]
+    [Route("/v1/api/")]
     public class UserController : Controller
     {
 
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpGet]
-        [Route("")]
+        [Route("users")]
         public IActionResult GetAllUsers(){
             return Ok();
         }
 
-        [HttpGet]
-        [Route("")]
-        public IActionResult GetReportByDate([FromQuery] string LoanDate = "2000-01-01"){
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("")]
-        public IActionResult GetReportByDuration([FromQuery] int LoanDuration = 30){
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("")]
-        public IActionResult GetReportByDurationAndDate([FromQuery] int LoanDuration = 30, [FromQuery] string LoanDate = "2000-01-01"){
-            return Ok();
-        }
-
         [HttpPost]
-        [Route("")]
+        [Route("users")]
         public IActionResult CreateUser([FromBody] UserInputModel user) {
             return Ok();
         }
 
         [HttpGet]
-        [Route("{userId:int}")]
+        [Route("users/{userId:int}")]
         public IActionResult GetUserById(int userId){
             return Ok();
         }
 
         [HttpDelete]
-        [Route("{userId:int}")]
+        [Route("users/{userId:int}")]
         public IActionResult DeleteUserById(int userId){
             return Ok();
         }
 
         [HttpPut]
-        [Route("{userId:int}")]
+        [Route("users/{userId:int}")]
         public IActionResult UpdateUserById([FromBody] UserInputModel user, int userId){
             return Ok();
         }
 
+
         [HttpGet]
-        [Route("{userId:int}/tapes")]
-        public IActionResult GetTapesOnLoan(int userId){
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("{userId:int}/tapes/{tapeId:int}")]
-        public IActionResult RegisterTapeLoan([FromBody] LoanInputModel loan, int userId, int tapeId){
-            return Ok();
-        }
-
-        [HttpDelete]
-        [Route("{userId:int}/tapes/{tapeId:int}")]
-        public IActionResult ReturnTapeLoan(int userId, int tapeId){
-            return Ok();
-        }
-
-        [HttpPut]
-        [Route("{userId:int}/tapes/{tapeId:int}")]
-        public IActionResult UpdateTapeLoan([FromBody] LoanInputModel loan, int userId, int tapeId){
+        [Route("users")]
+        public IActionResult GetReportByDate([FromQuery] string LoanDate = "2000-01-01"){
             return Ok();
         }
 
         [HttpGet]
-        [Route("{userId:int}/reviews")]
-        public IActionResult GetAllReviews(int userId){
+        [Route("users")]
+        public IActionResult GetReportByDuration([FromQuery] int LoanDuration = 30){
             return Ok();
         }
 
         [HttpGet]
-        [Route("{userId:int}/reviews/{tapeId:int}")]
-        public IActionResult GetUserReviewForTape(int userId, int tapeId){
+        [Route("users")]
+        public IActionResult GetReportByDurationAndDate([FromQuery] int LoanDuration = 30, [FromQuery] string LoanDate = "2000-01-01"){
             return Ok();
         }
 
-        [HttpPost]
-        [Route("{userId:int}/reviews/{tapeId:int}")]
-        public IActionResult CreateUserReviewForTape([FromBody] ReviewInputModel review, int userId, int tapeId){
-            return Ok();
-        }
-
-        [HttpDelete]
-        [Route("{userId:int}/reviews/{tapeId:int}")]
-        public IActionResult DeleteUserReviewForTape(int userId, int tapeId){
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("{userId:int}/recommendation")]
-        public IActionResult GetRecommendation(int userId){
-            return Ok();
-        }
     }
 }

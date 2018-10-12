@@ -10,7 +10,7 @@ namespace Galore.Repositories.Implementations
 {
     public class UserRepository : IUserRepository
     {
-        public int CreateUser(UserInputModel user)
+        public int CreateUser(User user)
         {
             throw new System.NotImplementedException();
         }
@@ -90,7 +90,7 @@ namespace Galore.Repositories.Implementations
             throw new System.NotImplementedException();
         }
 
-        public void UpdateUserById(UserInputModel user, int userId)
+        public void UpdateUserById(User user, int userId)
         {
             throw new System.NotImplementedException();
         }

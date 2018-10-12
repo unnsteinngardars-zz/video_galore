@@ -10,7 +10,7 @@ namespace Galore.Repositories.Interfaces
         int CreateTape(Tape tape);
         Tape GetTapeById(int tapeId);
         void DeleteTape(Tape tape);
-        void UpdateTape(Tape tape, int tapeId);
+        void UpdateTapeById(Tape tape, int tapeId);
 
     }
 }
