@@ -7,6 +7,7 @@ using Galore.Repositories.Implementations;
 using Galore.Repositories.Interfaces;
 using Galore.Services.implementations;
 using Galore.Services.Interfaces;
+using Galore.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,10 @@ namespace Galore.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<UserContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Galore.WebApi")));
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITapeService, TapeService>();
@@ -42,9 +47,6 @@ namespace Galore.WebApi
             services.AddTransient<ITapeRepository, TapeRepository>();
             services.AddTransient<ILoanRepository, LoanRepository>();
 
-            services.AddDbContext<UserContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Galore.WebApi")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +61,7 @@ namespace Galore.WebApi
                 app.UseHsts();
             }
 
+            app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
