@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Galore.Models.Review;
+using Galore.Services.Interfaces;
 
 namespace Galore.Services.implementations
 {
-    public class ReviewService
+    public class ReviewService : IReviewService
     {
         public IEnumerable<ReviewDTO> GetAllReviewsForUser(int userId)
         {

@@ -34,10 +34,12 @@ namespace Galore.WebApi
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ITapeService, TapeService>();
-            // services.AddTransient<ILoanService, LoanService>();
-            // services.AddTransient<IReviewService, ReviewService>();
-            // services.AddTransient<IRecommendationService, RecommendationService>();
+            services.AddTransient<ILoanService, LoanService>();
+            services.AddTransient<IReviewService, ReviewService>();
+            services.AddTransient<IRecommendationService, RecommendationService>();
 
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITapeRepository, TapeRepository>();
             services.AddTransient<ILoanRepository, LoanRepository>();
 
             services.AddDbContext<UserContext>(options =>
