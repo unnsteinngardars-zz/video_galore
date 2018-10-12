@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Galore.Models.Tape;
 using Galore.Repositories.Interfaces;
 using Galore.Services.Interfaces;
+using AutoMapper;
+using System.Linq;
 
 namespace Galore.Services.implementations
 {
@@ -15,11 +17,15 @@ namespace Galore.Services.implementations
         }
         public IEnumerable<TapeDTO> GetAllTapes()
         {
-            throw new System.NotImplementedException();
+            return Mapper.Map<IEnumerable<TapeDTO>>(_tapeRepository.GetAllTapes());
         }
         public int CreateTape(TapeInputModel tape)
         {
-            throw new System.NotImplementedException();
+            var tapes = _tapeRepository.GetAllTapes();
+            var nextId = tapes.Max(t => t.Id) +1;
+            var newTape = Mapper.Map<Tape>(tape);
+            newTape.Id = nextId;
+            return _tapeRepository.CreateTape(newTape);
         }
         public TapeDetailDTO GetTapeById(int tapeId)
         {
