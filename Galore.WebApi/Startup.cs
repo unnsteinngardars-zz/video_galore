@@ -61,6 +61,7 @@ namespace Galore.WebApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
         }
     }
 }
