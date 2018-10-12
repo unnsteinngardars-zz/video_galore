@@ -19,8 +19,9 @@ namespace Galore.WebApi.Extensions
                     var exception = exceptionHandlerFeature.Error;
                     var statusCode = (int) HttpStatusCode.InternalServerError;
 
-                    var logService = app.ApplicationServices.GetService(typeof(ILogService)) as ILogService;
-                    logService.LogToFile($"Message: {exception.Message}. Stack trace: {exception.StackTrace}");
+                    // TODO: FIX IT
+                    // var logService = app.ApplicationServices.GetService(typeof(ILogService)) as ILogService;
+                    // logService.LogToFile($"Message: {exception.Message}. Stack trace: {exception.StackTrace}");
 
                     if (exception is ResourceNotFoundException)
                     {

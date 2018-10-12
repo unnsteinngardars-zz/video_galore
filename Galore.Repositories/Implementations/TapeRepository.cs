@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Galore.Models.Review;
 using Galore.Models.Tape;
 using Galore.Repositories.Interfaces;
@@ -7,29 +8,42 @@ namespace Galore.Repositories.Implementations
 {
     public class TapeRepository : ITapeRepository
     {
+        private readonly IMockDatabaseContext _dataContext;
+
+        public TapeRepository(IMockDatabaseContext dataContext) {
+            _dataContext = dataContext;
+        }
         public int CreateTape(Tape tape)
         {
-            throw new System.NotImplementedException();
+            _dataContext.getAllTapes.Add(tape);
+            return tape.Id;
         }
 
         public void DeleteTape(Tape tape)
         {
-            throw new System.NotImplementedException();
+            _dataContext.getAllTapes.Remove(tape);
         }
 
         public IEnumerable<Tape> GetAllTapes()
         {
-            throw new System.NotImplementedException();
+            return _dataContext.getAllTapes;
         }
 
         public Tape GetTapeById(int tapeId)
         {
-            throw new System.NotImplementedException();
-        }
+            return _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tapeId);        
+         }
 
         public void UpdateTapeById(Tape tape, int tapeId)
         {
-            throw new System.NotImplementedException();
+            var updateTape = _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tapeId);
+            updateTape.DateModified = new System.DateTime();
+            updateTape.Title = tape.Title;
+            updateTape.DirectorFirstName = tape.DirectorFirstName;
+            updateTape.DirectorLastName = tape.DirectorLastName;
+            updateTape.EIDR = tape.EIDR;
+            updateTape.ReleaseDate = tape.ReleaseDate;
+            updateTape.Type = tape.Type;
         }
     }
 }

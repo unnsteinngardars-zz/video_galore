@@ -8,9 +8,10 @@ namespace Galore.Services.Implementations
     {
         public void LogToFile(string message)
         {
-            using (var file = new StreamWriter("log.txt", true)){
+            using (var file = new StreamWriter("log.txt", true))
+            {
                 file.WriteLine($"{DateTime.Now} - {message}");
-            }
+            }        
         }
     }
 }

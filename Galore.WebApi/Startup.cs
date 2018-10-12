@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Galore.Models.Tape;
 using Galore.Repositories.Context;
 using Galore.Repositories.Implementations;
 using Galore.Repositories.Interfaces;
@@ -17,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using AutoMapper;
 
 namespace Galore.WebApi
 {
@@ -46,6 +48,7 @@ namespace Galore.WebApi
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITapeRepository, TapeRepository>();
             services.AddTransient<ILoanRepository, LoanRepository>();
+            services.AddTransient<IMockDatabaseContext, MockDatabaseContext>();
 
         }
 
@@ -64,6 +67,15 @@ namespace Galore.WebApi
             app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            AutoMapper.Mapper.Initialize( c => {
+                c.CreateMap<Tape, TapeDTO>();
+                c.CreateMap<TapeDTO, Tape>();
+                c.CreateMap<Tape, TapeDetailDTO>();
+                c.CreateMap<TapeInputModel, Tape>()
+                    .ForMember(t => t.DateCreated, opt => opt.UseValue(DateTime.Now))
+                    .ForMember(t => t.DateModified, opt => opt.UseValue(DateTime.Now));
+            });
 
         }
     }

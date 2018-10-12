@@ -8,7 +8,7 @@ namespace Galore.Services.Interfaces
         IEnumerable<TapeDTO> GetAllTapes();
         int CreateTape(TapeInputModel tape);
         TapeDetailDTO GetTapeById(int tapeId);
-        void DeleteTape(TapeInputModel tape);
+        void DeleteTape(int tapeId);
         void UpdateTape(TapeInputModel tape, int tapeId);
         IEnumerable<Tape> GetTapesByDate(string date);
     }
