@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AutoMapper;
+using Galore.Services.Implementations;
 
 namespace Galore.WebApi
 {
@@ -44,6 +45,7 @@ namespace Galore.WebApi
             services.AddTransient<ILoanService, LoanService>();
             services.AddTransient<IReviewService, ReviewService>();
             services.AddTransient<IRecommendationService, RecommendationService>();
+            services.AddTransient<ILogService, LogService>();
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITapeRepository, TapeRepository>();

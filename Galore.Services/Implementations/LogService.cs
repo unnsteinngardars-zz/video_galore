@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using Galore.Services.Interfaces;
 
 namespace Galore.Services.Implementations
@@ -8,9 +9,14 @@ namespace Galore.Services.Implementations
     {
         public void LogToFile(string message)
         {
-            using (var file = new StreamWriter("log.txt", true))
+            Console.WriteLine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+
+            using (StreamWriter sw = new StreamWriter("../exception_log.txt", true))
             {
-                file.WriteLine($"{DateTime.Now} - {message}");
+                if(sw != null)
+                {
+                    sw.WriteLine($"{DateTime.Now} - {message}");
+                }
             }        
         }
     }
