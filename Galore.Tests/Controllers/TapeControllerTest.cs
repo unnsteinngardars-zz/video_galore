@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using Galore.Models.Exceptions;
 using Galore.Models.Tape;
 using Galore.Repositories.Interfaces;
