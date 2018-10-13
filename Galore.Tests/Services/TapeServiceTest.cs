@@ -67,6 +67,7 @@ namespace Galore.Tests.Services
             // Assert
             Assert.IsInstanceOfType(result, typeof(IEnumerable<TapeDTO>));
             Assert.AreEqual(2, result.Count());
+            _tapeRepository.Verify((m => m.GetAllTapes()), Times.Once());
         }
 
         [TestMethod]
@@ -76,6 +77,7 @@ namespace Galore.Tests.Services
             // Assert
             Assert.IsInstanceOfType(result, typeof(TapeDetailDTO));
             Assert.AreEqual("Test Movie 1", result.Title);
+            _tapeRepository.Verify((m => m.GetTapeById(1)), Times.Once());
         }
 
         [TestMethod]
@@ -85,6 +87,8 @@ namespace Galore.Tests.Services
             // Assert
             Assert.IsInstanceOfType(result, typeof(int));
             Assert.AreEqual(1, result);
+            
+            _tapeRepository.Verify((m => m.CreateTape(It.IsAny<Tape>())), Times.Once());
         }
 
         [TestMethod]
@@ -92,6 +96,7 @@ namespace Galore.Tests.Services
         {
             // Act
             service.DeleteTape(1);
+            _tapeRepository.Verify((m => m.GetTapeById(1)), Times.Once());
         }
 
         [TestMethod]
@@ -100,6 +105,8 @@ namespace Galore.Tests.Services
         {
             // Act
             service.DeleteTape(100);
+            _tapeRepository.Verify((m => m.GetTapeById(100)), Times.Once());
+
         }
 
         [TestMethod]
@@ -107,6 +114,7 @@ namespace Galore.Tests.Services
         {
             // Act
             service.UpdateTape(tape, 1);
+            _tapeRepository.Verify((m => m.GetTapeById(1)), Times.Once());
         }
 
         [TestMethod]
@@ -115,6 +123,7 @@ namespace Galore.Tests.Services
         {
             // Act
             service.UpdateTape(tape, 100);
+            _tapeRepository.Verify((m => m.GetTapeById(100)), Times.Once());
         }
     }
 }
