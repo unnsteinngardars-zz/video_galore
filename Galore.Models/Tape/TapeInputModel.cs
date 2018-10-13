@@ -28,6 +28,7 @@ namespace Galore.Models.Tape
         }
 
         [Required]
+        [RegularExpression("10.5240/(([0-9]|[A-Z]|[a-z]){4}-){5}C")]
         public string EIDR { get; set; }
         
         [Required]

@@ -31,11 +31,11 @@ namespace Galore.WebApi.Controllers
         public IActionResult CreateTape([FromBody] TapeInputModel tape){
             if(!ModelState.IsValid) { throw new ModelFormatException("Tape was not properly formatted"); }
             var newId = _tapeService.CreateTape(tape);
-            return Ok(newId);
+            return CreatedAtRoute("GetTapeById", new { tapeId = newId}, null);
         }
 
         [HttpGet]
-        [Route("tapes/{tapeId:int}")]
+        [Route("tapes/{tapeId:int}", Name="GetTapeById")]
         public IActionResult GetTapeById(int tapeId){
             return Ok(_tapeService.GetTapeById(tapeId));
         }
