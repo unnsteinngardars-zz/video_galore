@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Galore.Models.Loan;
 using Galore.Models.Recommendation;
 using Galore.Models.Review;
@@ -10,89 +12,42 @@ namespace Galore.Repositories.Implementations
 {
     public class UserRepository : IUserRepository
     {
-        public int CreateUser(User user)
-        {
-            throw new System.NotImplementedException();
+        public readonly IMockDatabaseContext _dataContext;
+
+        public UserRepository(IMockDatabaseContext dataContext) {
+            _dataContext = dataContext;
         }
 
-        public int CreateUserReviewForTape(ReviewInputModel review, int userId, int tapeId)
+        public int CreateUser(User user)
         {
-            throw new System.NotImplementedException();
+            _dataContext.getAllUsers.Add(user);
+            return user.Id;
         }
 
         public void DeleteUser(User user)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void DeleteUserReviewForTape(Review review)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Review> GetAllReviews(int userId)
-        {
-            throw new System.NotImplementedException();
+            _dataContext.getAllUsers.Remove(user);
         }
 
         public IEnumerable<User> GetAllUsers()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Recommendation GetRecommendation(int userId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<User> GetReportByDate(string loanDate)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<User> GetReportByDuration(string loanDuration)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<User> GetReportByDurationAndDate(string loanDuration, string loanDate)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Tape> GetTapesOnLoan(int userId)
-        {
-            throw new System.NotImplementedException();
+            return _dataContext.getAllUsers;
         }
 
         public User GetUserById(int userId)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Review GetUserReviewForTape(int userId, int tapeId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public int RegisterTapeOnLoan(LoanInputModel loan, int userId, int tapeId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ReturnTapeLoan(int userId, int tapeId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdateTapeLoan(LoanInputModel loan, int userId, int tapeId)
-        {
-            throw new System.NotImplementedException();
+            return _dataContext.getAllUsers.FirstOrDefault(u => u.Id == userId);
         }
 
         public void UpdateUserById(User user, int userId)
         {
-            throw new System.NotImplementedException();
+           var updateUser = _dataContext.getAllUsers.FirstOrDefault(u => u.Id == userId);
+           updateUser.FirstName = user.FirstName;
+           updateUser.LastName = user.LastName;
+           updateUser.Address = user.Address;
+           updateUser.Email = user.Email;
+           updateUser.Phone = user.Phone;
+           updateUser.DateModified = DateTime.Now;
         }
     }
 }

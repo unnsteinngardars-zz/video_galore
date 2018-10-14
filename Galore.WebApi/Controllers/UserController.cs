@@ -5,6 +5,7 @@ using Galore.Models.Loan;
 using Galore.Models.Review;
 using System;
 using Galore.Services.Interfaces;
+using Galore.Models.Exceptions;
 
 namespace Galore.WebApi.Controllers
 {
@@ -12,7 +13,10 @@ namespace Galore.WebApi.Controllers
     public class UserController : Controller
     {
 
+        // TODO: Reports with query parameters
+
         private readonly IUserService _userService;
+
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -20,52 +24,37 @@ namespace Galore.WebApi.Controllers
 
         [HttpGet]
         [Route("users")]
-        public IActionResult GetAllUsers(){
-            return Ok();
+        public IActionResult GetAllUsers([FromQuery] int LoanDuration = 30, [FromQuery] string LoanDate = "2000-01-01"){
+            return Ok(_userService.GetAllUsers());
         }
 
         [HttpPost]
         [Route("users")]
         public IActionResult CreateUser([FromBody] UserInputModel user) {
-            return Ok();
+            if(!ModelState.IsValid) { throw new ModelFormatException("User was not properly formatted"); }
+            var newId = _userService.CreateUser(user);
+            return CreatedAtRoute("GetUserById", new { userId = newId}, null);
         }
 
         [HttpGet]
-        [Route("users/{userId:int}")]
+        [Route("users/{userId:int}", Name="GetUserById")]
         public IActionResult GetUserById(int userId){
-            return Ok();
+            return Ok(_userService.GetUserById(userId));
         }
 
         [HttpDelete]
         [Route("users/{userId:int}")]
         public IActionResult DeleteUserById(int userId){
-            return Ok();
+            _userService.DeleteUser(userId);
+            return NoContent();
         }
 
         [HttpPut]
         [Route("users/{userId:int}")]
         public IActionResult UpdateUserById([FromBody] UserInputModel user, int userId){
-            return Ok();
+            if(!ModelState.IsValid) { throw new ModelFormatException("User was not properly formatted"); }
+            _userService.UpdateUser(user, userId);
+            return NoContent();
         }
-
-
-        [HttpGet]
-        [Route("users")]
-        public IActionResult GetReportByDate([FromQuery] string LoanDate = "2000-01-01"){
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("users")]
-        public IActionResult GetReportByDuration([FromQuery] int LoanDuration = 30){
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route("users")]
-        public IActionResult GetReportByDurationAndDate([FromQuery] int LoanDuration = 30, [FromQuery] string LoanDate = "2000-01-01"){
-            return Ok();
-        }
-
     }
 }
