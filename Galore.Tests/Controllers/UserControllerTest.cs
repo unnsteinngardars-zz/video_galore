@@ -1,5 +1,5 @@
 using Galore.Models.Exceptions;
-using Galore.Models.Tape;
+using Galore.Models.User;
 using Galore.Repositories.Interfaces;
 using Galore.Services.Interfaces;
 using Galore.WebApi.Controllers;
@@ -10,50 +10,49 @@ using Moq;
 namespace Galore.Tests.Controllers
 {
     [TestClass]
-    public class TapeControllerTest
+    public class UserControllerTest
     {
-        
-        private Mock<ITapeService> _tapeService;
-        private TapeController controller;
+        private Mock<IUserService> _userService;
+        private UserController controller;
 
         [TestInitialize]
-        public void initialize() {
+        public void Initialize() {
             // arrange
-            _tapeService = new Mock<ITapeService>();
-            controller = new TapeController(_tapeService.Object);
-        }       
-
-        [TestMethod]
-        public void GetAllTapesTest_ReturnsOk() {
-            // act
-            var result = controller.GetAllTapes();
-            // assert
-            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
-            var actual = result as OkObjectResult;
-            Assert.AreEqual(200, actual.StatusCode);
+            _userService = new Mock<IUserService>();
+            controller = new UserController(_userService.Object);
         }
 
         [TestMethod]
-        public void CreateTapeTestValidModel_ReturnsCreatedAtRoute() {
+        public void GetAllUsersTest_ReturnsOk() {
+            // act
+            var result = controller.GetAllUsers();
+            // assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            var actual = result as OkObjectResult;
+            Assert .AreEqual(200, actual.StatusCode);
+        }
+
+        [TestMethod]
+        public void CreateUserTestValidModel_ReturnsCreatedAtRoute() {
             // act
             controller.ModelState.Clear();
-            IActionResult actionResult = controller.CreateTape(new TapeInputModel());
+            IActionResult actionResult = controller.CreateUser(new UserInputModel());
             // assert
             Assert.IsInstanceOfType(actionResult, typeof(CreatedAtRouteResult));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ModelFormatException), "Model not formated correctly")]
-        public void CreateTapeTestInvalidModel_ThrowsModelFormatException() {
+        [ExpectedException(typeof(ModelFormatException), "Model not properly formatted")]
+        public void CreateUserTestInvalidModel_ThrowsModelFormatException() {
             // act
             controller.ModelState.AddModelError("test", "test");
-            controller.CreateTape(new TapeInputModel());
-        }   
-        
+            controller.CreateUser(new UserInputModel());
+        }
+
         [TestMethod]
-        public void GetTapeByIdTest_ReturnsOk() {   
+        public void GetUserById_ReturnsOk() {
             // act
-            var result = controller.GetTapeById(1);
+            var result = controller.GetUserById(1);
             // assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             var actual = result as OkObjectResult;
@@ -61,9 +60,9 @@ namespace Galore.Tests.Controllers
         }
 
         [TestMethod]
-        public void DeleteTapeByIdTest_ReturnsNoContent() {
+        public void DeleteUserByIdTest_ReturnsNoContent() {
             // act
-            var result = controller.DeleteTapeById(1);
+            var result = controller.DeleteUserById(1);
             // assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
             var actual = result as NoContentResult;
@@ -71,9 +70,9 @@ namespace Galore.Tests.Controllers
         }
 
         [TestMethod]
-        public void UpdateTapeByIdTestValidModel_ReturnsNoContent() {
+        public void UpdateUserByIdTestValidModel_ReturnsNoContent() {
             // act
-            var result = controller.UpdateTapeById(new TapeInputModel(), 1);
+            var result = controller.UpdateUserById(new UserInputModel(), 1);
             // assert
             Assert.IsInstanceOfType(result, typeof(NoContentResult));
             var actual = result as NoContentResult;
@@ -81,10 +80,12 @@ namespace Galore.Tests.Controllers
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ModelFormatException), "Model not formatted correctly")]
-        public void UpdateTapeByIdInvalidModel_ThrowsModelFormatException() {
+        [ExpectedException(typeof(ModelFormatException), "Model not properly formatted")]
+        public void UpdateUserByIdTestInvalidModel_ThrowsModelFormatException() {
+            // act
             controller.ModelState.AddModelError("test", "test");
-            controller.UpdateTapeById(new TapeInputModel(), 1);
+            controller.UpdateUserById(new UserInputModel(), 1);
         }
+
     }
 }

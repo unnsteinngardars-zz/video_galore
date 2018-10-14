@@ -16,8 +16,8 @@ namespace Galore.Tests.Services
     [TestClass]
     public class TapeServiceTest
     {
-        TapeInputModel tape = new TapeInputModel
-        {
+        // arrange 
+        TapeInputModel tape = new TapeInputModel {
             Title = "Test Movie 3",
             DirectorFirstName = "Test first name",
             DirectorLastName = "Test last name",
@@ -30,7 +30,9 @@ namespace Galore.Tests.Services
         private ITapeService service;
 
         [ClassInitialize]
-        public static void MapperInitialize(TestContext context){
+        public static void MapperInitialize(TestContext context) {
+            // arrange            
+            AutoMapper.Mapper.Reset();
             AutoMapper.Mapper.Initialize( c => {
                 c.CreateMap<Tape, TapeDTO>();
                 c.CreateMap<TapeDTO, Tape>();
@@ -42,8 +44,8 @@ namespace Galore.Tests.Services
         }      
 
         [TestInitialize]
-        public void initialize()
-        {
+        public void initialize() {
+            // arrange
             _tapeRepository = new Mock<ITapeRepository>();
             _tapeRepository.Setup(m => m.GetAllTapes())
             .Returns(FizzWare.NBuilder.Builder<Tape>
@@ -61,31 +63,30 @@ namespace Galore.Tests.Services
         }
 
         [TestMethod]
-        public void GetAllTapesTest_ReturnsListOfTwoTapeDTO()
-        {
-            // Act
-            IEnumerable<TapeDTO> result = service.GetAllTapes();
-            // Assert
+        public void GetAllTapesTest_ReturnsListOfTwoTapeDTO() {
+            // act
+            var result = service.GetAllTapes();
+            // assert
             Assert.IsInstanceOfType(result, typeof(IEnumerable<TapeDTO>));
             Assert.AreEqual(2, result.Count());
             _tapeRepository.Verify((m => m.GetAllTapes()), Times.Once());
         }
 
         [TestMethod]
-        public void GetTapeById_ReturnsTapeDetailDTO(){
-            // Act
-            TapeDetailDTO result = service.GetTapeById(1);
-            // Assert
+        public void GetTapeById_ReturnsTapeDetailDTO() {
+            // act
+            var result = service.GetTapeById(1);
+            // assert
             Assert.IsInstanceOfType(result, typeof(TapeDetailDTO));
             Assert.AreEqual("Test Movie 1", result.Title);
             _tapeRepository.Verify((m => m.GetTapeById(1)), Times.Once());
         }
 
         [TestMethod]
-        public void CreateTape_ReturnsId(){
-            // Act
+        public void CreateTape_ReturnsId() {
+            // act
             int result = service.CreateTape(tape);
-            // Assert
+            // assert
             Assert.IsInstanceOfType(result, typeof(int));
             Assert.AreEqual(1, result);
             
@@ -93,36 +94,32 @@ namespace Galore.Tests.Services
         }
 
         [TestMethod]
-        public void DeleteValidTape_ReturnsNothing()
-        {
-            // Act
+        public void DeleteValidTape_ReturnsNothing() {
+            // act
             service.DeleteTape(1);
             _tapeRepository.Verify((m => m.GetTapeById(1)), Times.Once());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ResourceNotFoundException), "Resource was not found")]
-        public void DeleteInvalidTape_ThrowsResourceNotFoundException()
-        {
-            // Act
+        public void DeleteInvalidTape_ThrowsResourceNotFoundException() {
+            // act
             service.DeleteTape(100);
             _tapeRepository.Verify((m => m.GetTapeById(100)), Times.Once());
 
         }
 
         [TestMethod]
-        public void UpdateValidTape_ReturnsNothing()
-        {
-            // Act
+        public void UpdateValidTape_ReturnsNothing() {
+            // act
             service.UpdateTape(tape, 1);
             _tapeRepository.Verify((m => m.GetTapeById(1)), Times.Once());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ResourceNotFoundException), "Resource was not found")]
-        public void UpdateInvalidTape_ThrowsResourceNotFoundException()
-        {
-            // Act
+        public void UpdateInvalidTape_ThrowsResourceNotFoundException() {
+            // act
             service.UpdateTape(tape, 100);
             _tapeRepository.Verify((m => m.GetTapeById(100)), Times.Once());
         }
