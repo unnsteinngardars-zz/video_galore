@@ -37,8 +37,9 @@ namespace Galore.Repositories.Implementations
 
         public void UpdateTapeById(Tape tape, int tapeId)
         {
+
             var updateTape = _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tapeId);
-            updateTape.DateModified = new System.DateTime();
+            updateTape.DateModified = DateTime.Now;
             updateTape.Title = tape.Title;
             updateTape.DirectorFirstName = tape.DirectorFirstName;
             updateTape.DirectorLastName = tape.DirectorLastName;

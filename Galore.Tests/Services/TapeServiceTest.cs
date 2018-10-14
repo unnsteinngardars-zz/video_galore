@@ -9,6 +9,7 @@ using AutoMapper;
 using System.Collections.Generic;
 using System;
 using Galore.Models.Exceptions;
+using Galore.Services.Interfaces;
 
 namespace Galore.Tests.Services
 {   
@@ -26,7 +27,7 @@ namespace Galore.Tests.Services
         };
 
         private Mock<ITapeRepository> _tapeRepository;
-        private TapeService service;
+        private ITapeService service;
 
         [ClassInitialize]
         public static void MapperInitialize(TestContext context){
