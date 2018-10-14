@@ -19,40 +19,41 @@ namespace Galore.Tests.Repositories
 
 
         [TestInitialize]
-        public void initialize()
-        {   
+        public void initialize() {   
+            // arrange
             _context = new MockDatabaseContext();
             repository = new TapeRepository(_context);
         }
 
         [TestMethod]
-        public void GetAllTapes_ReturnsIEnumerableOfTape()
-        {   
-            // Act
-            IEnumerable<Tape> tapes = repository.GetAllTapes();
-            // Assert
+        public void GetAllTapes_ReturnsIEnumerableOfTape() {   
+            // act
+            var tapes = repository.GetAllTapes();
+            // assert
             Assert.IsInstanceOfType(tapes, typeof(IEnumerable<Tape>));
             Assert.AreEqual(5, tapes.Count());
         }
 
         [TestMethod]
-        public void GetTapeByValidId_ReturnsTape()
-        {
-            Tape tape = repository.GetTapeById(1);
+        public void GetTapeByValidId_ReturnsTape() {
+            // act
+            var tape = repository.GetTapeById(1);
+            // assert
             Assert.IsInstanceOfType(tape, typeof(Tape));
             Assert.IsNotNull(tape);
         }
 
         [TestMethod]
-        public void GetTapeByIdInvalidId_ReturnsNull()
-        {
+        public void GetTapeByIdInvalidId_ReturnsNull() {
+            // act
             var tape = repository.GetTapeById(100);
+            // assert
             Assert.IsNull(tape);
         }
 
         [TestMethod]
-        public void DeleteTapeById_ReturnsNothing()
-        {
+        public void DeleteTapeById_ReturnsNothing() {
+            // act & assert
             Assert.AreEqual(5, repository.GetAllTapes().Count());
             var tape = repository.GetTapeById(1);
             repository.DeleteTape(tape);
@@ -60,10 +61,9 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void UpdateTape_ReturnsNothing()
-        {
-            Tape updatedTape = new Tape
-            {
+        public void UpdateTape_ReturnsNothing() {
+            // act & assert
+            Tape updatedTape = new Tape {
                 Title = "Updated Tape",
                 DirectorFirstName = "First name",
                 DirectorLastName = "Last name",
@@ -78,6 +78,5 @@ namespace Galore.Tests.Repositories
             Assert.AreEqual("Updated Tape", after.Title);
 
         }
-
     }
 }

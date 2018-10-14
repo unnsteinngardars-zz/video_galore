@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using Galore.Models.User;
 using Galore.Repositories.Interfaces;
 using Galore.Services.Interfaces;
+using AutoMapper;
+using System.Linq;
+using Galore.Models.Exceptions;
 
 namespace Galore.Services.implementations
 {
@@ -15,25 +18,34 @@ namespace Galore.Services.implementations
         }
         public IEnumerable<UserDTO> GetAllUsers()
         {
-            throw new System.NotImplementedException();
+           return Mapper.Map<IEnumerable<UserDTO>>(_userRepository.GetAllUsers());
         }
         public int CreateUser(UserInputModel user)
         {
-            throw new System.NotImplementedException();
+            var users = _userRepository.GetAllUsers();
+            var nextId = users.Max(u => u.Id) + 1;
+            var newUser = Mapper.Map<User>(user);
+            newUser.Id = nextId;
+            return _userRepository.CreateUser(newUser);
+
         }
         public UserDetailDTO GetUserById(int userId)
         {
-            throw new System.NotImplementedException();
+            var user = IsValidId(userId);
+            return Mapper.Map<UserDetailDTO>(user);
         }
         public void DeleteUser(int userId)
         {
-            throw new System.NotImplementedException();
+            var user = IsValidId(userId);
+            _userRepository.DeleteUser(user);
         }
         public void UpdateUser(UserInputModel user, int userId)
         {
-            throw new System.NotImplementedException();
+            var updateUser = IsValidId(userId);
+            _userRepository.UpdateUserById(Mapper.Map<User>(user), userId);
         }
 
+        // TODO: Report for admin. L8r
         public IEnumerable<UserDTO> GetReportByDate(string date)
         {
             throw new System.NotImplementedException();
@@ -47,6 +59,14 @@ namespace Galore.Services.implementations
         public IEnumerable<UserDTO> GetReportByDurationAndDate(int duration, string date)
         {
             throw new System.NotImplementedException();
+        }
+
+        private User IsValidId(int id) {
+            var user = _userRepository.GetUserById(id);
+            if(user == null) {
+                throw new ResourceNotFoundException($"User with id {id} was not found");
+            }
+            return user;
         }
     }
 }
