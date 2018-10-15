@@ -6,7 +6,7 @@ using AutoMapper;
 using System.Linq;
 using Galore.Models.Exceptions;
 
-namespace Galore.Services.implementations
+namespace Galore.Services.Implementations
 {
     public class UserService : IUserService
     {

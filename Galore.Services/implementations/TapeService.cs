@@ -7,7 +7,7 @@ using System.Linq;
 using Galore.Models.Exceptions;
 using System;
 
-namespace Galore.Services.implementations
+namespace Galore.Services.Implementations
 {
     public class TapeService : ITapeService
     {

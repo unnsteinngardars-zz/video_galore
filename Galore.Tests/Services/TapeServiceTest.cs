@@ -1,5 +1,5 @@
 using Galore.Repositories.Interfaces;
-using Galore.Services.implementations;
+using Galore.Services.Implementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using FizzWare.NBuilder;

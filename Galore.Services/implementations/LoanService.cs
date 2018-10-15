@@ -3,7 +3,7 @@ using Galore.Models.Loan;
 using Galore.Models.Tape;
 using Galore.Services.Interfaces;
 
-namespace Galore.Services.implementations
+namespace Galore.Services.Implementations
 {
     public class LoanService : ILoanService
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Galore.Models.Review;
 using Galore.Services.Interfaces;
 
-namespace Galore.Services.implementations
+namespace Galore.Services.Implementations
 {
     public class ReviewService : IReviewService
     {
