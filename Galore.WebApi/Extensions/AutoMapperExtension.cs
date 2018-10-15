@@ -1,4 +1,5 @@
 using System;
+using Galore.Models.Loan;
 using Galore.Models.Tape;
 using Galore.Models.User;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +21,13 @@ namespace Galore.WebApi.Extensions
                 c.CreateMap<UserDTO, User>();
                 c.CreateMap<User, UserDetailDTO>();
                 c.CreateMap<UserInputModel, User>()
+                    .ForMember(u => u.DateCreated, opt => opt.UseValue(DateTime.Now))
+                    .ForMember(u => u.DateModified, opt => opt.UseValue(DateTime.Now));
+                c.CreateMap<LoanInputModel, Loan>()
+                    .ForMember(l => l.BorrowDate, opt => opt.MapFrom(src => DateTime.Parse(src.BorrowDate)))
+                    .ForMember(l => l.ReturnDate, opt => opt.UseValue(DateTime.MinValue))
+                    .ForMember(l => l.UserId, opt => opt.UseValue(0))
+                    .ForMember(l => l.TapeId, opt => opt.UseValue(0))
                     .ForMember(u => u.DateCreated, opt => opt.UseValue(DateTime.Now))
                     .ForMember(u => u.DateModified, opt => opt.UseValue(DateTime.Now));
             });
