@@ -11,5 +11,6 @@ namespace Galore.Services.Interfaces
         void DeleteTape(int tapeId);
         void UpdateTape(TapeInputModel tape, int tapeId);
         IEnumerable<Tape> GetTapesByDate(string date);
+        Tape IsValidId(int id);
     }
 }

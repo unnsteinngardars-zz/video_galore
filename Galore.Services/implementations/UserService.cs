@@ -61,12 +61,13 @@ namespace Galore.Services.Implementations
             throw new System.NotImplementedException();
         }
 
-        private User IsValidId(int id) {
+        public User IsValidId(int id) {
             var user = _userRepository.GetUserById(id);
             if(user == null) {
                 throw new ResourceNotFoundException($"User with id {id} was not found");
             }
             return user;
         }
+
     }
 }

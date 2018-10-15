@@ -113,10 +113,19 @@ namespace Galore.Repositories.Context
             },
             new Loan
             {
+                TapeId = 3,
+                UserId = 1,
+                BorrowDate = new DateTime(2015, 1, 1),
+                ReturnDate = new DateTime(2015, 10, 10),
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            },
+            new Loan
+            {
                 TapeId = 2,
                 UserId = 2,
                 BorrowDate = new DateTime(2018, 1, 1),
-                ReturnDate = new DateTime(2018, 6, 6),
+                ReturnDate = DateTime.MinValue,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             }

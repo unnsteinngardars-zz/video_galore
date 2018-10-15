@@ -19,7 +19,7 @@ namespace Galore.Tests.Repositories
 
 
         [TestInitialize]
-        public void initialize() {   
+        public void Initialize() {   
             // arrange
             _context = new MockDatabaseContext();
             repository = new TapeRepository(_context);
@@ -58,6 +58,17 @@ namespace Galore.Tests.Repositories
             var tape = repository.GetTapeById(1);
             repository.DeleteTape(tape);
             Assert.AreEqual(4, repository.GetAllTapes().Count());
+        }
+
+        [TestMethod]
+        public void CreateTape_ReturnsTapeId()
+        {
+            Tape tape = new Tape{
+                Id = 6,
+            };
+            var tapeId = repository.CreateTape(tape);
+            Assert.IsInstanceOfType(tapeId, typeof(int));
+            Assert.AreEqual(6, tapeId);
         }
 
         [TestMethod]

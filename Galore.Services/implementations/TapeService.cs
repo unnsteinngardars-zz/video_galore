@@ -57,7 +57,7 @@ namespace Galore.Services.Implementations
             throw new System.NotImplementedException();
         }
 
-        private Tape IsValidId(int id){
+        public Tape IsValidId(int id){
             var tape = _tapeRepository.GetTapeById(id);
             if(tape == null) {
                 throw new ResourceNotFoundException($"Tape with id {id} was not found");

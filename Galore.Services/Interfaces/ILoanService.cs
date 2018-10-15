@@ -10,7 +10,7 @@ namespace Galore.Services.Interfaces
         IEnumerable<TapeDTO> GetTapesOnLoanForUser(int userId);
 
         // user/userId/tapes/tapeId: Register new loan
-        int CreateLoan(LoanInputModel loan, int userId, int tapeId);
+        void RegisterTapeOnLoan(int userId, int tapeId);
 
         // user/userId/tapes/tapeId: Return tape on loan
         void ReturnTapeOnLoan(int userId, int tapeId);
