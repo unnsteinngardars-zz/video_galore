@@ -40,18 +40,18 @@ namespace Galore.Repositories.Implementations
             _context.getAllLoans.Add(loan);
 
         }
-        public void ReturnTapeOnLoan(int userId, int tapeId) 
+        public void ReturnTapeOnLoan(Loan loan) 
         {
-            var loan = _context.getAllLoans.FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
+            // var loan = _context.getAllLoans.FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
             loan.ReturnDate = DateTime.Now;
             loan.DateModified = DateTime.Now;
 
         }
-        public void UpdateTapeOnLoan(Loan loan, int userId, int tapeId) 
+        public void UpdateTapeOnLoan(Loan loan) 
         {   
-            var updateLoan = _context.getAllLoans.FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
-            updateLoan.BorrowDate = loan.BorrowDate;
-            updateLoan.DateModified = DateTime.Now;
+            // var updateLoan = _context.getAllLoans.FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
+            // updateLoan.BorrowDate = loan.BorrowDate;
+            loan.DateModified = DateTime.Now;
         }
 
         public IEnumerable<Loan> GetAllLoans(){

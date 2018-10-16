@@ -57,7 +57,7 @@ namespace Galore.Tests.Services
                     .IndexOf(0).With(l => l.UserId = userOneId).With(l => l.TapeId = tapeOneId).With(l => l.BorrowDate = new DateTime(2018, 01, 01)).With(l => l.ReturnDate = DateTime.MinValue)
                     .IndexOf(1).With(l => l.UserId = userTwoId).With(l => l.TapeId = tapeTwoId).With(l => l.BorrowDate = new DateTime(2018, 02, 02)).With(l => l.ReturnDate = DateTime.MinValue)
                         .Build());
-
+            
             service = new LoanService(_loanRepository.Object, _userService.Object, _tapeService.Object);
         }
 
@@ -112,7 +112,7 @@ namespace Galore.Tests.Services
             // Act
             service.ReturnTapeOnLoan(userOneId, tapeOneId);
             // Assert
-            _loanRepository.Verify((m => m.ReturnTapeOnLoan(It.IsAny<int>(), It.IsAny<int>())), Times.Once());
+            _loanRepository.Verify((m => m.ReturnTapeOnLoan(It.IsAny<Loan>())), Times.Once());
         }
 
         [TestMethod]
@@ -139,7 +139,7 @@ namespace Galore.Tests.Services
         {
 
             service.UpdateTapeOnLoan(new LoanInputModel(), userOneId, tapeOneId);
-            _loanRepository.Verify((m => m.UpdateTapeOnLoan(It.IsAny<Loan>(), It.IsAny<int>(), It.IsAny<int>())), Times.Once());
+            _loanRepository.Verify((m => m.UpdateTapeOnLoan(It.IsAny<Loan>())), Times.Once());
         }
 
         [TestMethod]

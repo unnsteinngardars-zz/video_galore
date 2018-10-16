@@ -33,7 +33,9 @@ namespace Galore.Services.Implementations
         {
             var user = _userService.IsValidId(userId);
             var tape = _tapeService.IsValidId(tapeId);
-            if (CheckIfTapeIsBorrowed(tapeId) != null) { throw new LoanException($"Tape with id {tapeId} is currently loaned"); }
+            var checkLoan = CheckIfTapeIsBorrowed(tapeId);
+            if (checkLoan != null) { throw new LoanException($"Tape with id {tapeId} is currently loaned"); }
+            // if (CheckIfTapeIsBorrowed(tapeId) != null) { throw new LoanException($"Tape with id {tapeId} is currently loaned"); }
             _repository.RegisterTapeOnLoan(userId, tapeId);
         }
 
@@ -42,8 +44,9 @@ namespace Galore.Services.Implementations
         {
             var user = _userService.IsValidId(userId);
             var tape = _tapeService.IsValidId(tapeId);
-            if (CheckIfUserHasTape(userId, tapeId) == null) { throw new LoanException($"Tape with id {tapeId} is not registered as loaned for user with id {userId}"); }
-            _repository.ReturnTapeOnLoan(userId, tapeId);
+            var checkLoan = CheckIfUserHasTape(userId, tapeId);
+            if (checkLoan == null) { throw new LoanException($"Tape with id {tapeId} is not registered as loaned for user with id {userId}"); }
+            _repository.ReturnTapeOnLoan(checkLoan);
         }
 
         // user/userId/tapes/tapeId: Update loan information
@@ -51,16 +54,19 @@ namespace Galore.Services.Implementations
         {   
             var user = _userService.IsValidId(userId);
             var tape = _tapeService.IsValidId(tapeId);
-            if (CheckIfUserHasTape(userId, tapeId) == null) { throw new LoanException($"Tape with id {tapeId} is not registered as loaned for user with id {userId}"); }
-            _repository.UpdateTapeOnLoan(Mapper.Map<Loan>(loan), userId, tapeId);
+            var checkLoan = CheckIfUserHasTape(userId, tapeId);
+            if (checkLoan == null) { throw new LoanException($"Tape with id {tapeId} is not registered as loaned for user with id {userId}"); }
+            var loanFromInput = Mapper.Map<Loan>(loan);
+            checkLoan.BorrowDate = loanFromInput.BorrowDate;
+            _repository.UpdateTapeOnLoan(checkLoan);
         }
 
-        private Loan CheckIfTapeIsBorrowed(int tapeId)
+        public Loan CheckIfTapeIsBorrowed(int tapeId)
         {
             return _repository.GetAllLoans().FirstOrDefault(l => l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
         }
 
-        private Loan CheckIfUserHasTape(int userId, int tapeId)
+        public Loan CheckIfUserHasTape(int userId, int tapeId)
         {
             return _repository.GetAllLoans().FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
         }

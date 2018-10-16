@@ -8,8 +8,8 @@ namespace Galore.Repositories.Interfaces
     {
         IEnumerable<Tape> GetTapesOnLoanForUser(int userId);
         void RegisterTapeOnLoan(int userId, int tapeId);
-        void ReturnTapeOnLoan(int userId, int tapeId);
-        void UpdateTapeOnLoan(Loan loan, int userId, int tapeId);
+        void ReturnTapeOnLoan(Loan loan);
+        void UpdateTapeOnLoan(Loan loan);
         IEnumerable<Loan> GetAllLoans();
     }
 }
