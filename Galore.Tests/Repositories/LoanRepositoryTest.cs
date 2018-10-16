@@ -36,11 +36,9 @@ namespace Galore.Tests.Repositories
         [TestMethod]
         public void RegisterTapeOnLoan_ReturnsNothing()
         {
-            Loan loan = new Loan{
-                UserId = 1,
-                TapeId = 3,
+            Loan loan = new Loan
+            {
                 BorrowDate = new DateTime(2018,1, 1),
-                ReturnDate = DateTime.MinValue
             };
             Assert.AreEqual(1, repository.GetTapesOnLoanForUser(1).Count());
             repository.RegisterTapeOnLoan(1,3);
@@ -54,19 +52,20 @@ namespace Galore.Tests.Repositories
             repository.ReturnTapeOnLoan(1,3);
             Assert.AreEqual(1, repository.GetTapesOnLoanForUser(1).Count());
         }
+        
+        // TODO: strengthen this test assertions
+        [TestMethod]
+        public void UpdateTapeOnLoan_ReturnsNothing()
+        {
+            Loan loan = new Loan
+            {
+                BorrowDate = new DateTime(2019, 1, 1)
+            };
 
-        // [TestMethod]
-        // public void UpdateTapeOnLoan_ReturnsNothing()
-        // {
-        //     LoanInputModel loan = new LoanInputModel
-        //     {
-        //         BorrowDate = "2019-01-01"
-        //     };
-
-        //     var before = repository.GetTapesOnLoanForUser(1);
-        //     repository.UpdateTapeOnLoan(Mapper.Map<Loan>(loan), 1, 1);
-        //     var after = repository.GetTapesOnLoanForUser(1);
-        //     Assert.AreEqual(before, after);
-        // }
+            var before = repository.GetTapesOnLoanForUser(1);
+            repository.UpdateTapeOnLoan(loan, 1, 1);
+            var after = repository.GetTapesOnLoanForUser(1);
+            Assert.AreEqual(before.Count(), after.Count());
+        }
     }
 }

@@ -28,7 +28,6 @@ namespace Galore.Services.Implementations
             var tapes = _tapeRepository.GetAllTapes();
             var nextId = tapes.Max(t => t.Id) + 1;
             var newTape = Mapper.Map<Tape>(tape);
-            newTape.ReleaseDate = DateTime.Parse(tape.ReleaseDate);
             newTape.Id = nextId;
             return _tapeRepository.CreateTape(newTape);
         }

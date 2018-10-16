@@ -16,7 +16,9 @@ namespace Galore.WebApi.Extensions
                 c.CreateMap<Tape, TapeDetailDTO>();
                 c.CreateMap<TapeInputModel, Tape>()
                     .ForMember(t => t.DateCreated, opt => opt.UseValue(DateTime.Now))
-                    .ForMember(t => t.DateModified, opt => opt.UseValue(DateTime.Now));
+                    .ForMember(t => t.DateModified, opt => opt.UseValue(DateTime.Now))
+                    .ForMember(l => l.ReleaseDate, opt => opt.MapFrom(src => DateTime.Parse(src.ReleaseDate)));
+
                 c.CreateMap<User, UserDTO>();
                 c.CreateMap<UserDTO, User>();
                 c.CreateMap<User, UserDetailDTO>();
@@ -24,12 +26,7 @@ namespace Galore.WebApi.Extensions
                     .ForMember(u => u.DateCreated, opt => opt.UseValue(DateTime.Now))
                     .ForMember(u => u.DateModified, opt => opt.UseValue(DateTime.Now));
                 c.CreateMap<LoanInputModel, Loan>()
-                    .ForMember(l => l.BorrowDate, opt => opt.MapFrom(src => DateTime.Parse(src.BorrowDate)))
-                    .ForMember(l => l.ReturnDate, opt => opt.UseValue(DateTime.MinValue))
-                    .ForMember(l => l.UserId, opt => opt.UseValue(0))
-                    .ForMember(l => l.TapeId, opt => opt.UseValue(0))
-                    .ForMember(u => u.DateCreated, opt => opt.UseValue(DateTime.Now))
-                    .ForMember(u => u.DateModified, opt => opt.UseValue(DateTime.Now));
+                    .ForMember(l => l.BorrowDate, opt => opt.MapFrom(src => DateTime.Parse(src.BorrowDate)));
             });
         }
     }

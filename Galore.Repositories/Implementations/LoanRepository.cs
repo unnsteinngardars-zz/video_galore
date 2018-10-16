@@ -50,10 +50,7 @@ namespace Galore.Repositories.Implementations
         public void UpdateTapeOnLoan(Loan loan, int userId, int tapeId) 
         {   
             var updateLoan = _context.getAllLoans.FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
-            updateLoan.UserId = userId;
-            updateLoan.TapeId = tapeId;
             updateLoan.BorrowDate = loan.BorrowDate;
-            updateLoan.ReturnDate = loan.ReturnDate;
             updateLoan.DateModified = DateTime.Now;
         }
 
