@@ -3,6 +3,7 @@ using Galore.Models.Tape;
 using Galore.Repositories.Interfaces;
 using Galore.Services.Interfaces;
 using Galore.WebApi.Controllers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -17,7 +18,7 @@ namespace Galore.Tests.Controllers
         private TapeController controller;
 
         [TestInitialize]
-        public void initialize() {
+        public void Initialize() {
             // arrange
             _tapeService = new Mock<ITapeService>();
             controller = new TapeController(_tapeService.Object);

@@ -44,7 +44,7 @@ namespace Galore.Tests.Services
         }      
 
         [TestInitialize]
-        public void initialize() {
+        public void Initialize() {
             // arrange
             _tapeRepository = new Mock<ITapeRepository>();
             _tapeRepository.Setup(m => m.GetAllTapes())

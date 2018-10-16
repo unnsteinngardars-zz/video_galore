@@ -23,7 +23,7 @@ namespace Galore.WebApi.Extensions
                     var logService = app.ApplicationServices.GetService(typeof(ILogService)) as ILogService;
                     logService.LogToFile($"Message: {exception.Message}. Stack trace: {exception.StackTrace}");
 
-                    if (exception is ResourceNotFoundException)
+                    if (exception is ResourceNotFoundException || exception is LoanException)
                     {
                         statusCode = (int) HttpStatusCode.NotFound;
                     }
@@ -31,7 +31,7 @@ namespace Galore.WebApi.Extensions
                     {
                         statusCode = (int) HttpStatusCode.PreconditionFailed;
                     }
-
+            
                     context.Response.ContentType = "application/json";
                     context.Response.StatusCode = statusCode;
 

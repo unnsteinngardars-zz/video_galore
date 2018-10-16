@@ -28,7 +28,6 @@ namespace Galore.Services.Implementations
             var tapes = _tapeRepository.GetAllTapes();
             var nextId = tapes.Max(t => t.Id) + 1;
             var newTape = Mapper.Map<Tape>(tape);
-            newTape.ReleaseDate = DateTime.Parse(tape.ReleaseDate);
             newTape.Id = nextId;
             return _tapeRepository.CreateTape(newTape);
         }
@@ -57,7 +56,7 @@ namespace Galore.Services.Implementations
             throw new System.NotImplementedException();
         }
 
-        private Tape IsValidId(int id){
+        public Tape IsValidId(int id){
             var tape = _tapeRepository.GetTapeById(id);
             if(tape == null) {
                 throw new ResourceNotFoundException($"Tape with id {id} was not found");

@@ -21,5 +21,6 @@ namespace Galore.Services.Interfaces
 
         IEnumerable<UserDTO> GetReportByDurationAndDate(int duration, string date);
 
+        User IsValidId(int id);
     }
 }
