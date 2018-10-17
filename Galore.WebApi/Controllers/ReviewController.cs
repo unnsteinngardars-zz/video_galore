@@ -15,16 +15,16 @@ namespace Galore.WebApi.Controllers
 
         [HttpGet]
         [Route("users/{userId:int}/reviews")]
-        public IActionResult getAllReviewsByUser(int userId)
+        public IActionResult GetAllReviewsForUser(int userId)
         {
-            return Ok();
+            return Ok(_reviewService.GetAllReviewsForUser(userId));
         }
 
         [HttpGet]
         [Route("users/{userId:int}/reviews/{tapeId:int}")]
-        public IActionResult getUserReviewForSingleTape(int userId, int tapeId)
+        public IActionResult GetUserReviewForTape(int userId, int tapeId)
         {
-            return Ok();
+            return Ok(_reviewService.GetUserReviewForTape(userId, tapeId));
         }
 
 
