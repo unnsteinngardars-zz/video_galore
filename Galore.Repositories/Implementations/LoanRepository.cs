@@ -20,7 +20,7 @@ namespace Galore.Repositories.Implementations
         public IEnumerable<Tape> GetTapesOnLoanForUser(int userId) 
         {
             var loans = _context.getAllLoans.Where(l => l.UserId == userId && l.ReturnDate == DateTime.MinValue);
-            var tapes = _context.getAllTapes;   
+            var tapes = _context.getAllTapes.Where(t => t.Deleted == false);   
             var result = from l in loans
                         join t in tapes on l.TapeId equals t.Id 
                         select t;
