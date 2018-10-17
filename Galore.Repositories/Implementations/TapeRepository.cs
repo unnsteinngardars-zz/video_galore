@@ -22,23 +22,25 @@ namespace Galore.Repositories.Implementations
 
         public void DeleteTape(Tape tape)
         {
-            _dataContext.getAllTapes.Remove(tape);
+            // var deletedTape = _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tape.Id);
+            // deletedTape.Deleted = true;
+            tape.Deleted = true;
         }
 
         public IEnumerable<Tape> GetAllTapes()
         {
-            return _dataContext.getAllTapes;
+            return _dataContext.getAllTapes.Where(t => t.Deleted == false);
         }
 
         public Tape GetTapeById(int tapeId)
         {
-            return _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tapeId);        
+            return _dataContext.getAllTapes.Where(t => t.Deleted == false).FirstOrDefault(t => t.Id == tapeId);    
          }
 
         public void UpdateTapeById(Tape tape, int tapeId)
         {
 
-            var updateTape = _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tapeId);
+            var updateTape = _dataContext.getAllTapes.Where(t => t.Deleted == false).FirstOrDefault(t => t.Id == tapeId);
             updateTape.DateModified = DateTime.Now;
             updateTape.Title = tape.Title;
             updateTape.DirectorFirstName = tape.DirectorFirstName;

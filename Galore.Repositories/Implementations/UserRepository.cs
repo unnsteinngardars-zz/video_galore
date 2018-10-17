@@ -26,22 +26,22 @@ namespace Galore.Repositories.Implementations
 
         public void DeleteUser(User user)
         {
-            _dataContext.getAllUsers.Remove(user);
+            user.Deleted = true;
         }
 
         public IEnumerable<User> GetAllUsers()
         {
-            return _dataContext.getAllUsers;
+            return _dataContext.getAllUsers.Where(u => u.Deleted == false);
         }
 
         public User GetUserById(int userId)
         {
-            return _dataContext.getAllUsers.FirstOrDefault(u => u.Id == userId);
+            return _dataContext.getAllUsers.Where(u => u.Deleted == false).FirstOrDefault(u => u.Id == userId);
         }
 
         public void UpdateUserById(User user, int userId)
         {
-           var updateUser = _dataContext.getAllUsers.FirstOrDefault(u => u.Id == userId);
+           var updateUser = _dataContext.getAllUsers.Where(u => u.Deleted == false).FirstOrDefault(u => u.Id == userId);
            updateUser.FirstName = user.FirstName;
            updateUser.LastName = user.LastName;
            updateUser.Address = user.Address;
