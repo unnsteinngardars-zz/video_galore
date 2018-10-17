@@ -8,6 +8,7 @@ namespace Galore.Models.Tape {
         public string DirectorLastName { get; set; }
         public string Type { get; set; }
         public string EIDR { get; set; }
+        public bool Deleted { get; set; }
         public DateTime ReleaseDate { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
