@@ -36,7 +36,9 @@ namespace Galore.Services.Implementations
             var checkLoan = CheckIfTapeIsBorrowed(tapeId);
             if (checkLoan != null) { throw new LoanException($"Tape with id {tapeId} is currently loaned"); }
             // if (CheckIfTapeIsBorrowed(tapeId) != null) { throw new LoanException($"Tape with id {tapeId} is currently loaned"); }
-            _repository.RegisterTapeOnLoan(userId, tapeId);
+            var allLoans = _repository.GetAllLoans();
+            var nextId = allLoans.Max(t => t.Id) + 1;
+            _repository.RegisterTapeOnLoan(userId, tapeId, nextId);
         }
 
         // user/userId/tapes/tapeId: Return tape on loan
