@@ -38,7 +38,7 @@ namespace Galore.Tests.Repositories
         {
 
             Assert.AreEqual(1, repository.GetTapesOnLoanForUser(1).Count());
-            repository.RegisterTapeOnLoan(1,3);
+            repository.RegisterTapeOnLoan(1,3,1);
             Assert.AreEqual(2, repository.GetTapesOnLoanForUser(1).Count());
         }
 

@@ -26,10 +26,11 @@ namespace Galore.Repositories.Implementations
                         select t;
             return result;
         }
-        public void RegisterTapeOnLoan(int userId, int tapeId) 
+        public void RegisterTapeOnLoan(int userId, int tapeId, int id) 
         {
             Loan loan = new Loan
             {
+                Id = id,
                 UserId = userId,
                 TapeId = tapeId,
                 BorrowDate = DateTime.Now,
