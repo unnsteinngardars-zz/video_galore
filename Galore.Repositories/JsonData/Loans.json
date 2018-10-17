@@ -1,0 +1,218 @@
+[
+    {
+        "TapeId": 701,
+        "UserId": 2,
+        "BorrowDate": "2016-07-15",
+        "ReturnDate": null
+    },
+    {
+        "TapeId": 591, 
+        "UserId": 5,
+        "BorrowDate": "2015-09-22", 
+        "ReturnDate": null
+    },
+    {
+        "TapeId": 331,
+        "UserId": 5,
+        "BorrowDate": "2018-05-01",
+        "ReturnDate": "2018-07-22"
+    },
+    {
+        "TapeId": 586,
+        "UserId": 5,
+        "BorrowDate": "2017-06-26",
+        "ReturnDate": null
+    },
+    {
+        "TapeId": 473,
+        "UserId": 16,
+        "BorrowDate": "2018-01-05",
+        "ReturnDate":  "2018-05-01"
+    },
+    {
+        "TapeId": 666,
+        "UserId": 16,
+        "BorrowDate": "2017-03-22",
+        "ReturnDate": "2017-06-13"
+    }, 
+    {
+        "TapeId": 839,
+        "UserId": 20,
+        "BorrowDate":"2016-10-21",
+        "ReturnDate":"2016-12-12"
+    },
+    {
+        "TapeId": 521,
+        "UserId": 20,
+        "BorrowDate":"2018-07-20",
+        "ReturnDate":"2018-09-15"
+    },
+    {
+        "TapeId":895,
+        "UserId": 20,
+        "BorrowDate":"2016-10-19",
+        "ReturnDate":"2016-11-23"
+    },
+    {
+        "TapeId": 387,
+        "UserId": 32,
+        "BorrowDate":"2017-07-31",
+        "ReturnDate":"2017-10-30"
+    },
+    {
+        "TapeId": 747,
+        "UserId": 40,
+        "BorrowDate": "2017-11-06",
+        "ReturnDate": null
+    },
+    {   
+        "TapeId":217,
+        "UserId": 40,
+        "BorrowDate":"2017-11-01",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":892,
+        "UserId": 40,
+        "BorrowDate":"2017-09-25",
+        "ReturnDate":"2017-10-03"
+    },
+    {
+        "TapeId":596,
+        "UserId": 56,
+        "BorrowDate":"2017-04-21",
+        "ReturnDate":"2017-07-28"
+    }, 
+    {
+        "TapeId":589,
+        "UserId": 62,
+        "BorrowDate":"2017-12-13",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":788,
+        "UserId": 62,
+        "BorrowDate":"2015-10-21",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":774,
+        "UserId": 66,
+        "BorrowDate":"2017-11-26",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":993,
+        "UserId":66,
+        "BorrowDate":"2017-04-10",
+        "ReturnDate":"2017-04-15"
+    },
+    {
+        "TapeId":58,
+        "UserId":66,
+        "BorrowDate":"2016-05-11",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":547,
+        "UserId":67,
+        "BorrowDate":"2016-07-30",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":112,
+        "UserId": 67,
+        "BorrowDate":"2016-09-03",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":488,
+        "UserId": 71,
+        "BorrowDate":"2015-09-03",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":314,
+        "UserId": 79,
+        "BorrowDate":"2017-03-06",
+        "ReturnDate":null
+    },
+    {   
+        "TapeId":919,
+        "UserId": 79,
+        "BorrowDate":"2017-10-21",
+        "ReturnDate":"2018-01-01"
+    },
+    {
+        "TapeId":682,
+        "UserId": 79,
+        "BorrowDate":"2018-02-07",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":487,
+        "UserId":80,
+        "BorrowDate":"2015-12-21",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":513,
+        "UserId":85,
+        "BorrowDate":"2017-06-11",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":288,
+        "UserId": 85,
+        "BorrowDate":"2017-09-01",
+        "ReturnDate":"2017-10-16"
+    },
+    {
+        "TapeId":549,
+        "UserId":85,
+        "BorrowDate":"2018-02-20",
+        "ReturnDate":"2018-03-08"
+    },
+    {
+        "TapeId":219,
+        "UserId": 86,
+        "BorrowDate":"2016-10-10",
+        "ReturnDate":"2017-02-07"
+    },
+    {   
+        "TapeId":516,
+        "UserId": 86,
+        "BorrowDate":"2016-08-21",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":561,
+        "UserId":86,
+        "BorrowDate":"2018-02-17",
+        "ReturnDate":"2018-03-11"
+    },
+    {
+        "TapeId":554,
+        "UserId": 92,
+        "BorrowDate":"2017-07-18",
+        "ReturnDate":"2017-09-02"
+    },
+    {
+        "TapeId":721,
+        "UserId": 96,
+        "BorrowDate":"2017-02-26",
+        "ReturnDate":"2017-03-13"
+    },
+    {
+        "TapeId":537,
+        "UserId": 96,
+        "BorrowDate":"2018-03-16",
+        "ReturnDate":null
+    },
+    {
+        "TapeId":28,
+        "UserId": 96,
+        "BorrowDate":"2018-02-21",
+        "ReturnDate":"2018-04-20"
+    }
+]
