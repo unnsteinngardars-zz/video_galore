@@ -20,6 +20,7 @@ namespace Galore.Repositories.Context
                 Email = "unnsteinn16@ru.is",
                 Phone = "6633819",
                 Address = "Leifsgata 27",
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now,
             },
@@ -31,6 +32,7 @@ namespace Galore.Repositories.Context
                 Email = "asdis16@ru.is",
                 Phone = "5885522",
                 Address = "Kopavogsgata 3",
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             }
@@ -47,6 +49,7 @@ namespace Galore.Repositories.Context
                 Type = "vhs",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1980, 10, 5),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             },
@@ -59,6 +62,7 @@ namespace Galore.Repositories.Context
                 Type = "vhs",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1994, 12, 2),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             },
@@ -71,6 +75,7 @@ namespace Galore.Repositories.Context
                 Type = "betamax",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1960, 6, 16),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             },
@@ -83,6 +88,7 @@ namespace Galore.Repositories.Context
                 Type = "vhs",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1995, 11, 19),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             },
@@ -95,6 +101,7 @@ namespace Galore.Repositories.Context
                 Type = "betamax",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1065, 3, 2),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             }

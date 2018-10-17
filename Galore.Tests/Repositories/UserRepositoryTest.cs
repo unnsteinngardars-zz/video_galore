@@ -57,6 +57,7 @@ namespace Galore.Tests.Repositories
             var user = repository.GetUserById(1);
             repository.DeleteUser(user);
             Assert.AreEqual(1, repository.GetAllUsers().Count());
+            Assert.AreEqual(true, user.Deleted);
         }
 
         [TestMethod]

@@ -8,8 +8,8 @@ namespace Galore.Models.User {
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public bool Deleted { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
+        public bool Deleted { get; set; } = false;
+        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateModified { get; set; } = DateTime.Now;
     }
 }

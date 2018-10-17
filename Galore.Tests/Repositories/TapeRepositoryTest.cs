@@ -58,6 +58,7 @@ namespace Galore.Tests.Repositories
             var tape = repository.GetTapeById(1);
             repository.DeleteTape(tape);
             Assert.AreEqual(4, repository.GetAllTapes().Count());
+            Assert.AreEqual(true, tape.Deleted);
         }
 
         [TestMethod]
