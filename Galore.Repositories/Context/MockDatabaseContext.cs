@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Galore.Models.Loan;
 using Galore.Models.Review;
 using Galore.Models.Tape;
 using Galore.Models.User;
 using Galore.Repositories.Interfaces;
+using Newtonsoft.Json;
 
 namespace Galore.Repositories.Context
 {
     public class MockDatabaseContext : IMockDatabaseContext
     {
+        
+
         private static List<User> _users = new List<User>
         {
             new User
@@ -153,12 +157,10 @@ namespace Galore.Repositories.Context
             }
 
         };
-        
-
-        public List<User> getAllUsers { get => _users; set => _users = value;}
+                
+        public List<User> getAllUsers { get => _users;  set => _users = value;}
         public List<Tape> getAllTapes { get => _tapes; set => _tapes = value;}
         public List<Loan> getAllLoans { get => _loans; set => _loans = value;}
-
         public List<Review> getAllReviews { get => _reviews; set => _reviews = value; }
     }
 }
