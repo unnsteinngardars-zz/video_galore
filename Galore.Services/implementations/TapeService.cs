@@ -26,9 +26,7 @@ namespace Galore.Services.Implementations
         public int CreateTape(TapeInputModel tape)
         {
             var tapes = _tapeRepository.GetAllTapes();
-            var nextId = tapes.Max(t => t.Id) + 1;
             var newTape = Mapper.Map<Tape>(tape);
-            newTape.Id = nextId;
             return _tapeRepository.CreateTape(newTape);
         }
         public TapeDetailDTO GetTapeById(int tapeId)

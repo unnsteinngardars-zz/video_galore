@@ -14,8 +14,8 @@ namespace Galore.Models.Loan {
         [Required]
         public DateTime ReturnDate { get; set; }
         [Required]
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.Now;
         [Required]
-        public DateTime DateModified { get; set; }
+        public DateTime DateModified { get; set; } = DateTime.Now;
     }
 }

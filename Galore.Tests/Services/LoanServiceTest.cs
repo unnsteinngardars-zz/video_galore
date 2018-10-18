@@ -83,7 +83,7 @@ namespace Galore.Tests.Services
         public void RegisterTapeOnLoan_ReturnsNothing()
         {
             service.RegisterTapeOnLoan(userOneId, tapeThreeId);
-            _loanRepository.Verify((m => m.RegisterTapeOnLoan(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>())), Times.Once());
+            _loanRepository.Verify((m => m.RegisterTapeOnLoan(It.IsAny<int>(), It.IsAny<int>())), Times.Once());
         }
 
 

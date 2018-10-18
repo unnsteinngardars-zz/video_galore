@@ -3,6 +3,7 @@ using Galore.Repositories.Implementations;
 using Galore.Repositories.Interfaces;
 using Galore.Services.Implementations;
 using Galore.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Galore.WebApi.Extensions
@@ -22,7 +23,8 @@ namespace Galore.WebApi.Extensions
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITapeRepository, TapeRepository>();
             services.AddTransient<ILoanRepository, LoanRepository>();
-            services.AddTransient<IMockDatabaseContext, MockDatabaseContext>();   
+            services.AddTransient<IMockDatabaseContext, MockDatabaseContext>();
+            // services.AddTransient<DbContext, GaloreDbContext>();
         }
     }
 }
