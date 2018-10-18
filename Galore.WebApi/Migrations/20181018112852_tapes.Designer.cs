@@ -4,14 +4,16 @@ using Galore.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Galore.WebApi.Migrations
 {
     [DbContext(typeof(GaloreDbContext))]
-    partial class GaloreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181018112852_tapes")]
+    partial class tapes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -37,8 +37,7 @@ namespace Galore.Services.Implementations
             if (checkLoan != null) { throw new LoanException($"Tape with id {tapeId} is currently loaned"); }
             // if (CheckIfTapeIsBorrowed(tapeId) != null) { throw new LoanException($"Tape with id {tapeId} is currently loaned"); }
             var allLoans = _repository.GetAllLoans();
-            var nextId = allLoans.Max(t => t.Id) + 1;
-            _repository.RegisterTapeOnLoan(userId, tapeId, nextId);
+            _repository.RegisterTapeOnLoan(userId, tapeId);
         }
 
         // user/userId/tapes/tapeId: Return tape on loan
@@ -72,6 +71,6 @@ namespace Galore.Services.Implementations
         {
             return _repository.GetAllLoans().FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
         }
-
+        
     }
 }

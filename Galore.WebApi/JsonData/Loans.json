@@ -3,13 +3,13 @@
         "TapeId": 701,
         "UserId": 2,
         "BorrowDate": "2016-07-15",
-        "ReturnDate": null
+        "ReturnDate": "1/1/0001 12:00:00 AM"
     },
     {
         "TapeId": 591, 
         "UserId": 5,
         "BorrowDate": "2015-09-22", 
-        "ReturnDate": null
+        "ReturnDate": "1/1/0001 12:00:00 AM"
     },
     {
         "TapeId": 331,
@@ -21,7 +21,7 @@
         "TapeId": 586,
         "UserId": 5,
         "BorrowDate": "2017-06-26",
-        "ReturnDate": null
+        "ReturnDate": "1/1/0001 12:00:00 AM"
     },
     {
         "TapeId": 473,
@@ -63,13 +63,13 @@
         "TapeId": 747,
         "UserId": 40,
         "BorrowDate": "2017-11-06",
-        "ReturnDate": null
+        "ReturnDate": "1/1/0001 12:00:00 AM"
     },
     {   
         "TapeId":217,
         "UserId": 40,
         "BorrowDate":"2017-11-01",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":892,
@@ -87,19 +87,19 @@
         "TapeId":589,
         "UserId": 62,
         "BorrowDate":"2017-12-13",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":788,
         "UserId": 62,
         "BorrowDate":"2015-10-21",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":774,
         "UserId": 66,
         "BorrowDate":"2017-11-26",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":993,
@@ -111,31 +111,31 @@
         "TapeId":58,
         "UserId":66,
         "BorrowDate":"2016-05-11",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":547,
         "UserId":67,
         "BorrowDate":"2016-07-30",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":112,
         "UserId": 67,
         "BorrowDate":"2016-09-03",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":488,
         "UserId": 71,
         "BorrowDate":"2015-09-03",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":314,
         "UserId": 79,
         "BorrowDate":"2017-03-06",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {   
         "TapeId":919,
@@ -147,19 +147,19 @@
         "TapeId":682,
         "UserId": 79,
         "BorrowDate":"2018-02-07",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":487,
         "UserId":80,
         "BorrowDate":"2015-12-21",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":513,
         "UserId":85,
         "BorrowDate":"2017-06-11",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":288,
@@ -183,7 +183,7 @@
         "TapeId":516,
         "UserId": 86,
         "BorrowDate":"2016-08-21",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":561,
@@ -207,7 +207,7 @@
         "TapeId":537,
         "UserId": 96,
         "BorrowDate":"2018-03-16",
-        "ReturnDate":null
+        "ReturnDate":"1/1/0001 12:00:00 AM"
     },
     {
         "TapeId":28,
