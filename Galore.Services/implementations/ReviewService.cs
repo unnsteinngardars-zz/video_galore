@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using AutoMapper;
+using System.Linq;
 using Galore.Models.Review;
 using Galore.Services.Interfaces;
 using Galore.Repositories.Interfaces;
+using Galore.Models.Exceptions;
 
 namespace Galore.Services.Implementations
 {
@@ -10,7 +13,14 @@ namespace Galore.Services.Implementations
     {
         private readonly IReviewRepository _repository;
         private readonly IUserService _userService;
-        private readonly ITapeService _tapeservice;
+        private readonly ITapeService _tapeService;
+
+        public ReviewService(IReviewRepository repository, IUserService userService, ITapeService tapeService)
+        {
+            _repository = repository;
+            _userService = userService;
+            _tapeService = tapeService;
+        }
 
         public IEnumerable<ReviewDTO> GetAllReviewsForUser(int userId)
         {
@@ -21,33 +31,43 @@ namespace Galore.Services.Implementations
         public ReviewDTO GetUserReviewForTape(int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);
-            var tape = _tapeservice.IsValidId(tapeId);
-            return Mapper.Map<ReviewDTO>(_repository.GetUserReviewForTape(userId, tapeId);
+            var tape = _tapeService.IsValidId(tapeId);
+            return Mapper.Map<ReviewDTO>(_repository.GetUserReviewForTape(userId, tapeId));
         }
 
         public int CreateUserReview(ReviewInputModel review, int userId, int tapeId)
         {
-            return 
+            var reviews = _repository.GetAllReviewsForAllTapes();
+            var nextId = reviews.Max(r => r.Id) + 1;
+            var newReview = Mapper.Map<Review>(review);
+            newReview.Id = nextId;
+            return _repository.CreateUserReview(newReview, userId, tapeId);
         }
         
         public void DeleteUserReviewForTape(int userId, int tapeId)
         {
-            throw new System.NotImplementedException();
+            var user = _userService.IsValidId(userId);
+            var tape = _tapeService.IsValidId(tapeId);
+            var review = _repository.GetAllReviewsForAllTapes().Where(r => r.UserId == userId && r.TapeId == tapeId).FirstOrDefault();
+            _repository.DeleteUserReviewForTape(review);
         }
 
         public void UpdateUserReviewForTape(ReviewInputModel review, int userId, int tapeId)
         {
-            throw new System.NotImplementedException();
+            var user = _userService.IsValidId(userId);
+            var tape = _tapeService.IsValidId(tapeId);
+            _repository.UpdateUserReviewForTape(Mapper.Map<Review>(review), userId, tapeId);
         }
 
         public IEnumerable<ReviewDTO> GetAllReviewsForAllTapes()
         {
-            throw new System.NotImplementedException();
+            return Mapper.Map<IEnumerable<ReviewDTO>>(_repository.GetAllReviewsForAllTapes());
         }
 
         public IEnumerable<ReviewDTO> GetAllReviewsForTape(int tapeId)
         {
-            throw new System.NotImplementedException();
+            var tape = _tapeService.IsValidId(tapeId);
+            return Mapper.Map<IEnumerable<ReviewDTO>>(_repository.GetAllReviewsForTape(tapeId));
         }
     }
 }

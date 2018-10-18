@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+using TecRad.Models;
+
 namespace Galore.Models.Review {
-    public class ReviewInputModel {
-        public int UserId { get; set; }
-        public int TapeId { get; set; }
+    public class ReviewInputModel : HyperMediaModel
+    {
+        [Required]
         public int Score { get; set; }
     }
 }

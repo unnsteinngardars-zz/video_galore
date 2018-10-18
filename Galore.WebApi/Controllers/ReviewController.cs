@@ -1,10 +1,12 @@
 using Galore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Galore.Models.Review;
+using Galore.Models.Exceptions;
 
 namespace Galore.WebApi.Controllers
 {
     [Route("/v1/api/")]
-    public class ReviewController : Controller
+    public class ReviewController : Controller  
     {
         private readonly IReviewService _reviewService;
 
@@ -21,7 +23,7 @@ namespace Galore.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("users/{userId:int}/reviews/{tapeId:int}")]
+        [Route("users/{userId:int}/reviews/{tapeId:int}", Name="GetUserReview")]
         public IActionResult GetUserReviewForTape(int userId, int tapeId)
         {
             return Ok(_reviewService.GetUserReviewForTape(userId, tapeId));
@@ -30,37 +32,41 @@ namespace Galore.WebApi.Controllers
 
         [HttpPost]
         [Route("users/{userId:int}/reviews/{tapeId:int}")]
-        public IActionResult addUserReviewForTape(int userId, int tapeId)
+        public IActionResult CreateUserReview([FromBody] ReviewInputModel review, int userId, int tapeId)
         {
-            return Ok();
+            if(!ModelState.IsValid) { throw new ModelFormatException("Review was not properly formatted"); }
+            var newId = _reviewService.CreateUserReview(review, userId, tapeId);
+            return CreatedAtRoute("GetUserReview", new { userId = newId}, null);
         }
 
         [HttpDelete]
         [Route("users/{userId:int}/reviews/{tapeId:int}")]
-        public IActionResult removeUserReviewForTape(int userId, int tapeId)
+        public IActionResult DeleteUserReviewForTape(int userId, int tapeId)
         {
-            return Ok();
+            _reviewService.DeleteUserReviewForTape(userId, tapeId);
+            return NoContent();
         }
 
         [HttpPut]
         [Route("users/{userId:int}/reviews/{tapeId:int}")]
-        public IActionResult updateUserReviewForTape(int userId, int tapeId)
+        public IActionResult UpdateUserReviewForTape([FromBody] ReviewInputModel review, int userId, int tapeId)
         {
-            return Ok();
+            _reviewService.UpdateUserReviewForTape(review, userId, tapeId);
+            return NoContent();
         }
 
         [HttpGet]
         [Route("tapes/reviews")]
-        public IActionResult getReviewsForAllTapes()
+        public IActionResult GetAllReviewsForAllTapes()
         {
-            return Ok();
+            return Ok(_reviewService.GetAllReviewsForAllTapes());
         }
 
         [HttpGet]
         [Route("tapes/{tapeId:int}/reviews")]
-        public IActionResult getAllReviewsForTape(int tapeId)
+        public IActionResult GetAllReviewsForTape(int tapeId)
         {
-            return Ok();
+            return Ok(_reviewService.GetAllReviewsForTape(tapeId));
         }
 
     }
