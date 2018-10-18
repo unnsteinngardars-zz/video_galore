@@ -23,7 +23,7 @@ namespace Galore.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("users/{userId:int}/reviews/{tapeId:int}", Name="GetUserReview")]
+        [Route("users/{userId:int}/reviews/{tapeId:int}", Name="GetUserReviewForTape")]
         public IActionResult GetUserReviewForTape(int userId, int tapeId)
         {
             return Ok(_reviewService.GetUserReviewForTape(userId, tapeId));
@@ -36,7 +36,7 @@ namespace Galore.WebApi.Controllers
         {
             if(!ModelState.IsValid) { throw new ModelFormatException("Review was not properly formatted"); }
             var newId = _reviewService.CreateUserReview(review, userId, tapeId);
-            return CreatedAtRoute("GetUserReview", new { userId = newId}, null);
+            return CreatedAtRoute("GetUserReviewForTape", new { userId, tapeId }, null);
         }
 
         [HttpDelete]
