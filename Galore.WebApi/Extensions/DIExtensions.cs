@@ -23,8 +23,8 @@ namespace Galore.WebApi.Extensions
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ITapeRepository, TapeRepository>();
             services.AddTransient<ILoanRepository, LoanRepository>();
-            services.AddTransient<IMockDatabaseContext, MockDatabaseContext>();
-            // services.AddTransient<DbContext, GaloreDbContext>();
+            services.AddTransient<IReviewRepository, ReviewRepository>();
+            services.AddTransient<IMockDatabaseContext, MockDatabaseContext>();   
         }
     }
 }
