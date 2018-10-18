@@ -7,6 +7,5 @@ namespace Galore.Models.Recommendation {
         public int UserId { get; set; }
         public int TapeId { get; set; }
         public DateTime DateCreated { get; set; }
-
     }
 }

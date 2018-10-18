@@ -36,6 +36,7 @@ namespace Galore.Services.Implementations
             var checkLoan = CheckIfTapeIsBorrowed(tapeId);
             if (checkLoan != null) { throw new LoanException($"Tape with id {tapeId} is currently loaned"); }
             // if (CheckIfTapeIsBorrowed(tapeId) != null) { throw new LoanException($"Tape with id {tapeId} is currently loaned"); }
+            var allLoans = _repository.GetAllLoans();
             _repository.RegisterTapeOnLoan(userId, tapeId);
         }
 
@@ -70,6 +71,6 @@ namespace Galore.Services.Implementations
         {
             return _repository.GetAllLoans().FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
         }
-
+        
     }
 }

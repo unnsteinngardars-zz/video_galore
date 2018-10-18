@@ -4,9 +4,11 @@ using System.Linq;
 using AutoMapper;
 using Galore.Models.Loan;
 using Galore.Models.Tape;
+using Galore.Models.User;
 using Galore.Repositories.Context;
 using Galore.Repositories.Implementations;
 using Galore.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -15,14 +17,78 @@ namespace Galore.Tests.Repositories
     [TestClass]
     public class LoanRepositoryTest
     {
-        private IMockDatabaseContext _context;
+        private GaloreDbContext _context;
         private ILoanRepository repository;
+        private IUserRepository userRepository;
+        private ITapeRepository tapeRepository;
 
         [TestInitialize]
         public void Initialize()
         {
-            _context = new MockDatabaseContext();
+            // arrange
+            var options = new DbContextOptionsBuilder<GaloreDbContext>()
+                .UseInMemoryDatabase(databaseName: "Loans").Options;
+            _context = new GaloreDbContext(options);
             repository = new LoanRepository(_context);
+            userRepository = new UserRepository(_context);
+            tapeRepository = new TapeRepository(_context);
+
+            // add users for testing
+            var user2 = new User
+                {
+                    FirstName = "Asdis Erna",
+                    LastName = "Gudmundsdottir",
+                    Email = "asdis16@ru.is",
+                    Phone = "5885522",
+                    Address = "Kopavogsgata 3",
+                    Deleted = false,
+                };
+            var user1 = new User
+                {
+                    FirstName = "Unnsteinn",
+                    LastName = "Gardarsson",
+                    Email = "unnsteinn16@ru.is",
+                    Phone = "6633819",
+                    Address = "Leifsgata 27",
+                    Deleted = false,
+
+                };
+            var user1Id = userRepository.CreateUser(user1);
+            var user2Id = userRepository.CreateUser(user2);
+            
+            // add tapes for testing
+            var tape1 = new Tape
+            {
+                Title = "The Shining",
+                DirectorFirstName = "Stanley",
+                DirectorLastName = "Kubrick",
+                Type = "vhs",
+                EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
+                ReleaseDate = new DateTime(1980, 10, 5),
+                Deleted = false,
+            };
+            var tape2 = new Tape
+            {
+                Title = "The Lion King",
+                DirectorFirstName = "Roger",
+                DirectorLastName = "Allers",
+                Type = "vhs",
+                EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
+                ReleaseDate = new DateTime(1994, 12, 2),
+                Deleted = false,
+
+            };
+            var tape1Id = tapeRepository.CreateTape(tape1);
+            var tape2Id = tapeRepository.CreateTape(tape2);
+
+        }
+
+        [TestMethod]
+        public void RegisterTapeOnLoan_ReturnsNothing()
+        {
+            Assert.AreEqual(0, repository.GetTapesOnLoanForUser(1).Count());
+            repository.RegisterTapeOnLoan(1,2);
+            Assert.AreEqual(1, repository.GetTapesOnLoanForUser(1).Count());
         }
 
         [TestMethod]
@@ -33,14 +99,6 @@ namespace Galore.Tests.Repositories
             Assert.AreEqual(1, tapes.Count());
         }
 
-        [TestMethod]
-        public void RegisterTapeOnLoan_ReturnsNothing()
-        {
-
-            Assert.AreEqual(1, repository.GetTapesOnLoanForUser(1).Count());
-            repository.RegisterTapeOnLoan(1,3);
-            Assert.AreEqual(2, repository.GetTapesOnLoanForUser(1).Count());
-        }
 
         // TODO: strengthen this test assertions
         [TestMethod]

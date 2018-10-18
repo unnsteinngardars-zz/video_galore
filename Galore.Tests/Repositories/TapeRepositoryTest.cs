@@ -6,6 +6,7 @@ using Galore.Models.Tape;
 using Galore.Repositories.Context;
 using Galore.Repositories.Implementations;
 using Galore.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -14,15 +15,56 @@ namespace Galore.Tests.Repositories
     [TestClass]
     public class TapeRepositoryTest
     {
-        private IMockDatabaseContext _context;
         private ITapeRepository repository;
+        private GaloreDbContext _context;
 
 
         [TestInitialize]
         public void Initialize() {   
             // arrange
-            _context = new MockDatabaseContext();
+            var options = new DbContextOptionsBuilder<GaloreDbContext>()
+                .UseInMemoryDatabase(databaseName: "Tapes").Options;
+            _context = new GaloreDbContext(options);
             repository = new TapeRepository(_context);
+        }
+
+        [TestMethod]
+        public void CreateTape_ReturnsTapeId()
+        {
+            // act
+            var tape1 = new Tape
+            {
+                Id = 1,
+                Title = "The Shining",
+                DirectorFirstName = "Stanley",
+                DirectorLastName = "Kubrick",
+                Type = "vhs",
+                EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
+                ReleaseDate = new DateTime(1980, 10, 5),
+                Deleted = false,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            };
+            var tape2 = new Tape
+            {
+                Id = 2,
+                Title = "The Lion King",
+                DirectorFirstName = "Roger",
+                DirectorLastName = "Allers",
+                Type = "vhs",
+                EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
+                ReleaseDate = new DateTime(1994, 12, 2),
+                Deleted = false,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            };
+            var tape1Id = repository.CreateTape(tape1);
+            var tape2Id = repository.CreateTape(tape2);
+
+            // assert
+            Assert.IsInstanceOfType(tape1Id, typeof(int));
+            Assert.AreEqual(1,tape1Id);
+            Assert.AreEqual(2, _context.Tapes.Count());
         }
 
         [TestMethod]
@@ -31,7 +73,7 @@ namespace Galore.Tests.Repositories
             var tapes = repository.GetAllTapes();
             // assert
             Assert.IsInstanceOfType(tapes, typeof(IEnumerable<Tape>));
-            Assert.AreEqual(5, tapes.Count());
+            Assert.AreEqual(2, tapes.Count());
         }
 
         [TestMethod]
@@ -54,22 +96,13 @@ namespace Galore.Tests.Repositories
         [TestMethod]
         public void DeleteTapeById_ReturnsNothing() {
             // act & assert
-            Assert.AreEqual(5, repository.GetAllTapes().Count());
+            Assert.AreEqual(2, repository.GetAllTapes().Count());
             var tape = repository.GetTapeById(1);
             repository.DeleteTape(tape);
-            Assert.AreEqual(4, repository.GetAllTapes().Count());
+            Assert.AreEqual(1, repository.GetAllTapes().Count());
+            Assert.AreEqual(true, tape.Deleted);
         }
 
-        [TestMethod]
-        public void CreateTape_ReturnsTapeId()
-        {
-            Tape tape = new Tape{
-                Id = 6,
-            };
-            var tapeId = repository.CreateTape(tape);
-            Assert.IsInstanceOfType(tapeId, typeof(int));
-            Assert.AreEqual(6, tapeId);
-        }
 
         [TestMethod]
         public void UpdateTape_ReturnsNothing() {

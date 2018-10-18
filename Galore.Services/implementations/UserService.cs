@@ -23,9 +23,7 @@ namespace Galore.Services.Implementations
         public int CreateUser(UserInputModel user)
         {
             var users = _userRepository.GetAllUsers();
-            var nextId = users.Max(u => u.Id) + 1;
             var newUser = Mapper.Map<User>(user);
-            newUser.Id = nextId;
             return _userRepository.CreateUser(newUser);
 
         }

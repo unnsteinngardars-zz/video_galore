@@ -1,3 +1,4 @@
+using System;
 using Galore.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,8 +10,11 @@ namespace Galore.WebApi.Extensions
     {
         public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<UserContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Galore.WebApi")));
+            // Add check if Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT) == "Production" then use mock context?
+            services.AddDbContext<GaloreDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Galore.WebApi")));
+            
+            // services.AddDbContext<UserContext>(options =>
+            // options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("Galore.WebApi")));
         }
     }
 }

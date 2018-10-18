@@ -3,42 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using Galore.Models.Review;
 using Galore.Models.Tape;
+using Galore.Repositories.Context;
 using Galore.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Galore.Repositories.Implementations
 {
     public class TapeRepository : ITapeRepository
     {
-        private readonly IMockDatabaseContext _dataContext;
+        
+        private readonly GaloreDbContext _dbContext;
 
-        public TapeRepository(IMockDatabaseContext dataContext) {
-            _dataContext = dataContext;
+        public TapeRepository(GaloreDbContext dbContext) {
+            _dbContext = dbContext;
         }
+        
         public int CreateTape(Tape tape)
         {
-            _dataContext.getAllTapes.Add(tape);
+            _dbContext.Tapes.Add(tape);
+            _dbContext.SaveChanges();
             return tape.Id;
         }
 
         public void DeleteTape(Tape tape)
         {
-            _dataContext.getAllTapes.Remove(tape);
+            // var deletedTape = _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tape.Id);
+            // deletedTape.Deleted = true;
+            tape.Deleted = true;
+            _dbContext.SaveChanges();
         }
 
         public IEnumerable<Tape> GetAllTapes()
         {
-            return _dataContext.getAllTapes;
+            // return _dataContext.getAllTapes.Where(t => t.Deleted == false);
+            return _dbContext.Tapes.Where(t => t.Deleted == false).ToList();
         }
 
         public Tape GetTapeById(int tapeId)
         {
-            return _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tapeId);        
+            return _dbContext.Tapes.Where(t => t.Deleted == false).FirstOrDefault(t => t.Id == tapeId);    
          }
 
         public void UpdateTapeById(Tape tape, int tapeId)
         {
 
-            var updateTape = _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tapeId);
+            var updateTape = _dbContext.Tapes.Where(t => t.Deleted == false).FirstOrDefault(t => t.Id == tapeId);
             updateTape.DateModified = DateTime.Now;
             updateTape.Title = tape.Title;
             updateTape.DirectorFirstName = tape.DirectorFirstName;
@@ -46,8 +55,7 @@ namespace Galore.Repositories.Implementations
             updateTape.EIDR = tape.EIDR;
             updateTape.ReleaseDate = tape.ReleaseDate;
             updateTape.Type = tape.Type;
+            _dbContext.SaveChanges();
         }
-
-        
     }
 }

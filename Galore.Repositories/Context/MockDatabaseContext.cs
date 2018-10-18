@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Galore.Models.Loan;
 using Galore.Models.Review;
 using Galore.Models.Tape;
 using Galore.Models.User;
 using Galore.Repositories.Interfaces;
+using Newtonsoft.Json;
 
 namespace Galore.Repositories.Context
 {
     public class MockDatabaseContext : IMockDatabaseContext
     {
+        
+
         private static List<User> _users = new List<User>
         {
             new User
@@ -20,6 +24,7 @@ namespace Galore.Repositories.Context
                 Email = "unnsteinn16@ru.is",
                 Phone = "6633819",
                 Address = "Leifsgata 27",
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now,
             },
@@ -31,6 +36,7 @@ namespace Galore.Repositories.Context
                 Email = "asdis16@ru.is",
                 Phone = "5885522",
                 Address = "Kopavogsgata 3",
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             }
@@ -47,6 +53,7 @@ namespace Galore.Repositories.Context
                 Type = "vhs",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1980, 10, 5),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             },
@@ -59,6 +66,7 @@ namespace Galore.Repositories.Context
                 Type = "vhs",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1994, 12, 2),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             },
@@ -71,6 +79,7 @@ namespace Galore.Repositories.Context
                 Type = "betamax",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1960, 6, 16),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             },
@@ -83,6 +92,7 @@ namespace Galore.Repositories.Context
                 Type = "vhs",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1995, 11, 19),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             },
@@ -95,6 +105,7 @@ namespace Galore.Repositories.Context
                 Type = "betamax",
                 EIDR = "10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C",
                 ReleaseDate = new DateTime(1065, 3, 2),
+                Deleted = false,
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             }
@@ -153,12 +164,10 @@ namespace Galore.Repositories.Context
             }
 
         };
-        
-
-        public List<User> getAllUsers { get => _users; set => _users = value;}
+                
+        public List<User> getAllUsers { get => _users;  set => _users = value;}
         public List<Tape> getAllTapes { get => _tapes; set => _tapes = value;}
         public List<Loan> getAllLoans { get => _loans; set => _loans = value;}
-
         public List<Review> getAllReviews { get => _reviews; set => _reviews = value; }
     }
 }

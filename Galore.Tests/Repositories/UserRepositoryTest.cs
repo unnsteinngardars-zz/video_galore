@@ -8,20 +8,82 @@ using Galore.Repositories.Implementations;
 using Galore.Repositories.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using FizzWare.NBuilder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace Galore.Tests.Repositories
 {
     [TestClass]
     public class UserRepositoryTest
     {
-        private IMockDatabaseContext _context;
+        private GaloreDbContext _context;
         private IUserRepository repository;
 
         [TestInitialize]
         public void Initialize() {
             // arrange
-            _context = new MockDatabaseContext();
+            var options = new DbContextOptionsBuilder<GaloreDbContext>()
+                .UseInMemoryDatabase(databaseName: "Users").Options;
+            _context = new GaloreDbContext(options);
             repository = new UserRepository(_context);
+        }
+
+        [TestMethod]
+        public void CreateUserTest_ReturnsUserId()
+        {
+            // act
+            
+                var user2 = new User
+                {
+                    Id = 2,
+                    FirstName = "Asdis Erna",
+                    LastName = "Gudmundsdottir",
+                    Email = "asdis16@ru.is",
+                    Phone = "5885522",
+                    Address = "Kopavogsgata 3",
+                    Deleted = false,
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now
+                };
+                var user1 = new User
+                {
+                    Id = 1,
+                    FirstName = "Unnsteinn",
+                    LastName = "Gardarsson",
+                    Email = "unnsteinn16@ru.is",
+                    Phone = "6633819",
+                    Address = "Leifsgata 27",
+                    Deleted = false,
+                    DateCreated = DateTime.Now,
+                    DateModified = DateTime.Now,
+                };
+            
+            var user1Id = repository.CreateUser(user1);
+            var user2Id = repository.CreateUser(user2);
+
+            // assert
+            Assert.IsInstanceOfType(user1Id, typeof(int));
+            Assert.AreEqual(1, user1Id);
+            Assert.AreEqual(2, _context.Users.Count());
+        }
+
+
+        [TestMethod]
+        public void UpdateUserTest_ReturnsNothinh() {
+            // act & assert
+            User updatedUser = new User {
+                FirstName = "Updated First Name",
+                LastName = "Updated Last Name",
+                Address = "Updated Address",
+                Email = "update@address.com",
+                Phone = "321-7654"
+            };
+            User before = repository.GetUserById(2);
+            Assert.AreEqual("Asdis Erna", before.FirstName);
+            repository.UpdateUserById(updatedUser, 2);
+            User after = repository.GetUserById(2);
+            Assert.AreEqual("Updated First Name", after.FirstName);
         }
 
         [TestMethod]
@@ -57,23 +119,7 @@ namespace Galore.Tests.Repositories
             var user = repository.GetUserById(1);
             repository.DeleteUser(user);
             Assert.AreEqual(1, repository.GetAllUsers().Count());
-        }
-
-        [TestMethod]
-        public void UpdateUserTest_ReturnsNothinh() {
-            // act & assert
-            User updatedUser = new User {
-                FirstName = "Updated First Name",
-                LastName = "Updated Last Name",
-                Address = "Updated Address",
-                Email = "update@address.com",
-                Phone = "321-7654"
-            };
-            User before = repository.GetUserById(2);
-            Assert.AreEqual("Asdis Erna", before.FirstName);
-            repository.UpdateUserById(updatedUser, 2);
-            User after = repository.GetUserById(2);
-            Assert.AreEqual("Updated First Name", after.FirstName);
+            Assert.AreEqual(true, user.Deleted);
         }
     }
 }

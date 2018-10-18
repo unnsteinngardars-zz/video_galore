@@ -3,6 +3,7 @@ using Galore.Repositories.Implementations;
 using Galore.Repositories.Interfaces;
 using Galore.Services.Implementations;
 using Galore.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Galore.WebApi.Extensions
