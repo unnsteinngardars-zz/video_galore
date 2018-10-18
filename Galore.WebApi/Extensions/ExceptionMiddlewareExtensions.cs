@@ -31,6 +31,9 @@ namespace Galore.WebApi.Extensions
                     {
                         statusCode = (int) HttpStatusCode.PreconditionFailed;
                     }
+                    else if (exception is AlreadyExistException) {
+                        statusCode = (int) HttpStatusCode.UnprocessableEntity;
+                    }
             
                     context.Response.ContentType = "application/json";
                     context.Response.StatusCode = statusCode;
