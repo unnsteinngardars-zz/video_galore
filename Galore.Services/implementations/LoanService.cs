@@ -62,6 +62,10 @@ namespace Galore.Services.Implementations
             _repository.UpdateTapeOnLoan(checkLoan);
         }
 
+        public IEnumerable<Loan> GetLoans(){
+            return _repository.GetAllLoans();
+        }
+
         public Loan CheckIfTapeIsBorrowed(int tapeId)
         {
             return _repository.GetAllLoans().FirstOrDefault(l => l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);

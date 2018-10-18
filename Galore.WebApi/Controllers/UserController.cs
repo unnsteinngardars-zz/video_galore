@@ -24,8 +24,9 @@ namespace Galore.WebApi.Controllers
 
         [HttpGet]
         [Route("users")]
-        public IActionResult GetAllUsers([FromQuery] int LoanDuration = 30, [FromQuery] string LoanDate = "2000-01-01"){
-            return Ok(_userService.GetAllUsers());
+        public IActionResult GetAllUsers([FromQuery] int LoanDuration = 0, [FromQuery] string LoanDate = ""){
+
+            return Ok(_userService.GetAllUsers(LoanDuration, LoanDate));
         }
 
         [HttpPost]
