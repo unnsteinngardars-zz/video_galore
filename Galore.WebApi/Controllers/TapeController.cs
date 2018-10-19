@@ -22,8 +22,8 @@ namespace Galore.WebApi.Controllers
 
         [HttpGet]
         [Route("tapes")]
-        public IActionResult GetAllTapes([FromQuery] string LoanDate = "2000-01-01"){
-            return Ok(_tapeService.GetAllTapes());
+        public IActionResult GetAllTapes([FromQuery] string LoanDate = ""){
+            return Ok(_tapeService.GetAllTapes(LoanDate));
         }
 
         [HttpPost]

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System;
 using Galore.Models.Exceptions;
 using Galore.Services.Interfaces;
-
+using Galore.Models.Loan;
 
 namespace Galore.Tests.Services
 {
@@ -27,6 +27,7 @@ namespace Galore.Tests.Services
         };
 
         private Mock<IUserRepository> _userRepository;
+        private Mock<ILoanRepository> _loanRepository;
         private IUserService service;
 
         [ClassInitialize]
@@ -47,6 +48,14 @@ namespace Galore.Tests.Services
         public void Initialize() {
             // arrange
             _userRepository = new Mock<IUserRepository>();
+            _loanRepository = new Mock<ILoanRepository>();
+            _loanRepository.Setup(m => m.GetAllLoans())
+                .Returns(FizzWare.NBuilder.Builder<Loan>
+                .CreateListOfSize(2)
+                    .IndexOf(0).With(l => l.Id = 1).With(l => l.TapeId = 1).With(l => l.UserId = 1).With(l => l.BorrowDate = new DateTime(2001,01,01)).With(l => l.ReturnDate = DateTime.MinValue)
+                    .IndexOf(1).With(l => l.Id = 2).With(l => l.TapeId = 2).With(l => l.UserId = 2).With(l => l.BorrowDate = new DateTime(2002,02,02)).With(l => l.ReturnDate = new DateTime(2002,05,05))
+                    .Build());
+
             _userRepository.Setup(m => m.GetAllUsers())
             .Returns(FizzWare.NBuilder.Builder<User>
                 .CreateListOfSize(2)
@@ -59,18 +68,60 @@ namespace Galore.Tests.Services
                     .CreateNew().With(u => u.Id = 1).With(u => u.FirstName = "First Name 1").With(u => u.LastName = "Last Name 1")
                         .Build());
             _userRepository.Setup(m => m.CreateUser(It.IsAny<User>())).Returns(1);
-            service = new UserService(_userRepository.Object);
+            service = new UserService(_userRepository.Object, _loanRepository.Object);
         }  
 
         [TestMethod]
         public void GetAllUsersTest_ReturnsListOfTwoUserDTO() {
             // act
-            var result = service.GetAllUsers();
+            var result = service.GetAllUsers(0, "");
             // assert
             Assert.IsInstanceOfType(result, typeof(IEnumerable<UserDTO>));
             Assert.AreEqual(2, result.Count());
             _userRepository.Verify((m => m.GetAllUsers()), Times.Once());
         }
+
+        [TestMethod]
+        public void GetAllUserOnLoanDateValid_ReturnsListOfOneUserDTO() {
+            // act
+            var result = service.GetAllUsers(0, "2005-01-01");
+            // assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<UserDTO>));
+            Assert.AreEqual(1, result.Count());
+            _userRepository.Verify((m => m.GetAllUsers()), Times.Once());
+        }
+
+        [TestMethod]
+        public void GetAllUserWithLoanDurationValid_ReturnsListOfOneUserDTO() {
+            // act
+            var result = service.GetAllUsers(150, "");
+            // assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<UserDTO>));
+            Assert.AreEqual(1, result.Count());
+            _userRepository.Verify((m => m.GetAllUsers()), Times.Once());
+        }
+
+        [TestMethod]
+        public void GetAllUserWithLoanDurationAndLoanDateValid_ReturnsListOfOneUserDTO() {
+            // act
+            var result = service.GetAllUsers(150, "2005-01-01");
+            // assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<UserDTO>));
+            Assert.AreEqual(1, result.Count());
+            _userRepository.Verify((m => m.GetAllUsers()), Times.Once());
+        }
+
+        [TestMethod]
+        public void GetAllUserWithLoanDurationAndLoanDateUnvalid_ReturnsListOfZero() {
+            // act
+            var result = service.GetAllUsers(90000, "2000-01-01");
+            // assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<UserDTO>));
+            Assert.AreEqual(0, result.Count());
+            _userRepository.Verify((m => m.GetAllUsers()), Times.Once());
+        }
+
+        
 
         [TestMethod]
         public void GetUserByIdTest_ReturnsUserDetailDTO() {

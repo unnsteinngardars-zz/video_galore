@@ -6,21 +6,47 @@ using AutoMapper;
 using System.Linq;
 using Galore.Models.Exceptions;
 using System;
+using Galore.Models.Loan;
 
 namespace Galore.Services.Implementations
 {
     public class TapeService : ITapeService
     {
         private readonly ITapeRepository _tapeRepository;
+        private readonly ILoanRepository _loanRepository;
 
-        public TapeService(ITapeRepository tapeRepository)
+        public TapeService(ITapeRepository tapeRepository, ILoanRepository loanRepository)
         {
             _tapeRepository = tapeRepository;
+            _loanRepository = loanRepository;
         }
 
-        public IEnumerable<TapeDTO> GetAllTapes()
+        public IEnumerable<TapeDTO> GetAllTapes(string LoanDate)
         {
-            return Mapper.Map<IEnumerable<TapeDTO>>(_tapeRepository.GetAllTapes());
+            var tapes = _tapeRepository.GetAllTapes();
+            if(LoanDate.Length > 0 ) 
+            {
+                // return list with only loan date query parameters
+                DateTime date = DateTime.Parse(LoanDate);
+                var loans = _loanRepository.GetAllLoans()
+                    .Where(l => ((date >= l.BorrowDate && date < l.ReturnDate) || (date >= l.BorrowDate && l.ReturnDate.Equals(DateTime.MinValue))));
+                return FindTapeInLoansList(loans, tapes);
+            } 
+            return Mapper.Map<IEnumerable<TapeDTO>>(tapes);
+        }
+
+        private IEnumerable<TapeDTO> FindTapeInLoansList(IEnumerable<Loan> loans, IEnumerable<Tape> tapes)
+        {
+            List<Tape> loanTapes = new List<Tape>();
+
+            foreach(var l in loans) {
+                var tape = tapes.FirstOrDefault(u => u.Id == l.UserId);
+                if(!loanTapes.Contains(tape)) {
+                       loanTapes.Add(tape);
+                }
+            }
+
+            return Mapper.Map<IEnumerable<TapeDTO>>(loanTapes);
         }
 
         public int CreateTape(TapeInputModel tape)
