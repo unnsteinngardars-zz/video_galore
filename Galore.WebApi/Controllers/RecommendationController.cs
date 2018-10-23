@@ -15,9 +15,9 @@ namespace Galore.WebApi.Controllers
 
         [HttpGet]
         [Route("users/{userId:int}/recommendation")]
-        public IActionResult getRecommendation(int userId)
+        public IActionResult GetRecommendation(int userId)
         {
-            return Ok();
+            return Ok(_recommendationService.GetRecommendation(userId));
         }
     }
 }
