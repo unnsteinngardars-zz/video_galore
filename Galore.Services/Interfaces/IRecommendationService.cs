@@ -7,6 +7,6 @@ namespace Galore.Services.Interfaces
          /**
             users/userId/recommendation : Get recommendation for userId
           */
-        TapeDetailDTO getRecommendation(int userId);
+        TapeDetailDTO GetRecommendation(int userId);
     }
 }
