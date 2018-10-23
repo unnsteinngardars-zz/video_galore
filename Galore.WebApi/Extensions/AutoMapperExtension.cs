@@ -29,7 +29,7 @@ namespace Galore.WebApi.Extensions
                     .ForMember(u => u.DateModified, opt => opt.UseValue(DateTime.Now));
                 c.CreateMap<LoanInputModel, Loan>()
                     .ForMember(l => l.BorrowDate, opt => opt.MapFrom(src => DateTime.Parse(src.BorrowDate)));
-
+                c.CreateMap<Loan, LoanDTO>();
                 c.CreateMap<Review, ReviewDTO>();
                 c.CreateMap<ReviewDTO, Review>();
                 c.CreateMap<Review, UserDetailDTO>();

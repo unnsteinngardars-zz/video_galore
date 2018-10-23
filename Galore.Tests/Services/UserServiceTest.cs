@@ -140,6 +140,7 @@ namespace Galore.Tests.Services
             // assert
             Assert.IsInstanceOfType(result, typeof(UserDetailDTO));
             Assert.AreEqual("First Name 1", result.FirstName);
+            Assert.AreEqual(1, result.BorrowHistory.Count());
             _userRepository.Verify((m => m.GetUserById(1)), Times.Once());
         }
 

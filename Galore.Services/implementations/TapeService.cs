@@ -60,7 +60,11 @@ namespace Galore.Services.Implementations
         public TapeDetailDTO GetTapeById(int tapeId)
         {
             var tape = IsValidId(tapeId);
-            return Mapper.Map<TapeDetailDTO>(tape);
+            var loans = _loanRepository.GetAllLoans().Where(l => l.TapeId == tapeId);
+            var detailedLoans = Mapper.Map<IEnumerable<LoanDTO>>(loans);
+            var detailedTape = Mapper.Map<TapeDetailDTO>(tape);
+            detailedTape.BorrowHistory = detailedLoans.ToList();
+            return detailedTape;
         }
 
         public void DeleteTape(int tapeId)

@@ -84,7 +84,11 @@ namespace Galore.Services.Implementations
         public UserDetailDTO GetUserById(int userId)
         {
             var user = IsValidId(userId);
-            return Mapper.Map<UserDetailDTO>(user);
+            var loans = _loanRepository.GetAllLoans().Where(l => l.UserId == userId);
+            var detailedLoans = Mapper.Map<IEnumerable<LoanDTO>>(loans);
+            var detailedUser = Mapper.Map<UserDetailDTO>(user);
+            detailedUser.BorrowHistory = detailedLoans.ToList();
+            return detailedUser;
         }
         public void DeleteUser(int userId)
         {

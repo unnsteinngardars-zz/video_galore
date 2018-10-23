@@ -3,7 +3,7 @@ using TecRad.Models;
 
 namespace Galore.Models.Loan
 {
-    public class LoanDetailDTO : HyperMediaModel
+    public class LoanDetailDTO
     {
         public int TapeId { get; set; }
         public int UserId { get; set; }
