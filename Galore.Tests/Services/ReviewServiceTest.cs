@@ -29,8 +29,8 @@ namespace Galore.Tests.Services
         private Mock<IUserRepository> _userRepository;
         private IUserService uService;
         private Mock<ITapeRepository> _tapeRepository;
-        private ITapeService tService;
         private Mock<ILoanRepository> _loanRepository;
+        private ITapeService tService;
 
 
         [ClassInitialize]
