@@ -51,6 +51,7 @@ namespace Galore.WebApi.Controllers
         [Route("users/{userId:int}/reviews/{tapeId:int}")]
         public IActionResult UpdateUserReviewForTape([FromBody] ReviewInputModel review, int userId, int tapeId)
         {
+            if (!ModelState.IsValid) { throw new ModelFormatException("Review was not properly formatted"); }
             _reviewService.UpdateUserReviewForTape(review, userId, tapeId);
             return NoContent();
         }
@@ -69,5 +70,28 @@ namespace Galore.WebApi.Controllers
             return Ok(_reviewService.GetAllReviewsForTape(tapeId));
         }
 
+        [HttpGet]
+        [Route("tapes/{tapeId:int}/reviews/{userId:int}")]
+        public IActionResult GetUserReviewForTape2(int tapeId, int userId)
+        {
+            return Ok(_reviewService.GetUserReviewForTape(userId, tapeId));
+        }
+
+        [HttpDelete]
+        [Route("tapes/{tapeId:int}/reviews/{userId:int}")]
+        public IActionResult DeleteUserReviewForTape2(int tapeId, int userId)
+        {
+            _reviewService.DeleteUserReviewForTape(userId, tapeId);
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route("tapes/{tapeId:int}/reviews/{userId:int}")]
+        public IActionResult UpdateUserReviewForTape2([FromBody] ReviewInputModel review, int tapeId, int userId)
+        {
+            if (!ModelState.IsValid) { throw new ModelFormatException("Review was not properly formatted"); }
+            _reviewService.UpdateUserReviewForTape(review, userId, tapeId);
+            return NoContent();
+        }
     }
 }
