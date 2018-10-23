@@ -24,35 +24,41 @@ namespace Galore.WebApi.Controllers
 
         [HttpGet]
         [Route("users")]
-        public IActionResult GetAllUsers([FromQuery] int LoanDuration = 30, [FromQuery] string LoanDate = "2000-01-01"){
-            return Ok(_userService.GetAllUsers());
+        public IActionResult GetAllUsers([FromQuery] int LoanDuration = 0, [FromQuery] string LoanDate = "")
+        {
+
+            return Ok(_userService.GetAllUsers(LoanDuration, LoanDate));
         }
 
         [HttpPost]
         [Route("users")]
-        public IActionResult CreateUser([FromBody] UserInputModel user) {
-            if(!ModelState.IsValid) { throw new ModelFormatException("User was not properly formatted"); }
+        public IActionResult CreateUser([FromBody] UserInputModel user)
+        {
+            if (!ModelState.IsValid) { throw new ModelFormatException("User was not properly formatted"); }
             var newId = _userService.CreateUser(user);
-            return CreatedAtRoute("GetUserById", new { userId = newId}, null);
+            return CreatedAtRoute("GetUserById", new { userId = newId }, null);
         }
 
         [HttpGet]
-        [Route("users/{userId:int}", Name="GetUserById")]
-        public IActionResult GetUserById(int userId){
+        [Route("users/{userId:int}", Name = "GetUserById")]
+        public IActionResult GetUserById(int userId)
+        {
             return Ok(_userService.GetUserById(userId));
         }
 
         [HttpDelete]
         [Route("users/{userId:int}")]
-        public IActionResult DeleteUserById(int userId){
+        public IActionResult DeleteUserById(int userId)
+        {
             _userService.DeleteUser(userId);
             return NoContent();
         }
 
         [HttpPut]
         [Route("users/{userId:int}")]
-        public IActionResult UpdateUserById([FromBody] UserInputModel user, int userId){
-            if(!ModelState.IsValid) { throw new ModelFormatException("User was not properly formatted"); }
+        public IActionResult UpdateUserById([FromBody] UserInputModel user, int userId)
+        {
+            if (!ModelState.IsValid) { throw new ModelFormatException("User was not properly formatted"); }
             _userService.UpdateUser(user, userId);
             return NoContent();
         }

@@ -25,7 +25,7 @@ namespace Galore.WebApi.Controllers
         [HttpPost]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
         public IActionResult RegisterTapeOnLoan(int userId, int tapeId)
-        {   
+        {
             _loanService.RegisterTapeOnLoan(userId, tapeId);
             return NoContent();
         }
@@ -41,8 +41,8 @@ namespace Galore.WebApi.Controllers
         [HttpPut]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
         public IActionResult UpdateBorrowingInformation([FromBody] LoanInputModel loan, int userId, int tapeId)
-        {   
-            if(!ModelState.IsValid) { throw new ModelFormatException("Loan was not properly formatted"); }
+        {
+            if (!ModelState.IsValid) { throw new ModelFormatException("Loan was not properly formatted"); }
             _loanService.UpdateTapeOnLoan(loan, userId, tapeId);
             return NoContent();
         }

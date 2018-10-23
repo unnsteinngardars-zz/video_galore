@@ -13,19 +13,21 @@ namespace Galore.Tests.Controllers
     [TestClass]
     public class TapeControllerTest
     {
-        
+
         private Mock<ITapeService> _tapeService;
         private TapeController controller;
 
         [TestInitialize]
-        public void Initialize() {
+        public void Initialize()
+        {
             // arrange
             _tapeService = new Mock<ITapeService>();
             controller = new TapeController(_tapeService.Object);
-        }       
+        }
 
         [TestMethod]
-        public void GetAllTapesTest_ReturnsOk() {
+        public void GetAllTapesTest_ReturnsOk()
+        {
             // act
             var result = controller.GetAllTapes();
             // assert
@@ -35,7 +37,8 @@ namespace Galore.Tests.Controllers
         }
 
         [TestMethod]
-        public void CreateTapeTestValidModel_ReturnsCreatedAtRoute() {
+        public void CreateTapeTestValidModel_ReturnsCreatedAtRoute()
+        {
             // act
             controller.ModelState.Clear();
             IActionResult actionResult = controller.CreateTape(new TapeInputModel());
@@ -45,14 +48,16 @@ namespace Galore.Tests.Controllers
 
         [TestMethod]
         [ExpectedException(typeof(ModelFormatException), "Model not formated correctly")]
-        public void CreateTapeTestInvalidModel_ThrowsModelFormatException() {
+        public void CreateTapeTestInvalidModel_ThrowsModelFormatException()
+        {
             // act
             controller.ModelState.AddModelError("test", "test");
             controller.CreateTape(new TapeInputModel());
-        }   
-        
+        }
+
         [TestMethod]
-        public void GetTapeByIdTest_ReturnsOk() {   
+        public void GetTapeByIdTest_ReturnsOk()
+        {
             // act
             var result = controller.GetTapeById(1);
             // assert
@@ -62,7 +67,8 @@ namespace Galore.Tests.Controllers
         }
 
         [TestMethod]
-        public void DeleteTapeByIdTest_ReturnsNoContent() {
+        public void DeleteTapeByIdTest_ReturnsNoContent()
+        {
             // act
             var result = controller.DeleteTapeById(1);
             // assert
@@ -72,7 +78,8 @@ namespace Galore.Tests.Controllers
         }
 
         [TestMethod]
-        public void UpdateTapeByIdTestValidModel_ReturnsNoContent() {
+        public void UpdateTapeByIdTestValidModel_ReturnsNoContent()
+        {
             // act
             var result = controller.UpdateTapeById(new TapeInputModel(), 1);
             // assert
@@ -83,7 +90,8 @@ namespace Galore.Tests.Controllers
 
         [TestMethod]
         [ExpectedException(typeof(ModelFormatException), "Model not formatted correctly")]
-        public void UpdateTapeByIdInvalidModel_ThrowsModelFormatException() {
+        public void UpdateTapeByIdInvalidModel_ThrowsModelFormatException()
+        {
             controller.ModelState.AddModelError("test", "test");
             controller.UpdateTapeById(new TapeInputModel(), 1);
         }

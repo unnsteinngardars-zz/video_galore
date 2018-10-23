@@ -39,13 +39,13 @@ namespace Galore.Services.Implementations
         {
             var user = _userService.IsValidId(userId);
             var tape = _tapeService.IsValidId(tapeId);
-            
+
             var reviews = _repository.GetUserReviewForTape(userId, tapeId);
-            if(reviews != null) { throw new AlreadyExistException($"Review for tape {tapeId} by user {userId} already exist!"); }
+            if (reviews != null) { throw new AlreadyExistException($"Review for tape {tapeId} by user {userId} already exist!"); }
             var newReview = Mapper.Map<Review>(review);
             return _repository.CreateUserReview(newReview, userId, tapeId);
         }
-        
+
         public void DeleteUserReviewForTape(int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);

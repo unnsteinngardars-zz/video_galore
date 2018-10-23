@@ -1,8 +1,10 @@
 using System;
 using Galore.Models.Tape;
 
-namespace Galore.Models.Review {
-    public class Review {
+namespace Galore.Models.Review
+{
+    public class Review
+    {
         public int Id { get; set; }
         public int UserId { get; set; }
         public int TapeId { get; set; }

@@ -13,12 +13,13 @@ namespace Galore.Repositories.Context
 {
     public class GaloreDbContext : DbContext
     {
-        public GaloreDbContext(DbContextOptions<GaloreDbContext> options) : base(options) {
-            
+        public GaloreDbContext(DbContextOptions<GaloreDbContext> options) : base(options)
+        {
+
             // this.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Tapes ON");
 
             // this.Database.EnsureCreated();
-                
+
             //     if(!this.Tapes.Any()) {
             //         var tapes = new List<Tape>();
             //         using(StreamReader r = new StreamReader("./JsonData/Tapes.json")) {
@@ -32,13 +33,14 @@ namespace Galore.Repositories.Context
             //         }
             //         this.SaveChanges();
             //     }    
-            
+
             //     this.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Tapes OFF");
             // this.SeedDatabase();
-        
+
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
             // var tapes = new List<Tape>();
             // using(StreamReader r = new StreamReader("./JsonData/Tapes.json")) {
             //     string json = r.ReadToEnd();
@@ -64,6 +66,6 @@ namespace Galore.Repositories.Context
         public DbSet<Tape> Tapes { get; set; }
         public DbSet<Loan> Loans { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        
+
     }
 }

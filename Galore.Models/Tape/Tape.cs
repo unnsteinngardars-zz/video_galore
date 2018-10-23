@@ -1,8 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Galore.Models.Tape {
-    public class Tape {
+namespace Galore.Models.Tape
+{
+    public class Tape
+    {
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }

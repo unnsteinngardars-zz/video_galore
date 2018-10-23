@@ -12,7 +12,7 @@ namespace Galore.Repositories.Context
 {
     public class MockDatabaseContext : IMockDatabaseContext
     {
-        
+
 
         private static List<User> _users = new List<User>
         {
@@ -83,7 +83,7 @@ namespace Galore.Repositories.Context
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             },
-            new Tape 
+            new Tape
             {
                 Id = 4,
                 Title = "Toy Story",
@@ -164,10 +164,10 @@ namespace Galore.Repositories.Context
             }
 
         };
-                
-        public List<User> getAllUsers { get => _users;  set => _users = value;}
-        public List<Tape> getAllTapes { get => _tapes; set => _tapes = value;}
-        public List<Loan> getAllLoans { get => _loans; set => _loans = value;}
+
+        public List<User> getAllUsers { get => _users; set => _users = value; }
+        public List<Tape> getAllTapes { get => _tapes; set => _tapes = value; }
+        public List<Loan> getAllLoans { get => _loans; set => _loans = value; }
         public List<Review> getAllReviews { get => _reviews; set => _reviews = value; }
     }
 }

@@ -17,5 +17,7 @@ namespace Galore.Services.Interfaces
 
         // user/userId/tapes/tapeId: Update loan information
         void UpdateTapeOnLoan(LoanInputModel loan, int userId, int tapeId);
+
+        IEnumerable<Loan> GetLoans();
     }
 }

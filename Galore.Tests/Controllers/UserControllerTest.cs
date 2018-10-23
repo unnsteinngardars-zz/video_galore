@@ -16,24 +16,27 @@ namespace Galore.Tests.Controllers
         private UserController controller;
 
         [TestInitialize]
-        public void Initialize() {
+        public void Initialize()
+        {
             // arrange
             _userService = new Mock<IUserService>();
             controller = new UserController(_userService.Object);
         }
 
         [TestMethod]
-        public void GetAllUsersTest_ReturnsOk() {
+        public void GetAllUsersTest_ReturnsOk()
+        {
             // act
             var result = controller.GetAllUsers();
             // assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             var actual = result as OkObjectResult;
-            Assert .AreEqual(200, actual.StatusCode);
+            Assert.AreEqual(200, actual.StatusCode);
         }
 
         [TestMethod]
-        public void CreateUserTestValidModel_ReturnsCreatedAtRoute() {
+        public void CreateUserTestValidModel_ReturnsCreatedAtRoute()
+        {
             // act
             controller.ModelState.Clear();
             IActionResult actionResult = controller.CreateUser(new UserInputModel());
@@ -43,14 +46,16 @@ namespace Galore.Tests.Controllers
 
         [TestMethod]
         [ExpectedException(typeof(ModelFormatException), "Model not properly formatted")]
-        public void CreateUserTestInvalidModel_ThrowsModelFormatException() {
+        public void CreateUserTestInvalidModel_ThrowsModelFormatException()
+        {
             // act
             controller.ModelState.AddModelError("test", "test");
             controller.CreateUser(new UserInputModel());
         }
 
         [TestMethod]
-        public void GetUserById_ReturnsOk() {
+        public void GetUserById_ReturnsOk()
+        {
             // act
             var result = controller.GetUserById(1);
             // assert
@@ -60,7 +65,8 @@ namespace Galore.Tests.Controllers
         }
 
         [TestMethod]
-        public void DeleteUserByIdTest_ReturnsNoContent() {
+        public void DeleteUserByIdTest_ReturnsNoContent()
+        {
             // act
             var result = controller.DeleteUserById(1);
             // assert
@@ -70,7 +76,8 @@ namespace Galore.Tests.Controllers
         }
 
         [TestMethod]
-        public void UpdateUserByIdTestValidModel_ReturnsNoContent() {
+        public void UpdateUserByIdTestValidModel_ReturnsNoContent()
+        {
             // act
             var result = controller.UpdateUserById(new UserInputModel(), 1);
             // assert
@@ -81,7 +88,8 @@ namespace Galore.Tests.Controllers
 
         [TestMethod]
         [ExpectedException(typeof(ModelFormatException), "Model not properly formatted")]
-        public void UpdateUserByIdTestInvalidModel_ThrowsModelFormatException() {
+        public void UpdateUserByIdTestInvalidModel_ThrowsModelFormatException()
+        {
             // act
             controller.ModelState.AddModelError("test", "test");
             controller.UpdateUserById(new UserInputModel(), 1);

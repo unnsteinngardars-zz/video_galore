@@ -1,8 +1,10 @@
 using System;
 using TecRad.Models;
 
-namespace Galore.Models.Loan {
-    public class LoanDetailDTO : HyperMediaModel {
+namespace Galore.Models.Loan
+{
+    public class LoanDetailDTO
+    {
         public int TapeId { get; set; }
         public int UserId { get; set; }
         public DateTime BorrowDate { get; set; }

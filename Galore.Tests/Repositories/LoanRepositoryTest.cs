@@ -35,27 +35,27 @@ namespace Galore.Tests.Repositories
 
             // add users for testing
             var user2 = new User
-                {
-                    FirstName = "Asdis Erna",
-                    LastName = "Gudmundsdottir",
-                    Email = "asdis16@ru.is",
-                    Phone = "5885522",
-                    Address = "Kopavogsgata 3",
-                    Deleted = false,
-                };
+            {
+                FirstName = "Asdis Erna",
+                LastName = "Gudmundsdottir",
+                Email = "asdis16@ru.is",
+                Phone = "5885522",
+                Address = "Kopavogsgata 3",
+                Deleted = false,
+            };
             var user1 = new User
-                {
-                    FirstName = "Unnsteinn",
-                    LastName = "Gardarsson",
-                    Email = "unnsteinn16@ru.is",
-                    Phone = "6633819",
-                    Address = "Leifsgata 27",
-                    Deleted = false,
+            {
+                FirstName = "Unnsteinn",
+                LastName = "Gardarsson",
+                Email = "unnsteinn16@ru.is",
+                Phone = "6633819",
+                Address = "Leifsgata 27",
+                Deleted = false,
 
-                };
+            };
             var user1Id = userRepository.CreateUser(user1);
             var user2Id = userRepository.CreateUser(user2);
-            
+
             // add tapes for testing
             var tape1 = new Tape
             {
@@ -87,7 +87,7 @@ namespace Galore.Tests.Repositories
         public void RegisterTapeOnLoan_ReturnsNothing()
         {
             Assert.AreEqual(0, repository.GetTapesOnLoanForUser(1).Count());
-            repository.RegisterTapeOnLoan(1,2);
+            repository.RegisterTapeOnLoan(1, 2);
             Assert.AreEqual(1, repository.GetTapesOnLoanForUser(1).Count());
         }
 
@@ -116,7 +116,7 @@ namespace Galore.Tests.Repositories
 
             repository.ReturnTapeOnLoan(loan);
         }
-        
+
         // TODO: strengthen this test assertions
         [TestMethod]
         public void UpdateTapeOnLoan_ReturnsNothing()

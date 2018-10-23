@@ -11,13 +11,13 @@ namespace Galore.WebApi.Extensions
     {
         public static void ConfigureExceptionHandler(this IApplicationBuilder app)
         {
-            app.UseExceptionHandler(error => 
+            app.UseExceptionHandler(error =>
             {
-                error.Run(async context => 
+                error.Run(async context =>
                 {
                     var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
                     var exception = exceptionHandlerFeature.Error;
-                    var statusCode = (int) HttpStatusCode.InternalServerError;
+                    var statusCode = (int)HttpStatusCode.InternalServerError;
 
                     // TODO: FIX IT
                     var logService = app.ApplicationServices.GetService(typeof(ILogService)) as ILogService;
@@ -25,16 +25,17 @@ namespace Galore.WebApi.Extensions
 
                     if (exception is ResourceNotFoundException || exception is LoanException)
                     {
-                        statusCode = (int) HttpStatusCode.NotFound;
+                        statusCode = (int)HttpStatusCode.NotFound;
                     }
                     else if (exception is ModelFormatException)
                     {
-                        statusCode = (int) HttpStatusCode.PreconditionFailed;
+                        statusCode = (int)HttpStatusCode.PreconditionFailed;
                     }
-                    else if (exception is AlreadyExistException) {
-                        statusCode = (int) HttpStatusCode.UnprocessableEntity;
+                    else if (exception is AlreadyExistException)
+                    {
+                        statusCode = (int)HttpStatusCode.UnprocessableEntity;
                     }
-            
+
                     context.Response.ContentType = "application/json";
                     context.Response.StatusCode = statusCode;
 
