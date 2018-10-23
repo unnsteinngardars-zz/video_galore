@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Galore.Models.User;
+using Galore.Models.Review;
 using Galore.Repositories.Context;
 using Galore.Repositories.Implementations;
 using Galore.Repositories.Interfaces;
@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore.InMemory;
 namespace Galore.Tests.Repositories
 {
     [TestClass]
-    public class UserRepositoryTest
+    public class ReviewRepositoryTest
     {
         private GaloreDbContext _context;
         private IReviewRepository repository;
@@ -32,25 +32,25 @@ namespace Galore.Tests.Repositories
         [TestMethod]
         public void CreateUserReviewTest_ReturnsReviewId() {
             var review1 = new Review {
-                Id: 1,
-                UserId: 1,
-                TapeId: 2,
-                Score: 7,
-                DateCreated = DateTime.Now;
-                DateModified = DateTime.Now;
+                Id = 1,
+                UserId = 1,
+                TapeId = 2,
+                Score = 7,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
             };
             var review2 = new Review {
-                Id: 2,
-                UserId: 2,
-                TapeId: 2,
-                Score: 6,
-                DateCreated = DateTime.Now;
-                DateModified = DateTime.Now;
+                Id = 2,
+                UserId = 2,
+                TapeId = 2,
+                Score = 6,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
             };
-            var reviewId1 = repository.CreateUserReview(review1);
-            var reviewId2 = repository.CreateUserReview(review2);
+            var reviewId1 = repository.CreateUserReview(review1, 1, 2);
+            var reviewId2 = repository.CreateUserReview(review2, 2, 2);
 
-            Assert.IsInstanceOfType(review1, typeof(int));
+            Assert.IsInstanceOfType(reviewId1, typeof(int));
             Assert.AreEqual(1, reviewId1);
             Assert.AreEqual(2, _context.Reviews.Count());
         }
@@ -59,20 +59,20 @@ namespace Galore.Tests.Repositories
         public void UpdateUserReviewForTapeTest_ReturnsNothing() {
             // act & assert
             Review updatedReview = new Review {
-                Score: 5
+                Score = 5
             };
             Review before = repository.GetUserReviewForTape(2, 2);
             Assert.AreEqual(6, before.Score);
             repository.UpdateUserReviewForTape(updatedReview, 2, 2);
             Review after = repository.GetUserReviewForTape(2, 2);
-            Assert.AreEqual("5", after.Score);
+            Assert.AreEqual(5, after.Score);
         }
 
         [TestMethod]
         public void GetAllReviewsForUserTest_ReturnsIEnumerableOfReview() {
             var reviews = repository.GetAllReviewsForUser(1);
             Assert.IsInstanceOfType(reviews, typeof(IEnumerable<Review>));
-            Assert.AreEqual(2, reviews.Count());
+            Assert.AreEqual(1, reviews.Count());
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void GetAllReviewsForAllTapes_ReturnsIEnumerableOfReview()) {
+        public void GetAllReviewsForAllTapes_ReturnsIEnumerableOfReview() {
             var reviews = repository.GetAllReviewsForAllTapes();
             Assert.IsInstanceOfType(reviews, typeof(IEnumerable<Review>));
             Assert.AreEqual(2, reviews.Count());
@@ -97,12 +97,11 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void DeleteUserReviewTest_ReturnsNothing() {
+        public void DeleteUserReviewForTapeTest_ReturnsNothing() {
             Assert.AreEqual(1, repository.GetAllReviewsForUser(1).Count());
             var review = repository.GetUserReviewForTape(1, 2);
-            repository.DeleteUserReview(review);
+            repository.DeleteUserReviewForTape(review);
             Assert.AreEqual(0, repository.GetAllReviewsForUser(1).Count());
-            Assert.AreEqual(true, review.Deleted);
         }
     }
 }

@@ -1,5 +1,6 @@
 using Galore.Models.Exceptions;
-using Galore.Models.Loan;
+using Galore.Models.Review;
+using Galore.Repositories.Interfaces;
 using Galore.Services.Interfaces;
 using Galore.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace Galore.Tests.Controllers
 
         [TestInitialize]
         public void Initialize() {
-            _reviewService = new Mock<ILoanService>();
+            _reviewService = new Mock<IReviewService>();
             controller = new ReviewController(_reviewService.Object);
         }
 
@@ -39,7 +40,7 @@ namespace Galore.Tests.Controllers
         [TestMethod]
         public void CreateUserReviewTestValidModel_ReturnsCreatedAtRoute() {
             controller.ModelState.Clear();
-            IActionResult actionResult = controller.CreateUserReview(new ReviewInputModel());
+            IActionResult actionResult = controller.CreateUserReview(new ReviewInputModel(), 1, 2);
             Assert.IsInstanceOfType(actionResult, typeof(CreatedAtRouteResult));
         }
 
@@ -47,7 +48,7 @@ namespace Galore.Tests.Controllers
         [ExpectedException(typeof(ModelFormatException), "Model was not properly formattet")]
         public void CreateUserReviewTestInvalidModel_ThrowsModelFormatException() {
             controller.ModelState.AddModelError("test", "test");
-            controller.CreateUserReview(new ReviewInputModel());
+            controller.CreateUserReview(new ReviewInputModel(), 1, 100);
         }
         
         [TestMethod]
