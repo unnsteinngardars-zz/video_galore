@@ -11,13 +11,14 @@ namespace Galore.Repositories.Implementations
 {
     public class TapeRepository : ITapeRepository
     {
-        
+
         private readonly GaloreDbContext _dbContext;
 
-        public TapeRepository(GaloreDbContext dbContext) {
+        public TapeRepository(GaloreDbContext dbContext)
+        {
             _dbContext = dbContext;
         }
-        
+
         public int CreateTape(Tape tape)
         {
             _dbContext.Tapes.Add(tape);
@@ -41,8 +42,8 @@ namespace Galore.Repositories.Implementations
 
         public Tape GetTapeById(int tapeId)
         {
-            return _dbContext.Tapes.Where(t => t.Deleted == false).FirstOrDefault(t => t.Id == tapeId);    
-         }
+            return _dbContext.Tapes.Where(t => t.Deleted == false).FirstOrDefault(t => t.Id == tapeId);
+        }
 
         public void UpdateTapeById(Tape tape, int tapeId)
         {

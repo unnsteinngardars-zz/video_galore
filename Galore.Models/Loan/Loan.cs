@@ -1,8 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Galore.Models.Loan {
-    public class Loan {
+namespace Galore.Models.Loan
+{
+    public class Loan
+    {
         // PK is TapeId and UserId together
         public int Id { get; set; }
         [Required]

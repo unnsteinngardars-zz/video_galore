@@ -13,11 +13,11 @@ namespace Galore.Services.Implementations
 
             using (StreamWriter sw = new StreamWriter("../exception_log.txt", true))
             {
-                if(sw != null)
+                if (sw != null)
                 {
                     sw.WriteLine($"{DateTime.Now} - {message}");
                 }
-            }        
+            }
         }
     }
 }

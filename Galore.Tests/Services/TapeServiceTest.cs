@@ -13,12 +13,13 @@ using Galore.Services.Interfaces;
 using Galore.Models.Loan;
 
 namespace Galore.Tests.Services
-{   
+{
     [TestClass]
     public class TapeServiceTest
     {
         // arrange 
-        TapeInputModel tape = new TapeInputModel {
+        TapeInputModel tape = new TapeInputModel
+        {
             Title = "Test Movie 3",
             DirectorFirstName = "Test first name",
             DirectorLastName = "Test last name",
@@ -32,10 +33,12 @@ namespace Galore.Tests.Services
         private ITapeService service;
 
         [ClassInitialize]
-        public static void MapperInitialize(TestContext context) {
+        public static void MapperInitialize(TestContext context)
+        {
             // arrange            
             AutoMapper.Mapper.Reset();
-            AutoMapper.Mapper.Initialize( c => {
+            AutoMapper.Mapper.Initialize(c =>
+            {
                 c.CreateMap<Tape, TapeDTO>();
                 c.CreateMap<TapeDTO, Tape>();
                 c.CreateMap<Tape, TapeDetailDTO>();
@@ -43,10 +46,11 @@ namespace Galore.Tests.Services
                     .ForMember(t => t.DateCreated, opt => opt.UseValue(DateTime.Now))
                     .ForMember(t => t.DateModified, opt => opt.UseValue(DateTime.Now));
             });
-        }      
+        }
 
         [TestInitialize]
-        public void Initialize() {
+        public void Initialize()
+        {
             // arrange
             _tapeRepository = new Mock<ITapeRepository>();
             _loanRepository = new Mock<ILoanRepository>();
@@ -54,8 +58,8 @@ namespace Galore.Tests.Services
             _loanRepository.Setup(m => m.GetAllLoans())
                 .Returns(FizzWare.NBuilder.Builder<Loan>
                 .CreateListOfSize(2)
-                    .IndexOf(0).With(l => l.Id = 1).With(l => l.TapeId = 1).With(l => l.UserId = 1).With(l => l.BorrowDate = new DateTime(2001,01,01)).With(l => l.ReturnDate = DateTime.MinValue)
-                    .IndexOf(1).With(l => l.Id = 2).With(l => l.TapeId = 2).With(l => l.UserId = 2).With(l => l.BorrowDate = new DateTime(2002,02,02)).With(l => l.ReturnDate = new DateTime(2002,05,05))
+                    .IndexOf(0).With(l => l.Id = 1).With(l => l.TapeId = 1).With(l => l.UserId = 1).With(l => l.BorrowDate = new DateTime(2001, 01, 01)).With(l => l.ReturnDate = DateTime.MinValue)
+                    .IndexOf(1).With(l => l.Id = 2).With(l => l.TapeId = 2).With(l => l.UserId = 2).With(l => l.BorrowDate = new DateTime(2002, 02, 02)).With(l => l.ReturnDate = new DateTime(2002, 05, 05))
                     .Build());
 
             _tapeRepository.Setup(m => m.GetAllTapes())
@@ -64,7 +68,7 @@ namespace Galore.Tests.Services
                     .IndexOf(0).With(t => t.Id = 1).With(t => t.Title = "Test Movie 1").With(t => t.Type = "vhs")
                     .IndexOf(1).With(t => t.Id = 2).With(t => t.Title = "Test Movie 2").With(t => t.Type = "betamax")
                         .Build());
-            
+
             _tapeRepository.Setup(m => m.GetTapeById(1))
                 .Returns(FizzWare.NBuilder.Builder<Tape>
                     .CreateNew().With(t => t.Id = 1).With(t => t.Title = "Test Movie 1")
@@ -74,7 +78,8 @@ namespace Galore.Tests.Services
         }
 
         [TestMethod]
-        public void GetAllTapesTest_ReturnsListOfTwoTapeDTO() {
+        public void GetAllTapesTest_ReturnsListOfTwoTapeDTO()
+        {
             // act
             var result = service.GetAllTapes("");
             // assert
@@ -84,7 +89,8 @@ namespace Galore.Tests.Services
         }
 
         [TestMethod]
-        public void GetAllTapesOnLoanDateValid_ReturnsListOfOneTapeDTO() {
+        public void GetAllTapesOnLoanDateValid_ReturnsListOfOneTapeDTO()
+        {
             // act
             var result = service.GetAllTapes("2005-01-01");
             // assert
@@ -95,7 +101,8 @@ namespace Galore.Tests.Services
         }
 
         [TestMethod]
-        public void GetAllTapesOnLoanDateUnvalid_ReturnsNothing() {
+        public void GetAllTapesOnLoanDateUnvalid_ReturnsNothing()
+        {
             // act
             var result = service.GetAllTapes("2000-01-01");
             //Assert
@@ -104,7 +111,8 @@ namespace Galore.Tests.Services
             _tapeRepository.Verify((m => m.GetAllTapes()), Times.Once());
         }
         [TestMethod]
-        public void GetTapeById_ReturnsTapeDetailDTO() {
+        public void GetTapeById_ReturnsTapeDetailDTO()
+        {
             // act
             var result = service.GetTapeById(1);
             // assert
@@ -114,18 +122,20 @@ namespace Galore.Tests.Services
         }
 
         [TestMethod]
-        public void CreateTape_ReturnsId() {
+        public void CreateTape_ReturnsId()
+        {
             // act
             int result = service.CreateTape(tape);
             // assert
             Assert.IsInstanceOfType(result, typeof(int));
             Assert.AreEqual(1, result);
-            
+
             _tapeRepository.Verify((m => m.CreateTape(It.IsAny<Tape>())), Times.Once());
         }
 
         [TestMethod]
-        public void DeleteValidTape_ReturnsNothing() {
+        public void DeleteValidTape_ReturnsNothing()
+        {
             // act
             service.DeleteTape(1);
             _tapeRepository.Verify((m => m.GetTapeById(1)), Times.Once());
@@ -133,7 +143,8 @@ namespace Galore.Tests.Services
 
         [TestMethod]
         [ExpectedException(typeof(ResourceNotFoundException), "Resource was not found")]
-        public void DeleteInvalidTape_ThrowsResourceNotFoundException() {
+        public void DeleteInvalidTape_ThrowsResourceNotFoundException()
+        {
             // act
             service.DeleteTape(100);
             _tapeRepository.Verify((m => m.GetTapeById(100)), Times.Once());
@@ -141,7 +152,8 @@ namespace Galore.Tests.Services
         }
 
         [TestMethod]
-        public void UpdateValidTape_ReturnsNothing() {
+        public void UpdateValidTape_ReturnsNothing()
+        {
             // act
             service.UpdateTape(tape, 1);
             _tapeRepository.Verify((m => m.GetTapeById(1)), Times.Once());
@@ -149,7 +161,8 @@ namespace Galore.Tests.Services
 
         [TestMethod]
         [ExpectedException(typeof(ResourceNotFoundException), "Resource was not found")]
-        public void UpdateInvalidTape_ThrowsResourceNotFoundException() {
+        public void UpdateInvalidTape_ThrowsResourceNotFoundException()
+        {
             // act
             service.UpdateTape(tape, 100);
             _tapeRepository.Verify((m => m.GetTapeById(100)), Times.Once());

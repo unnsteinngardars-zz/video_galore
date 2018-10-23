@@ -15,7 +15,8 @@ namespace Galore.Repositories.Implementations
     {
         private readonly GaloreDbContext _dbContext;
 
-        public UserRepository(GaloreDbContext dbContext) {
+        public UserRepository(GaloreDbContext dbContext)
+        {
             _dbContext = dbContext;
         }
 
@@ -44,14 +45,14 @@ namespace Galore.Repositories.Implementations
 
         public void UpdateUserById(User user, int userId)
         {
-           var updateUser = _dbContext.Users.Where(u => u.Deleted == false).FirstOrDefault(u => u.Id == userId);
-           updateUser.FirstName = user.FirstName;
-           updateUser.LastName = user.LastName;
-           updateUser.Address = user.Address;
-           updateUser.Email = user.Email;
-           updateUser.Phone = user.Phone;
-           updateUser.DateModified = DateTime.Now;
-           _dbContext.SaveChanges();
+            var updateUser = _dbContext.Users.Where(u => u.Deleted == false).FirstOrDefault(u => u.Id == userId);
+            updateUser.FirstName = user.FirstName;
+            updateUser.LastName = user.LastName;
+            updateUser.Address = user.Address;
+            updateUser.Email = user.Email;
+            updateUser.Phone = user.Phone;
+            updateUser.DateModified = DateTime.Now;
+            _dbContext.SaveChanges();
         }
     }
 }

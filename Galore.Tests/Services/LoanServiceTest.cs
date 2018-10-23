@@ -32,7 +32,8 @@ namespace Galore.Tests.Services
         public static void MapperInitialize(TestContext context)
         {
             AutoMapper.Mapper.Reset();
-            AutoMapper.Mapper.Initialize(c => {
+            AutoMapper.Mapper.Initialize(c =>
+            {
                 c.CreateMap<LoanInputModel, Loan>();
             });
         }
@@ -43,7 +44,7 @@ namespace Galore.Tests.Services
             _loanRepository = new Mock<ILoanRepository>();
             _userService = new Mock<IUserService>();
             _tapeService = new Mock<ITapeService>();
-            
+
             _loanRepository.Setup(m => m.GetTapesOnLoanForUser(It.IsAny<int>()))
             .Returns(FizzWare.NBuilder.Builder<Tape>
                 .CreateListOfSize(2)
@@ -57,7 +58,7 @@ namespace Galore.Tests.Services
                     .IndexOf(0).With(l => l.UserId = userOneId).With(l => l.TapeId = tapeOneId).With(l => l.BorrowDate = new DateTime(2018, 01, 01)).With(l => l.ReturnDate = DateTime.MinValue)
                     .IndexOf(1).With(l => l.UserId = userTwoId).With(l => l.TapeId = tapeTwoId).With(l => l.BorrowDate = new DateTime(2018, 02, 02)).With(l => l.ReturnDate = DateTime.MinValue)
                         .Build());
-            
+
             service = new LoanService(_loanRepository.Object, _userService.Object, _tapeService.Object);
         }
 
@@ -75,7 +76,7 @@ namespace Galore.Tests.Services
         [ExpectedException(typeof(ResourceNotFoundException), "Resource not found")]
         public void GetTApesOnLoanForUserInvalidUserId_ThrowsResourceNotFoundException()
         {
-            _userService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());       
+            _userService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());
             var result = service.GetTapesOnLoanForUser(userOneId);
         }
 
@@ -92,7 +93,7 @@ namespace Galore.Tests.Services
         public void RegisterTapeOnLoanInvalidUserAndTapeId_ThrowsResourceNotFoundException()
         {
             // Arrange
-            _userService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());       
+            _userService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());
             _tapeService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());
             // Act
             service.RegisterTapeOnLoan(userOneId, tapeOneId);
@@ -120,7 +121,7 @@ namespace Galore.Tests.Services
         public void ReturnTapeOnLoanInvalidUserIdAndTapeId_ThrowsResourceNotFoundException()
         {
             // Arrange
-            _userService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());       
+            _userService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());
             _tapeService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());
             // Act
             service.ReturnTapeOnLoan(userOneId, tapeOneId);
@@ -146,7 +147,7 @@ namespace Galore.Tests.Services
         [ExpectedException(typeof(ResourceNotFoundException), "Resource not found")]
         public void UpdateTapeOnLoan_ThrowsResourceNotFoundException()
         {
-            _userService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());       
+            _userService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());
             _tapeService.Setup(m => m.IsValidId(It.IsAny<int>())).Throws(new ResourceNotFoundException());
             service.UpdateTapeOnLoan(new LoanInputModel(), It.IsAny<int>(), It.IsAny<int>());
         }

@@ -43,7 +43,8 @@ namespace Galore.WebApi
 
             app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
-            using(var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope()) {
+            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
                 var context = scope.ServiceProvider.GetService<GaloreDbContext>();
                 context.Database.Migrate();
                 context.SeedDatabase();

@@ -6,7 +6,7 @@ using Galore.Models.Exceptions;
 namespace Galore.WebApi.Controllers
 {
     [Route("/v1/api/")]
-    public class ReviewController : Controller  
+    public class ReviewController : Controller
     {
         private readonly IReviewService _reviewService;
 
@@ -23,7 +23,7 @@ namespace Galore.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("users/{userId:int}/reviews/{tapeId:int}", Name="GetUserReviewForTape")]
+        [Route("users/{userId:int}/reviews/{tapeId:int}", Name = "GetUserReviewForTape")]
         public IActionResult GetUserReviewForTape(int userId, int tapeId)
         {
             return Ok(_reviewService.GetUserReviewForTape(userId, tapeId));
@@ -34,7 +34,7 @@ namespace Galore.WebApi.Controllers
         [Route("users/{userId:int}/reviews/{tapeId:int}")]
         public IActionResult CreateUserReview([FromBody] ReviewInputModel review, int userId, int tapeId)
         {
-            if(!ModelState.IsValid) { throw new ModelFormatException("Review was not properly formatted"); }
+            if (!ModelState.IsValid) { throw new ModelFormatException("Review was not properly formatted"); }
             var newId = _reviewService.CreateUserReview(review, userId, tapeId);
             return CreatedAtRoute("GetUserReviewForTape", new { userId, tapeId }, null);
         }

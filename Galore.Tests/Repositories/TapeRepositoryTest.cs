@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace Galore.Tests.Repositories
-{   
+{
     [TestClass]
     public class TapeRepositoryTest
     {
@@ -20,7 +20,8 @@ namespace Galore.Tests.Repositories
 
 
         [TestInitialize]
-        public void Initialize() {   
+        public void Initialize()
+        {
             // arrange
             var options = new DbContextOptionsBuilder<GaloreDbContext>()
                 .UseInMemoryDatabase(databaseName: "Tapes").Options;
@@ -63,12 +64,13 @@ namespace Galore.Tests.Repositories
 
             // assert
             Assert.IsInstanceOfType(tape1Id, typeof(int));
-            Assert.AreEqual(1,tape1Id);
+            Assert.AreEqual(1, tape1Id);
             Assert.AreEqual(2, _context.Tapes.Count());
         }
 
         [TestMethod]
-        public void GetAllTapes_ReturnsIEnumerableOfTape() {   
+        public void GetAllTapes_ReturnsIEnumerableOfTape()
+        {
             // act
             var tapes = repository.GetAllTapes();
             // assert
@@ -77,7 +79,8 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void GetTapeByValidId_ReturnsTape() {
+        public void GetTapeByValidId_ReturnsTape()
+        {
             // act
             var tape = repository.GetTapeById(1);
             // assert
@@ -86,7 +89,8 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void GetTapeByIdInvalidId_ReturnsNull() {
+        public void GetTapeByIdInvalidId_ReturnsNull()
+        {
             // act
             var tape = repository.GetTapeById(100);
             // assert
@@ -94,7 +98,8 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void DeleteTapeById_ReturnsNothing() {
+        public void DeleteTapeById_ReturnsNothing()
+        {
             // act & assert
             Assert.AreEqual(2, repository.GetAllTapes().Count());
             var tape = repository.GetTapeById(1);
@@ -105,9 +110,11 @@ namespace Galore.Tests.Repositories
 
 
         [TestMethod]
-        public void UpdateTape_ReturnsNothing() {
+        public void UpdateTape_ReturnsNothing()
+        {
             // act & assert
-            Tape updatedTape = new Tape {
+            Tape updatedTape = new Tape
+            {
                 Title = "Updated Tape",
                 DirectorFirstName = "First name",
                 DirectorLastName = "Last name",

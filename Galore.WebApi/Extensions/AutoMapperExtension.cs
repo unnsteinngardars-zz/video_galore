@@ -11,7 +11,8 @@ namespace Galore.WebApi.Extensions
     {
         public static void ConfigureAutoMapper(this IApplicationBuilder app)
         {
-            AutoMapper.Mapper.Initialize( c => {
+            AutoMapper.Mapper.Initialize(c =>
+            {
                 c.CreateMap<Tape, TapeDTO>();
                 c.CreateMap<TapeDTO, Tape>();
                 c.CreateMap<Tape, TapeDetailDTO>();

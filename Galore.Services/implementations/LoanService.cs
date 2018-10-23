@@ -23,7 +23,7 @@ namespace Galore.Services.Implementations
             _tapeService = tapeService;
         }
         public IEnumerable<TapeDTO> GetTapesOnLoanForUser(int userId)
-        {   
+        {
             var user = _userService.IsValidId(userId);
             return Mapper.Map<IEnumerable<TapeDTO>>(_repository.GetTapesOnLoanForUser(userId));
         }
@@ -52,7 +52,7 @@ namespace Galore.Services.Implementations
 
         // user/userId/tapes/tapeId: Update loan information
         public void UpdateTapeOnLoan(LoanInputModel loan, int userId, int tapeId)
-        {   
+        {
             var user = _userService.IsValidId(userId);
             var tape = _tapeService.IsValidId(tapeId);
             var checkLoan = CheckIfUserHasTape(userId, tapeId);
@@ -62,7 +62,8 @@ namespace Galore.Services.Implementations
             _repository.UpdateTapeOnLoan(checkLoan);
         }
 
-        public IEnumerable<Loan> GetLoans(){
+        public IEnumerable<Loan> GetLoans()
+        {
             return _repository.GetAllLoans();
         }
 
@@ -75,6 +76,6 @@ namespace Galore.Services.Implementations
         {
             return _repository.GetAllLoans().FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
         }
-        
+
     }
 }

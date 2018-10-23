@@ -10,14 +10,14 @@ namespace Galore.Services.Interfaces
         int CreateUserReview(ReviewInputModel review, int userId, int tapeId);
 
         ReviewDTO GetUserReviewForTape(int userId, int tapeId);
-        
+
         void DeleteUserReviewForTape(int userId, int tapeId);
 
         void UpdateUserReviewForTape(ReviewInputModel review, int userId, int tapeId);
 
-        IEnumerable<ReviewDTO> GetAllReviewsForAllTapes(); 
+        IEnumerable<ReviewDTO> GetAllReviewsForAllTapes();
 
         IEnumerable<ReviewDTO> GetAllReviewsForTape(int tapeId);
-         
+
     }
 }

@@ -21,7 +21,8 @@ namespace Galore.Tests.Repositories
         private IUserRepository repository;
 
         [TestInitialize]
-        public void Initialize() {
+        public void Initialize()
+        {
             // arrange
             var options = new DbContextOptionsBuilder<GaloreDbContext>()
                 .UseInMemoryDatabase(databaseName: "Users").Options;
@@ -33,32 +34,32 @@ namespace Galore.Tests.Repositories
         public void CreateUserTest_ReturnsUserId()
         {
             // act
-            
-                var user2 = new User
-                {
-                    Id = 2,
-                    FirstName = "Asdis Erna",
-                    LastName = "Gudmundsdottir",
-                    Email = "asdis16@ru.is",
-                    Phone = "5885522",
-                    Address = "Kopavogsgata 3",
-                    Deleted = false,
-                    DateCreated = DateTime.Now,
-                    DateModified = DateTime.Now
-                };
-                var user1 = new User
-                {
-                    Id = 1,
-                    FirstName = "Unnsteinn",
-                    LastName = "Gardarsson",
-                    Email = "unnsteinn16@ru.is",
-                    Phone = "6633819",
-                    Address = "Leifsgata 27",
-                    Deleted = false,
-                    DateCreated = DateTime.Now,
-                    DateModified = DateTime.Now,
-                };
-            
+
+            var user2 = new User
+            {
+                Id = 2,
+                FirstName = "Asdis Erna",
+                LastName = "Gudmundsdottir",
+                Email = "asdis16@ru.is",
+                Phone = "5885522",
+                Address = "Kopavogsgata 3",
+                Deleted = false,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            };
+            var user1 = new User
+            {
+                Id = 1,
+                FirstName = "Unnsteinn",
+                LastName = "Gardarsson",
+                Email = "unnsteinn16@ru.is",
+                Phone = "6633819",
+                Address = "Leifsgata 27",
+                Deleted = false,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now,
+            };
+
             var user1Id = repository.CreateUser(user1);
             var user2Id = repository.CreateUser(user2);
 
@@ -70,9 +71,11 @@ namespace Galore.Tests.Repositories
 
 
         [TestMethod]
-        public void UpdateUserTest_ReturnsNothinh() {
+        public void UpdateUserTest_ReturnsNothinh()
+        {
             // act & assert
-            User updatedUser = new User {
+            User updatedUser = new User
+            {
                 FirstName = "Updated First Name",
                 LastName = "Updated Last Name",
                 Address = "Updated Address",
@@ -87,7 +90,8 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void GetAllUsersTest_ReturnsIEnumerableOfUser() {
+        public void GetAllUsersTest_ReturnsIEnumerableOfUser()
+        {
             // act
             var users = repository.GetAllUsers();
             // assert
@@ -96,7 +100,8 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void GetUserByValidIdTest_ReturnsUser() {
+        public void GetUserByValidIdTest_ReturnsUser()
+        {
             // act
             var user = repository.GetUserById(1);
             // assert
@@ -105,7 +110,8 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void GetUserByInvalidIdTest_ReturnsNull() {
+        public void GetUserByInvalidIdTest_ReturnsNull()
+        {
             // act
             var user = repository.GetUserById(100);
             // assert
@@ -113,7 +119,8 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void DeleteUserByIdTest_ReturnsNothing() {
+        public void DeleteUserByIdTest_ReturnsNothing()
+        {
             // act & assert
             Assert.AreEqual(2, repository.GetAllUsers().Count());
             var user = repository.GetUserById(1);

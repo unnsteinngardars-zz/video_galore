@@ -21,9 +21,11 @@ namespace Galore.WebApi.Extensions
 
             /* TAPES */
             _dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Tapes ON");
-            if(!_dbContext.Tapes.Any()) {
+            if (!_dbContext.Tapes.Any())
+            {
                 var tapes = new List<Tape>();
-                using(StreamReader r = new StreamReader("./JsonData/Tapes_NoId.json")) {
+                using (StreamReader r = new StreamReader("./JsonData/Tapes_NoId.json"))
+                {
                     string json = r.ReadToEnd();
                     tapes = JsonConvert.DeserializeObject<List<Tape>>(json);
                 }
@@ -35,9 +37,11 @@ namespace Galore.WebApi.Extensions
 
             /* USERS */
             _dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Users ON");
-            if(!_dbContext.Users.Any()) {
+            if (!_dbContext.Users.Any())
+            {
                 var users = new List<User>();
-                using(StreamReader r = new StreamReader("./JsonData/Users_NoId.json")) {
+                using (StreamReader r = new StreamReader("./JsonData/Users_NoId.json"))
+                {
                     string json = r.ReadToEnd();
                     users = JsonConvert.DeserializeObject<List<User>>(json);
                 }
@@ -47,26 +51,22 @@ namespace Galore.WebApi.Extensions
             }
 
             _dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Loans ON");
-            if(!_dbContext.Loans.Any()) {
+            if (!_dbContext.Loans.Any())
+            {
                 var loans = new List<Loan>();
-                using(StreamReader r = new StreamReader("./JsonData/Loans.json")) {
+                using (StreamReader r = new StreamReader("./JsonData/Loans.json"))
+                {
                     string json = r.ReadToEnd();
                     loans = JsonConvert.DeserializeObject<List<Loan>>(json);
                 }
 
-                // foreach(var l in loans) {
-                //     if(l.ReturnDate == null) {
-                //         Console.WriteLine("IS NULL");
-                //         l.ReturnDate = DateTime.MinValue;
-                //         Console.WriteLine(l.ReturnDate);
-                //     }
-                // }
+
                 _dbContext.AddRange(loans);
                 _dbContext.SaveChanges();
                 _dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Loans OFF");
-            } 
+            }
 
             // _dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Tapes");    
-    }
+        }
     }
 }

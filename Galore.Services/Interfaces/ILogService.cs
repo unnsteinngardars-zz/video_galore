@@ -2,6 +2,6 @@ namespace Galore.Services.Interfaces
 {
     public interface ILogService
     {
-         void LogToFile(string message);
+        void LogToFile(string message);
     }
 }
