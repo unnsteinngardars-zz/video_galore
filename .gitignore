@@ -5,7 +5,7 @@ project.lock.json
 *.pyc
 
 # Visual Studio Code
-# .vscode  -  Need to keep VS code in repo for C# code formatting
+.vscode 
 
 # User-specific files
 *.suo
