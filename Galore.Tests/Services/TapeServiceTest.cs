@@ -118,6 +118,7 @@ namespace Galore.Tests.Services
             // assert
             Assert.IsInstanceOfType(result, typeof(TapeDetailDTO));
             Assert.AreEqual("Test Movie 1", result.Title);
+            Assert.AreEqual(1, result.BorrowHistory.Count());
             _tapeRepository.Verify((m => m.GetTapeById(1)), Times.Once());
         }
 
