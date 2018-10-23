@@ -29,6 +29,7 @@ namespace Galore.Tests.Services
         private Mock<IUserRepository> _userRepository;
         private IUserService uService;
         private Mock<ITapeRepository> _tapeRepository;
+        private Mock<ILoanRepository> _loanRepository;
         private ITapeService tService;
 
         [ClassInitialize]
@@ -48,6 +49,7 @@ namespace Galore.Tests.Services
         public void Initialize() {
             //Set User service
             _userRepository = new Mock<IUserRepository>();
+            _loanRepository = new Mock<ILoanRepository>();
             _userRepository.Setup(m => m.GetAllUsers())
             .Returns(FizzWare.NBuilder.Builder<User>
                 .CreateListOfSize(2)
@@ -65,7 +67,7 @@ namespace Galore.Tests.Services
                     .CreateNew().With(u => u.Id = 2).With(u => u.FirstName = "First Name 2").With(u => u.LastName = "Last Name 2")
                         .Build());
             _userRepository.Setup(m => m.CreateUser(It.IsAny<User>())).Returns(1);
-            uService = new UserService(_userRepository.Object);
+            uService = new UserService(_userRepository.Object, _loanRepository.Object);
 
             //Set the tape service
             _tapeRepository = new Mock<ITapeRepository>();
@@ -86,7 +88,7 @@ namespace Galore.Tests.Services
                     .CreateNew().With(t => t.Id = 2).With(t => t.Title = "Test Movie 2")
                         .Build());
             _tapeRepository.Setup(m => m.CreateTape(It.IsAny<Tape>())).Returns(1);
-            tService = new TapeService(_tapeRepository.Object);
+            tService = new TapeService(_tapeRepository.Object, _loanRepository.Object);
 
             //Set the ReviewService
             _reviewRepository = new Mock<IReviewRepository>();
