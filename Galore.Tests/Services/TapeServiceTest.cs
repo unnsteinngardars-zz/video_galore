@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using Galore.Models.Exceptions;
 using Galore.Services.Interfaces;
+using Galore.Models.Loan;
 
 namespace Galore.Tests.Services
 {   
@@ -27,6 +28,7 @@ namespace Galore.Tests.Services
         };
 
         private Mock<ITapeRepository> _tapeRepository;
+        private Mock<ILoanRepository> _loanRepository;
         private ITapeService service;
 
         [ClassInitialize]
@@ -47,6 +49,15 @@ namespace Galore.Tests.Services
         public void Initialize() {
             // arrange
             _tapeRepository = new Mock<ITapeRepository>();
+            _loanRepository = new Mock<ILoanRepository>();
+
+            _loanRepository.Setup(m => m.GetAllLoans())
+                .Returns(FizzWare.NBuilder.Builder<Loan>
+                .CreateListOfSize(2)
+                    .IndexOf(0).With(l => l.Id = 1).With(l => l.TapeId = 1).With(l => l.UserId = 1).With(l => l.BorrowDate = new DateTime(2001,01,01)).With(l => l.ReturnDate = DateTime.MinValue)
+                    .IndexOf(1).With(l => l.Id = 2).With(l => l.TapeId = 2).With(l => l.UserId = 2).With(l => l.BorrowDate = new DateTime(2002,02,02)).With(l => l.ReturnDate = new DateTime(2002,05,05))
+                    .Build());
+
             _tapeRepository.Setup(m => m.GetAllTapes())
             .Returns(FizzWare.NBuilder.Builder<Tape>
                 .CreateListOfSize(2)
@@ -59,19 +70,39 @@ namespace Galore.Tests.Services
                     .CreateNew().With(t => t.Id = 1).With(t => t.Title = "Test Movie 1")
                         .Build());
             _tapeRepository.Setup(m => m.CreateTape(It.IsAny<Tape>())).Returns(1);
-            service = new TapeService(_tapeRepository.Object);
+            service = new TapeService(_tapeRepository.Object, _loanRepository.Object);
         }
 
         [TestMethod]
         public void GetAllTapesTest_ReturnsListOfTwoTapeDTO() {
             // act
-            var result = service.GetAllTapes();
+            var result = service.GetAllTapes("");
             // assert
             Assert.IsInstanceOfType(result, typeof(IEnumerable<TapeDTO>));
             Assert.AreEqual(2, result.Count());
             _tapeRepository.Verify((m => m.GetAllTapes()), Times.Once());
         }
 
+        [TestMethod]
+        public void GetAllTapesOnLoanDateValid_ReturnsListOfOneTapeDTO() {
+            // act
+            var result = service.GetAllTapes("2005-01-01");
+            // assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<TapeDTO>));
+            Assert.AreEqual(1, result.Count());
+            // _loanRepository.Verify((m => m.GetAllLoans()), Times.Once());
+            _tapeRepository.Verify((m => m.GetAllTapes()), Times.Once());
+        }
+
+        [TestMethod]
+        public void GetAllTapesOnLoanDateUnvalid_ReturnsNothing() {
+            // act
+            var result = service.GetAllTapes("2000-01-01");
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<TapeDTO>));
+            Assert.AreEqual(0, result.Count());
+            _tapeRepository.Verify((m => m.GetAllTapes()), Times.Once());
+        }
         [TestMethod]
         public void GetTapeById_ReturnsTapeDetailDTO() {
             // act

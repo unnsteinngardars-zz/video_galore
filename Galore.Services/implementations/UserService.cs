@@ -5,21 +5,73 @@ using Galore.Services.Interfaces;
 using AutoMapper;
 using System.Linq;
 using Galore.Models.Exceptions;
+using System;
+using Galore.Models.Loan;
 
 namespace Galore.Services.Implementations
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ILoanRepository _loanRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, ILoanRepository loanRepository)
         {
             _userRepository = userRepository;
+            _loanRepository = loanRepository;
         }
-        public IEnumerable<UserDTO> GetAllUsers()
+        public IEnumerable<UserDTO> GetAllUsers(int LoanDuration, string LoanDate)
         {
-           return Mapper.Map<IEnumerable<UserDTO>>(_userRepository.GetAllUsers());
+            var users = _userRepository.GetAllUsers();
+            if(LoanDate.Length == 0 && LoanDuration != 0 ) 
+            {
+                // return list with loan duration query parameters
+                DateTime now = DateTime.Now.AddDays(LoanDuration*(-1));
+                var loans = _loanRepository.GetAllLoans()
+                    .Where(l => ((l.BorrowDate < now) && l.ReturnDate.Equals(DateTime.MinValue)) || ((int)(l.ReturnDate.Date - l.BorrowDate.Date).TotalDays > LoanDuration ));
+               
+               return FindUserInLoansList(loans, users);
+
+            } 
+            else if(LoanDate.Length > 0 && LoanDuration == 0) 
+            {
+                // return list with only loan date query parameters
+                DateTime date = DateTime.Parse(LoanDate);
+                var loans = _loanRepository.GetAllLoans()
+                    .Where(l => ((date >= l.BorrowDate && date < l.ReturnDate) || (date >= l.BorrowDate && l.ReturnDate.Equals(DateTime.MinValue))));
+
+                return FindUserInLoansList(loans, users);
+            } 
+            else if(LoanDate.Length > 0 && LoanDuration != 0) 
+            {
+                // return list with both loan duration and loan date
+                DateTime date = DateTime.Parse(LoanDate);
+                DateTime now = DateTime.Now.AddDays(LoanDuration*(-1));
+
+                var loans = _loanRepository.GetAllLoans()
+                    .Where(l => ((date >= l.BorrowDate && date < l.ReturnDate) || (date >= l.BorrowDate && l.ReturnDate.Equals(DateTime.MinValue))))
+                    .Where(l => ((l.BorrowDate < now) && l.ReturnDate.Equals(DateTime.MinValue)) || ((int)(l.ReturnDate.Date - l.BorrowDate.Date).TotalDays > LoanDuration ));
+                
+               return FindUserInLoansList(loans, users);
+            } 
+
+            return Mapper.Map<IEnumerable<UserDTO>>(users);
+            
         }
+
+        private IEnumerable<UserDTO> FindUserInLoansList(IEnumerable<Loan> loans, IEnumerable<User> users) 
+        {
+            List<User> loanUsers = new List<User>();
+            foreach(var l in loans) {
+                    var user = users.FirstOrDefault(u => u.Id == l.UserId);
+                    if(!loanUsers.Contains(user)) {
+                        loanUsers.Add(user);
+                    }
+            }
+
+            return Mapper.Map<IEnumerable<UserDTO>>(loanUsers);
+        }
+
         public int CreateUser(UserInputModel user)
         {
             var users = _userRepository.GetAllUsers();
@@ -67,5 +119,6 @@ namespace Galore.Services.Implementations
             return user;
         }
 
+        
     }
 }

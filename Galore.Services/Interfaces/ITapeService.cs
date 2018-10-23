@@ -5,7 +5,7 @@ namespace Galore.Services.Interfaces
 {
     public interface ITapeService
     {
-        IEnumerable<TapeDTO> GetAllTapes();
+        IEnumerable<TapeDTO> GetAllTapes(string LoanDate);
         int CreateTape(TapeInputModel tape);
         TapeDetailDTO GetTapeById(int tapeId);
         void DeleteTape(int tapeId);

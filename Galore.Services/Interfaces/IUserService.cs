@@ -5,7 +5,7 @@ namespace Galore.Services.Interfaces
 {
     public interface IUserService
     {
-        IEnumerable<UserDTO> GetAllUsers();
+        IEnumerable<UserDTO> GetAllUsers(int LoanDuration, string LoanDate);
         
         int CreateUser(UserInputModel user);
 
