@@ -35,7 +35,7 @@ namespace Galore.Services.Implementations
             var user = _userService.IsValidId(userId);
             var tape = _tapeService.IsValidId(tapeId);
             var review = _repository.GetUserReviewForTape(userId, tapeId);
-            if(review == null) { throw new ResourceNotFoundException($"Review for user ${userId} and tape ${tapeId} does not exist!"); }
+            if(review == null) { throw new ResourceNotFoundException($"Review for user {userId} and tape {tapeId} does not exist!"); }
             return Mapper.Map<ReviewDTO>(review);
         }
 
@@ -57,7 +57,7 @@ namespace Galore.Services.Implementations
             var user = _userService.IsValidId(userId);
             var tape = _tapeService.IsValidId(tapeId);
             var review = _repository.GetUserReviewForTape(userId, tapeId);
-            if(review == null) { throw new ResourceNotFoundException($"Review for user ${userId} and tape ${tapeId} does not exist!"); }
+            if(review == null) { throw new ResourceNotFoundException($"Review for user {userId} and tape {tapeId} does not exist!"); }
             _repository.DeleteUserReviewForTape(review);
         }
 
@@ -67,7 +67,7 @@ namespace Galore.Services.Implementations
             var user = _userService.IsValidId(userId);
             var tape = _tapeService.IsValidId(tapeId);
             var oldReview = _repository.GetUserReviewForTape(userId, tapeId);
-            if(oldReview == null) { throw new ResourceNotFoundException($"Review for user ${userId} and tape ${tapeId} does not exist!"); }
+            if(oldReview == null) { throw new ResourceNotFoundException($"Review for user {userId} and tape {tapeId} does not exist!"); }
             _repository.UpdateUserReviewForTape(Mapper.Map<Review>(review), userId, tapeId);
         }
 
