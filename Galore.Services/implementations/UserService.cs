@@ -20,6 +20,8 @@ namespace Galore.Services.Implementations
             _userRepository = userRepository;
             _loanRepository = loanRepository;
         }
+        //Return a list of all the users in the system
+        //Optional query parameters LoanDuration and LoanDate can be added to narrow down the results
         public IEnumerable<UserDTO> GetAllUsers(int LoanDuration, string LoanDate)
         {
             var users = _userRepository.GetAllUsers();
@@ -59,6 +61,7 @@ namespace Galore.Services.Implementations
 
         }
 
+        //Helper function to get a list of users from the loan list
         private IEnumerable<UserDTO> FindUserInLoansList(IEnumerable<Loan> loans, IEnumerable<User> users)
         {
             List<User> loanUsers = new List<User>();
@@ -74,6 +77,7 @@ namespace Galore.Services.Implementations
             return Mapper.Map<IEnumerable<UserDTO>>(loanUsers);
         }
 
+        //Create a new user
         public int CreateUser(UserInputModel user)
         {
             var users = _userRepository.GetAllUsers();
@@ -81,6 +85,8 @@ namespace Galore.Services.Implementations
             return _userRepository.CreateUser(newUser);
 
         }
+
+        //Get a specific user by id
         public UserDetailDTO GetUserById(int userId)
         {
             var user = IsValidId(userId);
@@ -90,11 +96,15 @@ namespace Galore.Services.Implementations
             detailedUser.BorrowHistory = detailedLoans.ToList();
             return detailedUser;
         }
+
+        //Delete a user from the database
         public void DeleteUser(int userId)
         {
             var user = IsValidId(userId);
             _userRepository.DeleteUser(user);
         }
+
+        //Update a user in the database
         public void UpdateUser(UserInputModel user, int userId)
         {
             var updateUser = IsValidId(userId);
