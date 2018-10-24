@@ -22,7 +22,7 @@ namespace Galore.Services.Implementations
             _tapeService = tapeService;
             _reviewService = reviewService;
         }
-
+        //Returns the highest rated movie the user hasn't seen
         public TapeDetailDTO GetRecommendation(int userId) {
             var user = _userService.GetUserById(userId);
             var tapes = _tapeService.GetAllTapes("");
@@ -46,11 +46,12 @@ namespace Galore.Services.Implementations
                 else {
                     var average = 0;
                     var tapeReviews = _reviewService.GetAllReviewsForTape(tape.Id);
-                    foreach (var review in tapeReviews)
-                    {
-                        average += review.Score;
+                    if(tapeReviews.Count() > 0) {
+                        foreach (var review in tapeReviews){
+                            average += review.Score;
+                        }
+                        average = average / tapeReviews.Count();
                     }
-                    average = average / tapeReviews.Count();
                     if(average > highestTapeScore) {
                         tapeToReturn = _tapeService.GetTapeById(tape.Id);
                         highestTapeScore = average;

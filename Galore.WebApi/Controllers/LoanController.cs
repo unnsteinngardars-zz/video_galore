@@ -14,7 +14,8 @@ namespace Galore.WebApi.Controllers
         {
             _loanService = loanService;
         }
-
+        
+        ///<summary>Get all tapes on loan for user</summary>
         [HttpGet]
         [Route("users/{userId:int}/tapes")]
         public IActionResult GetTapesOnLoanForUser(int userId)
@@ -22,6 +23,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_loanService.GetTapesOnLoanForUser(userId));
         }
 
+        ///<summary>Register a tape on loan for the user</summary>
         [HttpPost]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
         public IActionResult RegisterTapeOnLoan(int userId, int tapeId)
@@ -30,6 +32,7 @@ namespace Galore.WebApi.Controllers
             return NoContent();
         }
 
+        ///<summary>Return a borrowed tape</summary>
         [HttpDelete]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
         public IActionResult ReturnLoanedTape(int userId, int tapeId)
@@ -38,6 +41,7 @@ namespace Galore.WebApi.Controllers
             return NoContent();
         }
 
+        ///<summary>Update the borrowing information</summary>
         [HttpPut]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
         public IActionResult UpdateBorrowingInformation([FromBody] LoanInputModel loan, int userId, int tapeId)

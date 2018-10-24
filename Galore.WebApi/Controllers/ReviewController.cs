@@ -15,6 +15,7 @@ namespace Galore.WebApi.Controllers
             _reviewService = reviewService;
         }
 
+        ///<summary>Get all reviews for user</summary>
         [HttpGet]
         [Route("users/{userId:int}/reviews")]
         public IActionResult GetAllReviewsForUser(int userId)
@@ -22,6 +23,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_reviewService.GetAllReviewsForUser(userId));
         }
 
+        ///<summary>Get a user review for a tape</summary>
         [HttpGet]
         [Route("users/{userId:int}/reviews/{tapeId:int}", Name = "GetUserReviewForTape")]
         public IActionResult GetUserReviewForTape(int userId, int tapeId)
@@ -29,7 +31,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_reviewService.GetUserReviewForTape(userId, tapeId));
         }
 
-
+        ///<summary>Create a user review for a tape</summary>
         [HttpPost]
         [Route("users/{userId:int}/reviews/{tapeId:int}")]
         public IActionResult CreateUserReview([FromBody] ReviewInputModel review, int userId, int tapeId)
@@ -39,6 +41,7 @@ namespace Galore.WebApi.Controllers
             return CreatedAtRoute("GetUserReviewForTape", new { userId, tapeId }, null);
         }
 
+        ///<summary>Delete a user review</summary>
         [HttpDelete]
         [Route("users/{userId:int}/reviews/{tapeId:int}")]
         public IActionResult DeleteUserReviewForTape(int userId, int tapeId)
@@ -47,6 +50,7 @@ namespace Galore.WebApi.Controllers
             return NoContent();
         }
 
+        ///<summary>Update a user review</summary>
         [HttpPut]
         [Route("users/{userId:int}/reviews/{tapeId:int}")]
         public IActionResult UpdateUserReviewForTape([FromBody] ReviewInputModel review, int userId, int tapeId)
@@ -56,6 +60,7 @@ namespace Galore.WebApi.Controllers
             return NoContent();
         }
 
+        ///<summary>Get all user reviews for all tapes</summary>
         [HttpGet]
         [Route("tapes/reviews")]
         public IActionResult GetAllReviewsForAllTapes()
@@ -63,6 +68,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_reviewService.GetAllReviewsForAllTapes());
         }
 
+        ///<summary>Get all user reviews for a tape</summary>
         [HttpGet]
         [Route("tapes/{tapeId:int}/reviews")]
         public IActionResult GetAllReviewsForTape(int tapeId)
@@ -70,6 +76,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_reviewService.GetAllReviewsForTape(tapeId));
         }
 
+        ///<summary>Create a user review for a tape</summary>
         [HttpGet]
         [Route("tapes/{tapeId:int}/reviews/{userId:int}")]
         public IActionResult GetUserReviewForTape2(int tapeId, int userId)
@@ -77,6 +84,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_reviewService.GetUserReviewForTape(userId, tapeId));
         }
 
+        ///<summary>Delete a user review</summary>
         [HttpDelete]
         [Route("tapes/{tapeId:int}/reviews/{userId:int}")]
         public IActionResult DeleteUserReviewForTape2(int tapeId, int userId)
@@ -85,6 +93,7 @@ namespace Galore.WebApi.Controllers
             return NoContent();
         }
 
+        ///<summary>Update a user review</summary>
         [HttpPut]
         [Route("tapes/{tapeId:int}/reviews/{userId:int}")]
         public IActionResult UpdateUserReviewForTape2([FromBody] ReviewInputModel review, int tapeId, int userId)

@@ -20,6 +20,7 @@ namespace Galore.WebApi.Controllers
             _tapeService = tapeService;
         }
 
+        ///<summary>Get all tapes</summary>
         [HttpGet]
         [Route("tapes")]
         public IActionResult GetAllTapes([FromQuery] string LoanDate = "")
@@ -27,6 +28,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_tapeService.GetAllTapes(LoanDate));
         }
 
+        ///<summary>Create a tape</summary>
         [HttpPost]
         [Route("tapes")]
         public IActionResult CreateTape([FromBody] TapeInputModel tape)
@@ -36,6 +38,7 @@ namespace Galore.WebApi.Controllers
             return CreatedAtRoute("GetTapeById", new { tapeId = newId }, null);
         }
 
+        ///<summary>Get details for tape</summary>
         [HttpGet]
         [Route("tapes/{tapeId:int}", Name = "GetTapeById")]
         public IActionResult GetTapeById(int tapeId)
@@ -43,6 +46,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_tapeService.GetTapeById(tapeId));
         }
 
+        ///<summary>Delete a tape</summary>
         [HttpDelete]
         [Route("tapes/{tapeId:int}")]
         public IActionResult DeleteTapeById(int tapeId)
@@ -51,6 +55,7 @@ namespace Galore.WebApi.Controllers
             return NoContent();
         }
 
+        ///<summary>Update a tape</summary>
         [HttpPut]
         [Route("tapes/{tapeId:int}")]
         public IActionResult UpdateTapeById([FromBody] TapeInputModel tape, int tapeId)

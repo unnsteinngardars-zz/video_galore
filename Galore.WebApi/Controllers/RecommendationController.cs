@@ -12,7 +12,7 @@ namespace Galore.WebApi.Controllers
         {
             _recommendationService = recommendationService;
         }
-
+        ///<summary>Get Recommendation for user</summary>
         [HttpGet]
         [Route("users/{userId:int}/recommendation")]
         public IActionResult GetRecommendation(int userId)

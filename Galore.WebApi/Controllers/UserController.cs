@@ -22,6 +22,7 @@ namespace Galore.WebApi.Controllers
             _userService = userService;
         }
 
+        ///<summary>Get all users</summary>
         [HttpGet]
         [Route("users")]
         public IActionResult GetAllUsers([FromQuery] int LoanDuration = 0, [FromQuery] string LoanDate = "")
@@ -30,6 +31,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_userService.GetAllUsers(LoanDuration, LoanDate));
         }
 
+        ///<summary>Create a user</summary>
         [HttpPost]
         [Route("users")]
         public IActionResult CreateUser([FromBody] UserInputModel user)
@@ -39,6 +41,7 @@ namespace Galore.WebApi.Controllers
             return CreatedAtRoute("GetUserById", new { userId = newId }, null);
         }
 
+        ///<summary>Get details for user</summary>
         [HttpGet]
         [Route("users/{userId:int}", Name = "GetUserById")]
         public IActionResult GetUserById(int userId)
@@ -46,6 +49,7 @@ namespace Galore.WebApi.Controllers
             return Ok(_userService.GetUserById(userId));
         }
 
+        ///<summary>Delete a user</summary>
         [HttpDelete]
         [Route("users/{userId:int}")]
         public IActionResult DeleteUserById(int userId)
@@ -54,6 +58,7 @@ namespace Galore.WebApi.Controllers
             return NoContent();
         }
 
+        ///<summary>Update a user</summary>
         [HttpPut]
         [Route("users/{userId:int}")]
         public IActionResult UpdateUserById([FromBody] UserInputModel user, int userId)
