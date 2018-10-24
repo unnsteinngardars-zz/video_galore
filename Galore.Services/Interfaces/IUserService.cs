@@ -15,12 +15,6 @@ namespace Galore.Services.Interfaces
 
         void UpdateUser(UserInputModel user, int userId);
 
-        IEnumerable<UserDTO> GetReportByDate(string date);
-
-        IEnumerable<UserDTO> GetReportByDuration(int duration);
-
-        IEnumerable<UserDTO> GetReportByDurationAndDate(int duration, string date);
-
         User IsValidId(int id);
     }
 }

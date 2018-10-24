@@ -110,23 +110,7 @@ namespace Galore.Services.Implementations
             var updateUser = IsValidId(userId);
             _userRepository.UpdateUserById(Mapper.Map<User>(user), userId);
         }
-
-        // TODO: Report for admin. L8r
-        public IEnumerable<UserDTO> GetReportByDate(string date)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<UserDTO> GetReportByDuration(int duration)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<UserDTO> GetReportByDurationAndDate(int duration, string date)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
         public User IsValidId(int id)
         {
             var user = _userRepository.GetUserById(id);
