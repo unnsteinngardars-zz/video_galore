@@ -22,6 +22,8 @@ namespace Galore.Services.Implementations
             _userService = userService;
             _tapeService = tapeService;
         }
+
+        //Gets a list of tapes that the user has borrowed
         public IEnumerable<TapeDTO> GetTapesOnLoanForUser(int userId)
         {
             var user = _userService.IsValidId(userId);
@@ -61,17 +63,17 @@ namespace Galore.Services.Implementations
             checkLoan.BorrowDate = loanFromInput.BorrowDate;
             _repository.UpdateTapeOnLoan(checkLoan);
         }
-
+        //Gets a list of all loans
         public IEnumerable<Loan> GetLoans()
         {
             return _repository.GetAllLoans();
         }
-
+        //See if a user has already borrowed the tape
         public Loan CheckIfTapeIsBorrowed(int tapeId)
         {
             return _repository.GetAllLoans().FirstOrDefault(l => l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
         }
-
+        //Check if a certain user has a tape currently on loan
         public Loan CheckIfUserHasTape(int userId, int tapeId)
         {
             return _repository.GetAllLoans().FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);

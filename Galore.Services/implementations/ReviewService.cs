@@ -22,12 +22,14 @@ namespace Galore.Services.Implementations
             _tapeService = tapeService;
         }
 
+        //Gets all reviews that the user has given
         public IEnumerable<ReviewDTO> GetAllReviewsForUser(int userId)
         {
             var user = _userService.IsValidId(userId);
             return Mapper.Map<IEnumerable<ReviewDTO>>(_repository.GetAllReviewsForUser(userId));
         }
 
+        //Gets a review from a specific user on a tape
         public ReviewDTO GetUserReviewForTape(int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);
@@ -37,6 +39,7 @@ namespace Galore.Services.Implementations
             return Mapper.Map<ReviewDTO>(review);
         }
 
+        //Creates a user review for a tape
         public int CreateUserReview(ReviewInputModel review, int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);
@@ -48,6 +51,7 @@ namespace Galore.Services.Implementations
             return _repository.CreateUserReview(newReview, userId, tapeId);
         }
 
+        //Deletes a user review for a tape
         public void DeleteUserReviewForTape(int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);
@@ -57,6 +61,7 @@ namespace Galore.Services.Implementations
             _repository.DeleteUserReviewForTape(review);
         }
 
+        //Updates a user review for a tape
         public void UpdateUserReviewForTape(ReviewInputModel review, int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);
@@ -66,11 +71,13 @@ namespace Galore.Services.Implementations
             _repository.UpdateUserReviewForTape(Mapper.Map<Review>(review), userId, tapeId);
         }
 
+        //Gets a list of all reviews given by all users for all tapes
         public IEnumerable<ReviewDTO> GetAllReviewsForAllTapes()
         {
             return Mapper.Map<IEnumerable<ReviewDTO>>(_repository.GetAllReviewsForAllTapes());
         }
 
+        //Gets all reviews given for a specific tape
         public IEnumerable<ReviewDTO> GetAllReviewsForTape(int tapeId)
         {
             var tape = _tapeService.IsValidId(tapeId);
