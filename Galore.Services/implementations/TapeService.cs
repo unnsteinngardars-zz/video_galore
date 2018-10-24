@@ -20,7 +20,7 @@ namespace Galore.Services.Implementations
             _tapeRepository = tapeRepository;
             _loanRepository = loanRepository;
         }
-
+        //
         public IEnumerable<TapeDTO> GetAllTapes(string LoanDate)
         {
             var tapes = _tapeRepository.GetAllTapes();
