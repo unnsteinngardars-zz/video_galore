@@ -11,6 +11,13 @@ namespace Galore.WebApi.Extensions
     {
         public static void ConfigureAutoMapper(this IApplicationBuilder app)
         {
+            // Add check if Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT) == "Production" then use mock context?
+            AutoMapper.Mapper.Reset();
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                //TODO: This does not seem to work, we want to reset the automapper only in development mode!
+            }
+
             AutoMapper.Mapper.Initialize(c =>
             {
                 c.CreateMap<Tape, TapeDTO>();

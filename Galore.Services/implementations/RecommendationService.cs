@@ -14,10 +14,8 @@ namespace Galore.Services.Implementations
         private readonly IUserService _userService;
         private readonly ITapeService _tapeService;
         private readonly IReviewService _reviewService;
-        private readonly GaloreDbContext _context;
 
-        public RecommendationService(GaloreDbContext context, IUserService userService, ITapeService tapeService, IReviewService reviewService) {
-            _context = context;
+        public RecommendationService(IUserService userService, ITapeService tapeService, IReviewService reviewService) {
             _userService = userService;
             _tapeService = tapeService;
             _reviewService = reviewService;
@@ -26,7 +24,7 @@ namespace Galore.Services.Implementations
         public TapeDetailDTO GetRecommendation(int userId) {
             var user = _userService.GetUserById(userId);
             var tapes = _tapeService.GetAllTapes("");
-            TapeDetailDTO tapeToReturn;
+            TapeDetailDTO tapeToReturn = null;
             var highestTapeScore = 0;
             var alreadyBorrowed = false;
 
