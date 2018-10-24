@@ -1449,7 +1449,24 @@
 			"name": "Recommendation",
 			"item": [
 				{
-					"name": "Get Recommendation For User 55 200 OK",
+					"name": "Get Recommendation For User 62 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0522c9bc-b692-4071-96b5-f2eab268ff09",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['Tape is not null'] = responseBody !== null;",
+									"tests['Does not inlcude tape id 589'] = !responseBody.has(589);",
+									"tests['Does not inlcude tape id 788'] = !responseBody.has(788);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
