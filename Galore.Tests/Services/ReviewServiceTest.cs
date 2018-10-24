@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System;
 using Galore.Models.Exceptions;
 using Galore.Services.Interfaces;
-
+using Galore.Models.Loan;
 
 namespace Galore.Tests.Services
 {
@@ -32,6 +32,7 @@ namespace Galore.Tests.Services
         private Mock<ILoanRepository> _loanRepository;
         private ITapeService tService;
 
+
         [ClassInitialize]
         public static void MapperInitialize(TestContext context) {
             // arrange
@@ -50,6 +51,13 @@ namespace Galore.Tests.Services
             //Set User service
             _userRepository = new Mock<IUserRepository>();
             _loanRepository = new Mock<ILoanRepository>();
+            _loanRepository.Setup(m => m.GetAllLoans())
+                .Returns(FizzWare.NBuilder.Builder<Loan>
+                .CreateListOfSize(2)
+                    .IndexOf(0).With(l => l.Id = 1).With(l => l.TapeId = 1).With(l => l.UserId = 1).With(l => l.BorrowDate = new DateTime(2001, 01, 01)).With(l => l.ReturnDate = DateTime.MinValue)
+                    .IndexOf(1).With(l => l.Id = 2).With(l => l.TapeId = 2).With(l => l.UserId = 2).With(l => l.BorrowDate = new DateTime(2002, 02, 02)).With(l => l.ReturnDate = new DateTime(2002, 05, 05))
+                    .Build());
+
             _userRepository.Setup(m => m.GetAllUsers())
             .Returns(FizzWare.NBuilder.Builder<User>
                 .CreateListOfSize(2)
