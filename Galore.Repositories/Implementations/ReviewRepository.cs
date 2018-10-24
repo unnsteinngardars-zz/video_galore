@@ -28,7 +28,7 @@ namespace Galore.Repositories.Implementations
         // users/userId/reviews/tapeId : Get user review for given tape
         public Review GetUserReviewForTape(int userId, int tapeId)
         {
-            var review = _context.Reviews.Where(r => r.UserId == userId && r.TapeId == tapeId).FirstOrDefault();
+            var review = _context.Reviews.FirstOrDefault(r => r.UserId == userId && r.TapeId == tapeId);
             return review;
         }
 
@@ -56,7 +56,7 @@ namespace Galore.Repositories.Implementations
         // tapes/tapeId/reviews/userId : Update user review
         public void UpdateUserReviewForTape(Review review, int userId, int tapeId)
         {
-            var UpdatedReview = _context.Reviews.Where(r => r.UserId == userId && r.TapeId == tapeId).FirstOrDefault();
+            var UpdatedReview = _context.Reviews.FirstOrDefault(r => r.UserId == userId && r.TapeId == tapeId);
             UpdatedReview.Score = review.Score;
             UpdatedReview.DateModified = DateTime.Now;
             _context.SaveChanges();
