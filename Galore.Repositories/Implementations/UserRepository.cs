@@ -29,6 +29,8 @@ namespace Galore.Repositories.Implementations
 
         public void DeleteUser(User user)
         {
+            // var reviews = _dbContext.Reviews.Where(r => r.UserId == user.Id);
+            // _dbContext.Reviews.RemoveRange(reviews);
             user.Deleted = true;
             _dbContext.SaveChanges();
         }

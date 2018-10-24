@@ -1,0 +1,1472 @@
+{
+	"info": {
+		"_postman_id": "42dc3a6b-e613-476f-813f-863151f39126",
+		"name": "Galore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tapes",
+			"item": [
+				{
+					"name": "Get All Tapes No Params 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c5435077-0cc1-48a1-9261-4e4c379698be",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{TapesUrl}}",
+							"host": [
+								"{{TapesUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Tapes Loan Date 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c5435077-0cc1-48a1-9261-4e4c379698be",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{TapesUrlWithDate}}",
+							"host": [
+								"{{TapesUrlWithDate}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tape 412 Precondition Failed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3f395409-32d4-4dde-8961-d3aeda899336",
+								"exec": [
+									"tests['Status code is 412'] = responseCode.code === 412;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The Deedee\",\n    \"releaseDate\": \"1991-01-18\"\n}"
+						},
+						"url": {
+							"raw": "{{TapesUrl}}",
+							"host": [
+								"{{TapesUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tape 201 Created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3f395409-32d4-4dde-8961-d3aeda899336",
+								"exec": [
+									"tests['Status code is 201'] = responseCode.code === 201;",
+									"",
+									"var NewTapeLink = postman.getResponseHeader(\"Location\");",
+									"postman.setEnvironmentVariable(\"NewTapeLink\", NewTapeLink);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The Deedee\",\n    \"directorFirstName\": \"Tjú\",\n    \"directorLastName\": \"Tjú\",\n    \"type\": \"VHS\",\n    \"eidr\": \"10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C\",\n    \"releaseDate\": \"1991-01-18\"\n}"
+						},
+						"url": {
+							"raw": "{{TapesUrl}}",
+							"host": [
+								"{{TapesUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tape By Id 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09e58b45-20cc-4b97-bec3-1fd166337c16",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['Tape is not null'] = responseBody !== null;",
+									"tests['Has correct title'] = responseBody.has(\"The Deedee\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewTapeLink}}",
+							"host": [
+								"{{NewTapeLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tape 204 No Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "364d6473-02e5-4bff-ad3f-cd8ef601174f",
+								"exec": [
+									"tests['Status code is 204'] = responseCode.code === 204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The DeeDeeDeeDee\",\n    \"directorFirstName\": \"Tjú\",\n    \"directorLastName\": \"Tjú\",\n    \"type\": \"vhs\",\n    \"eidr\": \"10.5240/XXXX-XXXX-XXXX-XXXX-XXXX-C\",\n    \"releaseDate\": \"1991-01-18\"\n}"
+						},
+						"url": {
+							"raw": "{{NewTapeLink}}",
+							"host": [
+								"{{NewTapeLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tape By Id Updated 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09e58b45-20cc-4b97-bec3-1fd166337c16",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['Tape is not null'] = responseBody !== null;",
+									"tests['Has correct title'] = responseBody.has(\"The DeeDeeDeeDee\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewTapeLink}}",
+							"host": [
+								"{{NewTapeLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tape 204 No Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "89817b15-af08-49f1-9c66-9be1463ee254",
+								"exec": [
+									"tests['Status code is 204'] = responseCode.code === 204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewTapeLink}}",
+							"host": [
+								"{{NewTapeLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tape By Id Deleted 404 Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09e58b45-20cc-4b97-bec3-1fd166337c16",
+								"exec": [
+									"tests['Status code is 404'] = responseCode.code === 404;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewTapeLink}}",
+							"host": [
+								"{{NewTapeLink}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All Users No Params 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b81e768d-39ab-463f-8d1e-373b61dd5698",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "DateDuration",
+								"type": "text",
+								"value": "30",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{UserUrl}}?",
+							"host": [
+								"{{UserUrl}}"
+							],
+							"query": [
+								{
+									"key": "LoanDate",
+									"value": "2018-01-10",
+									"disabled": true
+								},
+								{
+									"key": "LoanDuration",
+									"value": "900",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users Loan Duration 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b81e768d-39ab-463f-8d1e-373b61dd5698",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "DateDuration",
+								"type": "text",
+								"value": "30",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{UserUrl}}?LoanDuration=900",
+							"host": [
+								"{{UserUrl}}"
+							],
+							"query": [
+								{
+									"key": "LoanDate",
+									"value": "2018-01-10",
+									"disabled": true
+								},
+								{
+									"key": "LoanDuration",
+									"value": "900"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users Loan Duration & Loan Date 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b81e768d-39ab-463f-8d1e-373b61dd5698",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "DateDuration",
+								"type": "text",
+								"value": "30",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{UserUrl}}?LoanDate=2018-01-10&LoanDuration=900",
+							"host": [
+								"{{UserUrl}}"
+							],
+							"query": [
+								{
+									"key": "LoanDate",
+									"value": "2018-01-10"
+								},
+								{
+									"key": "LoanDuration",
+									"value": "900"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users Loan Date 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b81e768d-39ab-463f-8d1e-373b61dd5698",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "DateDuration",
+								"type": "text",
+								"value": "30",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{UserUrl}}?LoanDate=2018-01-10",
+							"host": [
+								"{{UserUrl}}"
+							],
+							"query": [
+								{
+									"key": "LoanDate",
+									"value": "2018-01-10"
+								},
+								{
+									"key": "LoanDuration",
+									"value": "900",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User 412 Precondition Failed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "285bf68a-7f33-4aba-91b4-077599e288e1",
+								"exec": [
+									"tests['Status code is 412'] = responseCode.code === 412;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Fail\"\n}"
+						},
+						"url": {
+							"raw": "{{UserUrl}}",
+							"host": [
+								"{{UserUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User 201 Created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "285bf68a-7f33-4aba-91b4-077599e288e1",
+								"exec": [
+									"tests['Status code is 201'] = responseCode.code === 201;",
+									"",
+									"var NewUserLink = postman.getResponseHeader(\"Location\");",
+									"postman.setEnvironmentVariable(\"NewUserLink\", NewUserLink);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Test\",\n    \"lastName\": \"User\",\n    \"email\": \"test@gmail.com\",\n    \"phone\": \"1231234\",\n    \"address\": \"Menntavegur 1\"\n}"
+						},
+						"url": {
+							"raw": "{{UserUrl}}",
+							"host": [
+								"{{UserUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1813ae8c-d3d9-4302-9c8b-af4e3ef2a437",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['User is not null'] = responseBody !== null;",
+									"tests['Has correct first name'] = responseBody.has(\"Test\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewUserLink}}",
+							"host": [
+								"{{NewUserLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User 204 No Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8187584f-b0b3-4e64-a281-88a9511cb463",
+								"exec": [
+									"tests['Status code is 204'] = responseCode.code === 204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Updated\",\n    \"lastName\": \"User\",\n    \"email\": \"test@gmail.com\",\n    \"phone\": \"1231234\",\n    \"address\": \"Menntavegur 1\"\n}"
+						},
+						"url": {
+							"raw": "{{NewUserLink}}",
+							"host": [
+								"{{NewUserLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id Updated 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1813ae8c-d3d9-4302-9c8b-af4e3ef2a437",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['User is not null'] = responseBody !== null;",
+									"tests['Has correct title'] = responseBody.has(\"Updated\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewUserLink}}",
+							"host": [
+								"{{NewUserLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User 204 No Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6fced0aa-2330-455b-b50b-34d665da9c0e",
+								"exec": [
+									"tests['Status code is 204'] = responseCode.code === 204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewUserLink}}",
+							"host": [
+								"{{NewUserLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id Deleted 404 Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1813ae8c-d3d9-4302-9c8b-af4e3ef2a437",
+								"exec": [
+									"tests['Status code is 404'] = responseCode.code === 404;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewUserLink}}",
+							"host": [
+								"{{NewUserLink}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Loans",
+			"item": [
+				{
+					"name": "Get Tapes On Loan For User 100 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "87e75e5f-6af3-4da5-8b96-01bd8835b8bb",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{LoanUrl}}",
+							"host": [
+								"{{LoanUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Tape On Loan For Invalid User 404 Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7a68167-1652-4499-8018-54fdb1e23811",
+								"exec": [
+									"tests['Status code is 404'] = responseCode.code === 404;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{LoanUrlInvalidUser\n}}",
+							"host": [
+								"{{LoanUrlInvalidUser\n}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Tape On Loan For User 204 No Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1974c4f6-e564-47a0-8c40-5bfaade94dc5",
+								"exec": [
+									"tests['Status code is 204'] = responseCode.code === 204;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{LoanUrlWithTapeId}}",
+							"host": [
+								"{{LoanUrlWithTapeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tapes On Loan For User 100 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "48dda5fd-2ff0-402c-9787-d78a2e969cf1",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;",
+									"tests['Has correct tape title'] = responseBody.has(\"Fully-configurable contextually-based model\");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{LoanUrl}}",
+							"host": [
+								"{{LoanUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Borrow date 204 No Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "73810de0-f9d4-424a-9a62-0e3b1da29c44",
+								"exec": [
+									"tests['Status code is 204'] = responseCode.code === 204;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"borrowDate\": \"2010-08-08\"\n}"
+						},
+						"url": {
+							"raw": "{{LoanUrlWithTapeId}}",
+							"host": [
+								"{{LoanUrlWithTapeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return Loaned Tape 204 No Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "02bbf96d-be36-48e4-a5f4-e71ff4ed6547",
+								"exec": [
+									"tests['Status code is 204'] = responseCode.code === 204;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{LoanUrlWithTapeId}}",
+							"host": [
+								"{{LoanUrlWithTapeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tapes On Loan For User 100 Title Removed From list200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "de74e841-7139-465b-a902-d1feee9e9ea7",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;",
+									"tests['Tape title dont exist'] = !responseBody.has(\"Fully-configurable contextually-based model\");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{LoanUrl}}",
+							"host": [
+								"{{LoanUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get All Reviews For User 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81294f6d-5d12-4c38-bd86-b56202dfe418",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ReviewUserId}}",
+							"host": [
+								"{{ReviewUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Review For Tape 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eef5eaa5-6b16-48be-9e82-2d55ee9741da",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['Review is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ReviewUserIdTapeId}}",
+							"host": [
+								"{{ReviewUserIdTapeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review Invalid Tape 404 Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8b3e5632-e211-496e-bed8-5f2af88ccf99",
+								"exec": [
+									"tests['Status code is 404'] = responseCode.code === 404;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Score\": 9\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/v1/api/users/100/reviews/789787888",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"100",
+								"reviews",
+								"789787888"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review Invalid User 404 Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8b3e5632-e211-496e-bed8-5f2af88ccf99",
+								"exec": [
+									"tests['Status code is 404'] = responseCode.code === 404;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Score\": 9\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/v1/api/users/99999/reviews/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"v1",
+								"api",
+								"users",
+								"99999",
+								"reviews",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review 422 Already Exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8b3e5632-e211-496e-bed8-5f2af88ccf99",
+								"exec": [
+									"tests['Status code is 422'] = responseCode.code === 422;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Score\": 9\n}"
+						},
+						"url": {
+							"raw": "{{ReviewUserIdTapeId}}",
+							"host": [
+								"{{ReviewUserIdTapeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8b3e5632-e211-496e-bed8-5f2af88ccf99",
+								"exec": [
+									"tests['Status code is 201'] = responseCode.code === 201;",
+									"",
+									"var NewReviewLink = postman.getResponseHeader(\"Location\");",
+									"postman.setEnvironmentVariable(\"NewReviewLink\", NewReviewLink);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Score\": 9\n}"
+						},
+						"url": {
+							"raw": "{{ReviewUserIdTapeIdNew\n}}",
+							"host": [
+								"{{ReviewUserIdTapeIdNew\n}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Review For Tape 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eef5eaa5-6b16-48be-9e82-2d55ee9741da",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['Review is not null'] = responseBody !== null;",
+									"tests['Has correct user id'] = responseBody.has(\"100\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewReviewLink}}",
+							"host": [
+								"{{NewReviewLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Review For Tape 204 No Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a511242b-d179-4f38-996f-613ff3d0a2ab",
+								"exec": [
+									"tests['Status code is 204'] = responseCode.code === 204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Score\": 5\n}"
+						},
+						"url": {
+							"raw": "{{NewReviewLink}}",
+							"host": [
+								"{{NewReviewLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Review For Tape Updated 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eef5eaa5-6b16-48be-9e82-2d55ee9741da",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['Review is not null'] = responseBody !== null;",
+									"tests['Has correct score'] = responseBody.has(\"5\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewReviewLink}}",
+							"host": [
+								"{{NewReviewLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Review For Tape 204 No Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc7dd011-dcee-4b01-bcbc-f2708a02b48d",
+								"exec": [
+									"tests['Status code is 204'] = responseCode.code === 204;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewReviewLink}}",
+							"host": [
+								"{{NewReviewLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Review For Tape Deleted 404 Not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eef5eaa5-6b16-48be-9e82-2d55ee9741da",
+								"exec": [
+									"tests['Status code is 404'] = responseCode.code === 404;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{NewReviewLink}}",
+							"host": [
+								"{{NewReviewLink}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reviews For All Tapes 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ada0d36c-7d59-4070-a618-bb304f6bb981",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ReviewAllTapes}}",
+							"host": [
+								"{{ReviewAllTapes}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reviews For Tape Id 200 OK",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3b77fae-74ad-48f9-b8f8-dcd539df6f5c",
+								"exec": [
+									"tests['Status code is 200'] = responseCode.code === 200;",
+									"tests['List is not null'] = responseBody !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ReviewTapeId}}",
+							"host": [
+								"{{ReviewTapeId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recommendation",
+			"item": [
+				{
+					"name": "Get Recommendation For User 55 200 OK",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Recommendation}}",
+							"host": [
+								"{{Recommendation}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

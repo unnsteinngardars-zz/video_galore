@@ -29,6 +29,7 @@ namespace Galore.WebApi
             services.ConfigureDependencyInjections();
             services.ConfigureDatabase(Configuration);
 
+            // TODO: Skoða response status kóða 
             services.AddSwaggerGen( c => {
                 c.SwaggerDoc( "v1", new Info {
                     Version = "v1",

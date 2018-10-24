@@ -23,8 +23,8 @@ namespace Galore.Repositories.Implementations {
         }
 
         public void DeleteTape (Tape tape) {
-            // var deletedTape = _dataContext.getAllTapes.FirstOrDefault(t => t.Id == tape.Id);
-            // deletedTape.Deleted = true;
+            var reviews = _dbContext.Reviews.Where(r => r.TapeId == tape.Id);
+            _dbContext.Reviews.RemoveRange(reviews);
             tape.Deleted = true;
             _dbContext.SaveChanges ();
         }

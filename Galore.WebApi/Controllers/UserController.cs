@@ -13,8 +13,6 @@ namespace Galore.WebApi.Controllers
     public class UserController : Controller
     {
 
-        // TODO: Reports with query parameters
-
         private readonly IUserService _userService;
 
         public UserController(IUserService userService)
