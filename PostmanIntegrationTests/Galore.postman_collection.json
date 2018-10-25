@@ -995,7 +995,7 @@
 								"id": "81294f6d-5d12-4c38-bd86-b56202dfe418",
 								"exec": [
 									"tests['Status code is 200'] = responseCode.code === 200;",
-									"tests['List is not null'] = responseBody !== null;"
+									"tests['List is empty'] = responseBody.has(\"[]\")"
 								],
 								"type": "text/javascript"
 							}
@@ -1018,15 +1018,14 @@
 					"response": []
 				},
 				{
-					"name": "Get User Review For Tape 200 OK",
+					"name": "Get User Review For Tape 404 Not Found",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "eef5eaa5-6b16-48be-9e82-2d55ee9741da",
 								"exec": [
-									"tests['Status code is 200'] = responseCode.code === 200;",
-									"tests['Review is not null'] = responseBody !== null;"
+									"tests['Status code is 404'] = responseCode.code === 404;"
 								],
 								"type": "text/javascript"
 							}
@@ -1143,43 +1142,6 @@
 					"response": []
 				},
 				{
-					"name": "Create Review 422 Already Exists",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "8b3e5632-e211-496e-bed8-5f2af88ccf99",
-								"exec": [
-									"tests['Status code is 422'] = responseCode.code === 422;"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"Score\": 9\n}"
-						},
-						"url": {
-							"raw": "{{ReviewUserIdTapeId}}",
-							"host": [
-								"{{ReviewUserIdTapeId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Create Review 200 OK",
 					"event": [
 						{
@@ -1214,6 +1176,43 @@
 							"raw": "{{ReviewUserIdTapeIdNew\n}}",
 							"host": [
 								"{{ReviewUserIdTapeIdNew\n}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Review 422 Already Exists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8b3e5632-e211-496e-bed8-5f2af88ccf99",
+								"exec": [
+									"tests['Status code is 422'] = responseCode.code === 422;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Score\": 9\n}"
+						},
+						"url": {
+							"raw": "{{ReviewUserIdTapeId}}",
+							"host": [
+								"{{ReviewUserIdTapeId}}"
 							]
 						}
 					},
