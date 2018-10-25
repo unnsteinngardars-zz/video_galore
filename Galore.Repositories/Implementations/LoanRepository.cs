@@ -18,6 +18,7 @@ namespace Galore.Repositories.Implementations
             _dbContext = dbContext;
         }
 
+        //Return a list of loans from the database
         public IEnumerable<Tape> GetTapesOnLoanForUser(int userId)
         {
             var loans = _dbContext.Loans.Where(l => l.UserId == userId && l.ReturnDate == DateTime.MinValue);
@@ -31,6 +32,8 @@ namespace Galore.Repositories.Implementations
             }
             return result;
         }
+
+        //Add a new loan into the database
         public void RegisterTapeOnLoan(int userId, int tapeId)
         {
             Loan loan = new Loan
@@ -46,6 +49,8 @@ namespace Galore.Repositories.Implementations
             _dbContext.SaveChanges();
 
         }
+
+        //Set the return date of a loan in the database
         public void ReturnTapeOnLoan(Loan loan)
         {
             // var loan = _context.getAllLoans.FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
@@ -54,6 +59,8 @@ namespace Galore.Repositories.Implementations
             _dbContext.SaveChanges();
 
         }
+
+        //Update a tape on loan and set the modified date of the loan
         public void UpdateTapeOnLoan(Loan loan)
         {
             // var updateLoan = _context.getAllLoans.FirstOrDefault(l => l.UserId == userId && l.TapeId == tapeId && l.ReturnDate == DateTime.MinValue);
@@ -62,6 +69,7 @@ namespace Galore.Repositories.Implementations
             _dbContext.SaveChanges();
         }
 
+        //Get a list of all the loans in the database
         public IEnumerable<Loan> GetAllLoans()
         {
             return _dbContext.Loans;

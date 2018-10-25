@@ -20,7 +20,9 @@ namespace Galore.Services.Implementations
             _tapeRepository = tapeRepository;
             _loanRepository = loanRepository;
         }
-        //
+
+        //Get a list of all tapes
+        //Optional query parameter "LoanDate" to narrow the results
         public IEnumerable<TapeDTO> GetAllTapes(string LoanDate)
         {
             var tapes = _tapeRepository.GetAllTapes();
@@ -35,6 +37,7 @@ namespace Galore.Services.Implementations
             return Mapper.Map<IEnumerable<TapeDTO>>(tapes);
         }
 
+        //Helper function to get a list of tapes from the loan list
         private IEnumerable<TapeDTO> FindTapeInLoansList(IEnumerable<Loan> loans, IEnumerable<Tape> tapes)
         {
             List<Tape> loanTapes = new List<Tape>();
@@ -51,12 +54,16 @@ namespace Galore.Services.Implementations
             return Mapper.Map<IEnumerable<TapeDTO>>(loanTapes);
         }
 
+        //Create a new tape
         public int CreateTape(TapeInputModel tape)
         {
             var tapes = _tapeRepository.GetAllTapes();
             var newTape = Mapper.Map<Tape>(tape);
             return _tapeRepository.CreateTape(newTape);
         }
+
+        //Get details about a specific user by id
+        //Throws exception if tape id is invalid
         public TapeDetailDTO GetTapeById(int tapeId)
         {
             var tape = IsValidId(tapeId);
@@ -67,25 +74,24 @@ namespace Galore.Services.Implementations
             return detailedTape;
         }
 
+        //Delete a valid tape, call the delete function from the repository
+        //Throws exception if tape id is invalid
         public void DeleteTape(int tapeId)
         {
             var tape = IsValidId(tapeId);
             _tapeRepository.DeleteTape(tape);
         }
 
+        //Update a valid tape
+        //Throws exception if tape id is invalid
         public void UpdateTape(TapeInputModel tape, int tapeId)
         {
             var updateTape = IsValidId(tapeId);
             _tapeRepository.UpdateTapeById(Mapper.Map<Tape>(tape), tapeId);
         }
 
-        // Report
-        // TODO: Report for admin. L8r
-        public IEnumerable<Tape> GetTapesByDate(string date)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        //Check if the user id is in the database
+        //Throw an exception if it isn't
         public Tape IsValidId(int id)
         {
             var tape = _tapeRepository.GetTapeById(id);

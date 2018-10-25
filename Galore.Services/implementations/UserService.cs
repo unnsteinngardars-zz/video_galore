@@ -86,7 +86,8 @@ namespace Galore.Services.Implementations
 
         }
 
-        //Get a specific user by id
+        //Get details about a specific user by id
+        //Throws exception if user id is invalid
         public UserDetailDTO GetUserById(int userId)
         {
             var user = IsValidId(userId);
@@ -97,20 +98,24 @@ namespace Galore.Services.Implementations
             return detailedUser;
         }
 
-        //Delete a user from the database
+        //Delete a valid user, call the delete function from the repository
+        //Throws exception if user id is invalid
         public void DeleteUser(int userId)
         {
             var user = IsValidId(userId);
             _userRepository.DeleteUser(user);
         }
 
-        //Update a user in the database
+        //Update a valid user in the database
+        //Throws exception if user id is invalid
         public void UpdateUser(UserInputModel user, int userId)
         {
             var updateUser = IsValidId(userId);
             _userRepository.UpdateUserById(Mapper.Map<User>(user), userId);
         }
         
+        //Check if the user id is in the database
+        //Throw an exception if it isn't
         public User IsValidId(int id)
         {
             var user = _userRepository.GetUserById(id);

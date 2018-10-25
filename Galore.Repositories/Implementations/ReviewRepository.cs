@@ -62,7 +62,7 @@ namespace Galore.Repositories.Implementations
             _context.SaveChanges();
         }
 
-        // tapes/reviews : Get reviews for ALL tapes
+        // tapes/reviews : Get all reviews for all tapes
         public IEnumerable<Review> GetAllReviewsForAllTapes()
         {
             return _context.Reviews.ToList();

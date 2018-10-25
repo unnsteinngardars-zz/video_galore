@@ -3,6 +3,7 @@ using Galore.Models.Review;
 
 namespace Galore.Repositories.Interfaces
 {
+    //Interface for the review repository
     public interface IReviewRepository
     {
 

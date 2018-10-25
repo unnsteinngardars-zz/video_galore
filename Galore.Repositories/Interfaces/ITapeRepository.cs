@@ -4,6 +4,7 @@ using Galore.Models.Tape;
 
 namespace Galore.Repositories.Interfaces
 {
+    //Interface for the tape repository
     public interface ITapeRepository
     {
         IEnumerable<Tape> GetAllTapes();

@@ -3,6 +3,7 @@ using Galore.Models.Review;
 
 namespace Galore.Services.Interfaces
 {
+    //Interface for the review service class
     public interface IReviewService
     {
         IEnumerable<ReviewDTO> GetAllReviewsForUser(int userId);
