@@ -23,6 +23,13 @@ namespace Galore.WebApi.Extensions
         {
             _dbContext.Database.EnsureCreated();
 
+            /* ONLY COMMENT OUT WHEN DELETING ALL DATA FROM DB */
+            // _dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Reviews");
+            // _dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Loans");
+            // _dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Users");    
+            // _dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Tapes");    
+            
+            
             /* TAPES */
             _dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Tapes ON");
             if (!_dbContext.Tapes.Any())
@@ -70,7 +77,8 @@ namespace Galore.WebApi.Extensions
                 _dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Loans OFF");
             }
 
-            // _dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Tapes");    
+
+    
         }
     }
 }
