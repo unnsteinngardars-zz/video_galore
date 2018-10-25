@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Galore.Models.Exceptions;
 using Galore.Models.Loan;
+using Galore.Models.Tape;
 using Galore.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +20,8 @@ namespace Galore.WebApi.Controllers
         ///<summary>Get all tapes on loan for user</summary>
         [HttpGet]
         [Route("users/{userId:int}/tapes")]
+        [ProducesResponseType(typeof(IEnumerable<TapeDTO>), 200)]        
+        [ProducesResponseType(typeof(NotFoundResult), 404)]        
         public IActionResult GetTapesOnLoanForUser(int userId)
         {
             return Ok(_loanService.GetTapesOnLoanForUser(userId));
@@ -26,6 +30,8 @@ namespace Galore.WebApi.Controllers
         ///<summary>Register a tape on loan for the user</summary>
         [HttpPost]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
+        [ProducesResponseType(typeof(NoContentResult), 204)]        
+        [ProducesResponseType(typeof(NotFoundObjectResult), 404)]       
         public IActionResult RegisterTapeOnLoan(int userId, int tapeId)
         {
             _loanService.RegisterTapeOnLoan(userId, tapeId);
@@ -35,6 +41,8 @@ namespace Galore.WebApi.Controllers
         ///<summary>Return a borrowed tape</summary>
         [HttpDelete]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
+        [ProducesResponseType(typeof(NoContentResult), 204)]        
+        [ProducesResponseType(typeof(NotFoundObjectResult), 404)]
         public IActionResult ReturnLoanedTape(int userId, int tapeId)
         {
             _loanService.ReturnTapeOnLoan(userId, tapeId);
@@ -44,6 +52,8 @@ namespace Galore.WebApi.Controllers
         ///<summary>Update the borrowing information</summary>
         [HttpPut]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
+        [ProducesResponseType(typeof(NoContentResult), 204)]        
+        [ProducesResponseType(typeof(NotFoundObjectResult), 404)]
         public IActionResult UpdateBorrowingInformation([FromBody] LoanInputModel loan, int userId, int tapeId)
         {
             if (!ModelState.IsValid) { throw new ModelFormatException("Loan was not properly formatted"); }

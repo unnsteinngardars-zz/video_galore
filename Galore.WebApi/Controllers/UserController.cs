@@ -6,6 +6,7 @@ using Galore.Models.Review;
 using System;
 using Galore.Services.Interfaces;
 using Galore.Models.Exceptions;
+using System.Collections.Generic;
 
 namespace Galore.WebApi.Controllers
 {
@@ -23,6 +24,8 @@ namespace Galore.WebApi.Controllers
         ///<summary>Get all users</summary>
         [HttpGet]
         [Route("users")]
+        [ProducesResponseType(typeof(IEnumerable<UserDTO>), 200)]        
+        [ProducesResponseType(typeof(NotFoundResult), 404)]
         public IActionResult GetAllUsers([FromQuery] int LoanDuration = 0, [FromQuery] string LoanDate = "")
         {
 
@@ -32,6 +35,9 @@ namespace Galore.WebApi.Controllers
         ///<summary>Create a user</summary>
         [HttpPost]
         [Route("users")]
+        [ProducesResponseType(typeof(CreatedAtRouteResult), 201)]
+        [ProducesResponseType(typeof(ExceptionModel), 412)]
+        [ProducesResponseType(typeof(NotFoundResult), 404)]
         public IActionResult CreateUser([FromBody] UserInputModel user)
         {
             if (!ModelState.IsValid) { throw new ModelFormatException("User was not properly formatted"); }
@@ -42,6 +48,8 @@ namespace Galore.WebApi.Controllers
         ///<summary>Get details for user</summary>
         [HttpGet]
         [Route("users/{userId:int}", Name = "GetUserById")]
+        [ProducesResponseType(typeof(UserDetailDTO), 200)]        
+        [ProducesResponseType(typeof(NotFoundResult), 404)]
         public IActionResult GetUserById(int userId)
         {
             return Ok(_userService.GetUserById(userId));
@@ -50,6 +58,8 @@ namespace Galore.WebApi.Controllers
         ///<summary>Delete a user</summary>
         [HttpDelete]
         [Route("users/{userId:int}")]
+        [ProducesResponseType(typeof(NoContentResult), 204)]        
+        [ProducesResponseType(typeof(NotFoundResult), 404)]
         public IActionResult DeleteUserById(int userId)
         {
             _userService.DeleteUser(userId);
@@ -59,6 +69,9 @@ namespace Galore.WebApi.Controllers
         ///<summary>Update a user</summary>
         [HttpPut]
         [Route("users/{userId:int}")]
+        [ProducesResponseType(typeof(NoContentResult), 204)]
+        [ProducesResponseType(typeof(ExceptionModel), 412)]        
+        [ProducesResponseType(typeof(NotFoundResult), 404)]
         public IActionResult UpdateUserById([FromBody] UserInputModel user, int userId)
         {
             if (!ModelState.IsValid) { throw new ModelFormatException("User was not properly formatted"); }
