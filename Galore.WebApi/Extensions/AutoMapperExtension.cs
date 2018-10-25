@@ -16,12 +16,8 @@ namespace Galore.WebApi.Extensions
     {
         public static void ConfigureAutoMapper(this IApplicationBuilder app, IHostingEnvironment env)
         {
-            // AutoMapper.Mapper.Reset();
-            if(env.IsDevelopment())
-            {
-                AutoMapper.Mapper.Reset();
-            }   
-
+            // Need to add reset for integration tests
+            AutoMapper.Mapper.Reset();
             AutoMapper.Mapper.Initialize(c =>
             {
                 c.CreateMap<Tape, TapeDTO>();
