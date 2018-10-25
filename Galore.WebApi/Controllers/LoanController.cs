@@ -31,7 +31,7 @@ namespace Galore.WebApi.Controllers
         [HttpPost]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
         [ProducesResponseType(typeof(NoContentResult), 204)]        
-        [ProducesResponseType(typeof(NotFoundObjectResult), 404)]       
+        [ProducesResponseType(typeof(NotFoundResult), 404)]       
         public IActionResult RegisterTapeOnLoan(int userId, int tapeId)
         {
             _loanService.RegisterTapeOnLoan(userId, tapeId);
@@ -42,7 +42,7 @@ namespace Galore.WebApi.Controllers
         [HttpDelete]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
         [ProducesResponseType(typeof(NoContentResult), 204)]        
-        [ProducesResponseType(typeof(NotFoundObjectResult), 404)]
+        [ProducesResponseType(typeof(NotFoundResult), 404)]
         public IActionResult ReturnLoanedTape(int userId, int tapeId)
         {
             _loanService.ReturnTapeOnLoan(userId, tapeId);
@@ -53,7 +53,7 @@ namespace Galore.WebApi.Controllers
         [HttpPut]
         [Route("users/{userId:int}/tapes/{tapeId:int}")]
         [ProducesResponseType(typeof(NoContentResult), 204)]        
-        [ProducesResponseType(typeof(NotFoundObjectResult), 404)]
+        [ProducesResponseType(typeof(NotFoundResult), 404)]
         public IActionResult UpdateBorrowingInformation([FromBody] LoanInputModel loan, int userId, int tapeId)
         {
             if (!ModelState.IsValid) { throw new ModelFormatException("Loan was not properly formatted"); }

@@ -65,7 +65,8 @@ namespace Galore.WebApi.Controllers
         ///<summary>Update a tape</summary>
         [HttpPut]
         [Route("tapes/{tapeId:int}")]
-        [ProducesResponseType(typeof(NoContentResult), 204)]        
+        [ProducesResponseType(typeof(NoContentResult), 204)]
+        [ProducesResponseType(typeof(ExceptionModel), 412)]        
         [ProducesResponseType(typeof(NotFoundResult), 404)]
         public IActionResult UpdateTapeById([FromBody] TapeInputModel tape, int tapeId)
         {
