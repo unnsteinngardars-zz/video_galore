@@ -3,6 +3,7 @@ using Galore.Models.User;
 
 namespace Galore.Services.Interfaces
 {
+    //Interface for the user service class
     public interface IUserService
     {
         IEnumerable<UserDTO> GetAllUsers(int LoanDuration, string LoanDate);
@@ -14,12 +15,6 @@ namespace Galore.Services.Interfaces
         void DeleteUser(int userId);
 
         void UpdateUser(UserInputModel user, int userId);
-
-        IEnumerable<UserDTO> GetReportByDate(string date);
-
-        IEnumerable<UserDTO> GetReportByDuration(int duration);
-
-        IEnumerable<UserDTO> GetReportByDurationAndDate(int duration, string date);
 
         User IsValidId(int id);
     }

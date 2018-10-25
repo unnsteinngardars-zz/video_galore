@@ -16,12 +16,15 @@ namespace Galore.Repositories.Implementations {
             _dbContext = dbContext;
         }
 
+        //Add a new tape to the database and return the tape id
         public int CreateTape (Tape tape) {
             _dbContext.Tapes.Add (tape);
             _dbContext.SaveChanges ();
             return tape.Id;
         }
 
+
+        //"Delete" a tape by setting the deleted attribute of the user to true
         public void DeleteTape (Tape tape) {
             var reviews = _dbContext.Reviews.Where(r => r.TapeId == tape.Id);
             _dbContext.Reviews.RemoveRange(reviews);
@@ -29,15 +32,18 @@ namespace Galore.Repositories.Implementations {
             _dbContext.SaveChanges ();
         }
 
+        //Return a list of all tapes that have not been deleted
         public IEnumerable<Tape> GetAllTapes () {
             // return _dataContext.getAllTapes.Where(t => t.Deleted == false);
             return _dbContext.Tapes.Where (t => t.Deleted == false).ToList ();
         }
 
+        //Get a specific tape by id(that hasn't been deleted)
         public Tape GetTapeById (int tapeId) {
             return _dbContext.Tapes.Where (t => t.Deleted == false).FirstOrDefault (t => t.Id == tapeId);
         }
 
+        //Update a specific tape by id in the database
         public void UpdateTapeById (Tape tape, int tapeId) {
 
             var updateTape = _dbContext.Tapes.Where (t => t.Deleted == false).FirstOrDefault (t => t.Id == tapeId);

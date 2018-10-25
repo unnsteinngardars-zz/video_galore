@@ -7,6 +7,7 @@ using Galore.Models.User;
 
 namespace Galore.Repositories.Interfaces
 {
+    //Interface for the user repository
     public interface IUserRepository
     {
         IEnumerable<User> GetAllUsers();

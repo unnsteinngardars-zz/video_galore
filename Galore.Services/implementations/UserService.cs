@@ -20,6 +20,8 @@ namespace Galore.Services.Implementations
             _userRepository = userRepository;
             _loanRepository = loanRepository;
         }
+        //Return a list of all the users in the system
+        //Optional query parameters LoanDuration and LoanDate can be added to narrow down the results
         public IEnumerable<UserDTO> GetAllUsers(int LoanDuration, string LoanDate)
         {
             var users = _userRepository.GetAllUsers();
@@ -59,6 +61,7 @@ namespace Galore.Services.Implementations
 
         }
 
+        //Helper function to get a list of users from the loan list
         private IEnumerable<UserDTO> FindUserInLoansList(IEnumerable<Loan> loans, IEnumerable<User> users)
         {
             List<User> loanUsers = new List<User>();
@@ -74,6 +77,7 @@ namespace Galore.Services.Implementations
             return Mapper.Map<IEnumerable<UserDTO>>(loanUsers);
         }
 
+        //Create a new user
         public int CreateUser(UserInputModel user)
         {
             var users = _userRepository.GetAllUsers();
@@ -81,6 +85,9 @@ namespace Galore.Services.Implementations
             return _userRepository.CreateUser(newUser);
 
         }
+
+        //Get details about a specific user by id
+        //Throws exception if user id is invalid
         public UserDetailDTO GetUserById(int userId)
         {
             var user = IsValidId(userId);
@@ -90,33 +97,25 @@ namespace Galore.Services.Implementations
             detailedUser.BorrowHistory = detailedLoans.ToList();
             return detailedUser;
         }
+
+        //Delete a valid user, call the delete function from the repository
+        //Throws exception if user id is invalid
         public void DeleteUser(int userId)
         {
             var user = IsValidId(userId);
             _userRepository.DeleteUser(user);
         }
+
+        //Update a valid user in the database
+        //Throws exception if user id is invalid
         public void UpdateUser(UserInputModel user, int userId)
         {
             var updateUser = IsValidId(userId);
             _userRepository.UpdateUserById(Mapper.Map<User>(user), userId);
         }
-
-        // TODO: Report for admin. L8r
-        public IEnumerable<UserDTO> GetReportByDate(string date)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<UserDTO> GetReportByDuration(int duration)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<UserDTO> GetReportByDurationAndDate(int duration, string date)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        
+        //Check if the user id is in the database
+        //Throw an exception if it isn't
         public User IsValidId(int id)
         {
             var user = _userRepository.GetUserById(id);

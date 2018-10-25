@@ -3,6 +3,7 @@ using Galore.Models.Tape;
 
 namespace Galore.Services.Interfaces
 {
+    //Interface for the tape service class
     public interface ITapeService
     {
         IEnumerable<TapeDTO> GetAllTapes(string LoanDate);
@@ -10,7 +11,6 @@ namespace Galore.Services.Interfaces
         TapeDetailDTO GetTapeById(int tapeId);
         void DeleteTape(int tapeId);
         void UpdateTape(TapeInputModel tape, int tapeId);
-        IEnumerable<Tape> GetTapesByDate(string date);
         Tape IsValidId(int id);
     }
 }

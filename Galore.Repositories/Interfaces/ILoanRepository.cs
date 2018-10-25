@@ -4,6 +4,7 @@ using Galore.Models.Tape;
 
 namespace Galore.Repositories.Interfaces
 {
+    //Interface for the loan repository
     public interface ILoanRepository
     {
         IEnumerable<Tape> GetTapesOnLoanForUser(int userId);

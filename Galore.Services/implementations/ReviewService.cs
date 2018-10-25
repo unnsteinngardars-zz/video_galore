@@ -23,6 +23,7 @@ namespace Galore.Services.Implementations
         }
 
         //Gets all reviews that the user has given
+        //Throws exception if user id is invalid
         public IEnumerable<ReviewDTO> GetAllReviewsForUser(int userId)
         {
             var user = _userService.IsValidId(userId);
@@ -30,6 +31,7 @@ namespace Galore.Services.Implementations
         }
 
         //Gets a review from a specific user on a tape
+        //Throws exception if either user id or tape id are invalid
         public ReviewDTO GetUserReviewForTape(int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);
@@ -40,6 +42,7 @@ namespace Galore.Services.Implementations
         }
 
         //Creates a user review for a tape
+        //Throws exception if either user id or tape id are invalid
         public int CreateUserReview(ReviewInputModel review, int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);
@@ -52,6 +55,7 @@ namespace Galore.Services.Implementations
         }
 
         //Deletes a user review for a tape
+        //Throws exception if either user id or tape id are invalid
         public void DeleteUserReviewForTape(int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);
@@ -62,6 +66,7 @@ namespace Galore.Services.Implementations
         }
 
         //Updates a user review for a tape
+        //Throws exception if either user id or tape id are invalid
         public void UpdateUserReviewForTape(ReviewInputModel review, int userId, int tapeId)
         {
             var user = _userService.IsValidId(userId);
@@ -78,6 +83,7 @@ namespace Galore.Services.Implementations
         }
 
         //Gets all reviews given for a specific tape
+        //Throws exception if tape id is invalid
         public IEnumerable<ReviewDTO> GetAllReviewsForTape(int tapeId)
         {
             var tape = _tapeService.IsValidId(tapeId);
