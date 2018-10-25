@@ -21,7 +21,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task GetAllTapes()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/tapes");
                 response.EnsureSuccessStatusCode();
@@ -32,7 +32,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task GetTapeByValidID()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/tapes/1");
                 response.EnsureSuccessStatusCode();
@@ -47,7 +47,7 @@ namespace Galore.IntegrationTest
         [ExpectedException(typeof(HttpRequestException), "Resource not found")]
         public async Task GetTapeByInvalidId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("v1/api/tapes/1111111");
                 response.EnsureSuccessStatusCode();
@@ -57,7 +57,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task CreateTapeValidInput()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.PostAsync("/v1/api/tapes", new StringContent(
                     JsonConvert.SerializeObject(new TapeInputModel()
@@ -76,16 +76,17 @@ namespace Galore.IntegrationTest
                 Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
                 Assert.IsNotNull(response.Headers.Location);
             }
-        }        
+        }
 
         [TestMethod]
         [ExpectedException(typeof(HttpRequestException), "Invalid input")]
         public async Task CreateTapeInvalidInput()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.PostAsync("/v1/api/tapes", new StringContent(
-                    JsonConvert.SerializeObject(new TapeInputModel(){
+                    JsonConvert.SerializeObject(new TapeInputModel()
+                    {
                         Title = "blabla",
                     }),
                     Encoding.UTF8, "application/json"
@@ -98,7 +99,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task UpdateTapeValidId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var data = await client.GetAsync("/v1/api/tapes");
                 string json = await data.Content.ReadAsStringAsync();
@@ -128,7 +129,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task UpdateTapeInvalidInputData()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var data = await client.GetAsync("/v1/api/tapes");
                 string json = await data.Content.ReadAsStringAsync();
@@ -140,7 +141,7 @@ namespace Galore.IntegrationTest
                     JsonConvert.SerializeObject(new TapeInputModel()
                     {
                         Title = "LOTR",
-                        
+
                     }),
                     Encoding.UTF8, "application/json"));
 
@@ -154,7 +155,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task DeleteTapeValidId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var data = await client.GetAsync("/v1/api/tapes");
                 string json = await data.Content.ReadAsStringAsync();
@@ -170,7 +171,7 @@ namespace Galore.IntegrationTest
         [ExpectedException(typeof(HttpRequestException), "Resource not found")]
         public async Task DeleteTapeInvalidId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.DeleteAsync("/v1/api/tapes/99999");
                 response.EnsureSuccessStatusCode();

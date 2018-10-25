@@ -19,7 +19,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task GetAllUsers()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/users");
                 response.EnsureSuccessStatusCode();
@@ -30,7 +30,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task GetUserByValidID()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/users/1");
                 response.EnsureSuccessStatusCode();
@@ -46,7 +46,7 @@ namespace Galore.IntegrationTest
         [ExpectedException(typeof(HttpRequestException), "Resource not found")]
         public async Task GetUserByInvalidId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/users/111111");
                 response.EnsureSuccessStatusCode();
@@ -56,7 +56,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task CreateUserValidInput()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.PostAsync("/v1/api/users", new StringContent(
                     JsonConvert.SerializeObject(new UserInputModel()
@@ -80,7 +80,7 @@ namespace Galore.IntegrationTest
         [ExpectedException(typeof(HttpRequestException), "Invalid input")]
         public async Task CreateUserInvalidInput()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.PostAsync("/v1/api/users", new StringContent(
                     JsonConvert.SerializeObject(new UserInputModel()
@@ -90,12 +90,12 @@ namespace Galore.IntegrationTest
                     Encoding.UTF8, "application/json"));
                 response.EnsureSuccessStatusCode();
             }
-        }   
+        }
 
         [TestMethod]
         public async Task UpdateUserValidId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var data = await client.GetAsync("/v1/api/users");
                 string json = await data.Content.ReadAsStringAsync();
@@ -124,7 +124,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task UpdateUserInvalidInputData()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var data = await client.GetAsync("/v1/api/users");
                 string json = await data.Content.ReadAsStringAsync();
@@ -142,13 +142,13 @@ namespace Galore.IntegrationTest
                 string updatedUserJson = await updateResponse.Content.ReadAsStringAsync();
                 UserDetailDTO updatedUser = JsonConvert.DeserializeObject<UserDetailDTO>(updatedUserJson);
                 Assert.AreEqual(user.FirstName, updatedUser.FirstName);
-            }    
+            }
         }
 
         [TestMethod]
         public async Task DeleteUserValidId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var data = await client.GetAsync("/v1/api/users");
                 string json = await data.Content.ReadAsStringAsync();
@@ -164,7 +164,7 @@ namespace Galore.IntegrationTest
         [ExpectedException(typeof(HttpRequestException), "Resource not found")]
         public async Task DeleteUserInvalidId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.DeleteAsync("/v1/api/users/1337");
                 response.EnsureSuccessStatusCode();

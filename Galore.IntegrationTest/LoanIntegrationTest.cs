@@ -18,7 +18,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task RegisterTapeOnLoan()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.PostAsync("/v1/api/users/100/tapes/10", null);
                 response.EnsureSuccessStatusCode();
@@ -29,11 +29,11 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task GetTapesOnLoanForUser()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/users/100/tapes");
                 response.EnsureSuccessStatusCode();
-                
+
                 string json = await response.Content.ReadAsStringAsync();
                 IEnumerable<TapeDTO> tapes = JsonConvert.DeserializeObject<IEnumerable<TapeDTO>>(json);
                 var tape = tapes.FirstOrDefault(t => t.Id == 10);
@@ -45,9 +45,9 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task UpdateBorrowingInformation()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
-              
+
                 var response = await client.PutAsync("/v1/api/users/100/tapes/10", new StringContent(
                     JsonConvert.SerializeObject(new LoanInputModel()
                     {
@@ -58,14 +58,14 @@ namespace Galore.IntegrationTest
 
                 response.EnsureSuccessStatusCode();
                 Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
-           
+
             }
         }
 
         [TestMethod]
         public async Task ReturnLoanedTape()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.DeleteAsync("/v1/api/users/100/tapes/10");
                 response.EnsureSuccessStatusCode();
@@ -77,7 +77,7 @@ namespace Galore.IntegrationTest
         [ExpectedException(typeof(HttpRequestException), "Invalid User ID")]
         public async Task RegisterTapeOnLoanInvalidUserId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.PostAsync("/v1/api/users/99999/tapes/10", null);
                 response.EnsureSuccessStatusCode();
@@ -89,11 +89,11 @@ namespace Galore.IntegrationTest
         [ExpectedException(typeof(HttpRequestException), "Invalid User ID")]
         public async Task GetTapesOnLoanForUserInvalidUserId()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/users/99999/tapes");
                 response.EnsureSuccessStatusCode();
-                
+
                 string json = await response.Content.ReadAsStringAsync();
                 IEnumerable<TapeDTO> tapes = JsonConvert.DeserializeObject<IEnumerable<TapeDTO>>(json);
                 var tape = tapes.FirstOrDefault(t => t.Id == 10);
@@ -106,9 +106,9 @@ namespace Galore.IntegrationTest
         [ExpectedException(typeof(HttpRequestException), "Loan does not exists")]
         public async Task UpdateBorrowingInformationLoanNotExisting()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
-              
+
                 var response = await client.PutAsync("/v1/api/users/1/tapes/1", new StringContent(
                     JsonConvert.SerializeObject(new LoanInputModel()
                     {
@@ -119,7 +119,7 @@ namespace Galore.IntegrationTest
 
                 response.EnsureSuccessStatusCode();
                 Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
-           
+
             }
         }
 
@@ -127,7 +127,7 @@ namespace Galore.IntegrationTest
         [ExpectedException(typeof(HttpRequestException), "Loan does not exists")]
         public async Task ReturnLoanedTapeLoanNotExisting()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.DeleteAsync("/v1/api/users/1/tapes/1");
                 response.EnsureSuccessStatusCode();

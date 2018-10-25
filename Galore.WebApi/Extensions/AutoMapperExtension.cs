@@ -4,19 +4,23 @@ using Galore.Models.Tape;
 using Galore.Models.User;
 using Galore.Models.Review;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Galore.WebApi.Extensions
 {
+    /**
+        AutoMapperExtension.cs
+        Maps from EntityModels to DTO/Input Models
+     */
     public static class AutoMapperExtension
     {
-        public static void ConfigureAutoMapper(this IApplicationBuilder app)
+        public static void ConfigureAutoMapper(this IApplicationBuilder app, IHostingEnvironment env)
         {
-            // Add check if Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT) == "Production" then use mock context?
-            AutoMapper.Mapper.Reset();
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            // AutoMapper.Mapper.Reset();
+            if(env.IsDevelopment())
             {
-                //TODO: This does not seem to work, we want to reset the automapper only in development mode!
-            }
+                AutoMapper.Mapper.Reset();
+            }   
 
             AutoMapper.Mapper.Initialize(c =>
             {

@@ -8,6 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Galore.WebApi.Extensions
 {
+    /**
+        DIExtension
+        Configures all dependency injections for the application
+     */
     public static class DIExtension
     {
         public static void ConfigureDependencyInjections(this IServiceCollection services)
@@ -24,7 +28,6 @@ namespace Galore.WebApi.Extensions
             services.AddTransient<ITapeRepository, TapeRepository>();
             services.AddTransient<ILoanRepository, LoanRepository>();
             services.AddTransient<IReviewRepository, ReviewRepository>();
-            services.AddTransient<IMockDatabaseContext, MockDatabaseContext>();
         }
     }
 }

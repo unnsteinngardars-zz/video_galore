@@ -5,7 +5,6 @@ namespace Galore.Models.Loan
 {
     public class Loan
     {
-        // PK is TapeId and UserId together
         public int Id { get; set; }
         [Required]
         public int TapeId { get; set; }

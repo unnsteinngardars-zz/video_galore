@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Galore.Models.Loan;
 
-namespace Galore.Models.Tape {
-    public class TapeDetailDTO {
+namespace Galore.Models.Tape
+{
+    public class TapeDetailDTO
+    {
         public int Id { get; set; }
         public string Title { get; set; }
         public string DirectorFirstName { get; set; }

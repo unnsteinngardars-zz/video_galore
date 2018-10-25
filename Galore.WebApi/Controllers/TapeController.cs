@@ -10,9 +10,6 @@ namespace Galore.WebApi.Controllers
     [Route("/v1/api/")]
     public class TapeController : Controller
     {
-
-        // TODO: Reports with query parameters
-
         private readonly ITapeService _tapeService;
 
         public TapeController(ITapeService tapeService)

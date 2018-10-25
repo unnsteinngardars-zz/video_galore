@@ -7,6 +7,10 @@ using Galore.Services.Interfaces;
 
 namespace Galore.WebApi.Extensions
 {
+    /**
+        ExceptionMiddlewareExtension.cs
+        Global exception handling for the application
+     */
     public static class ExceptionMiddlewareExtension
     {
         public static void ConfigureExceptionHandler(this IApplicationBuilder app)
@@ -19,7 +23,6 @@ namespace Galore.WebApi.Extensions
                     var exception = exceptionHandlerFeature.Error;
                     var statusCode = (int)HttpStatusCode.InternalServerError;
 
-                    // TODO: FIX IT
                     var logService = app.ApplicationServices.GetService(typeof(ILogService)) as ILogService;
                     logService.LogToFile($"Message: {exception.Message}. Stack trace: {exception.StackTrace}");
 

@@ -12,6 +12,5 @@ namespace Galore.Repositories.Interfaces
         Tape GetTapeById(int tapeId);
         void DeleteTape(Tape tape);
         void UpdateTapeById(Tape tape, int tapeId);
-
     }
 }

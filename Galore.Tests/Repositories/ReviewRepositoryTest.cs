@@ -21,7 +21,8 @@ namespace Galore.Tests.Repositories
         private IReviewRepository repository;
 
         [TestInitialize]
-        public void Initialize() {
+        public void Initialize()
+        {
             // arrange
             var options = new DbContextOptionsBuilder<GaloreDbContext>()
                 .UseInMemoryDatabase(databaseName: "Reviews").Options;
@@ -30,8 +31,10 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void CreateUserReviewTest_ReturnsReviewId() {
-            var review1 = new Review {
+        public void CreateUserReviewTest_ReturnsReviewId()
+        {
+            var review1 = new Review
+            {
                 Id = 1,
                 UserId = 1,
                 TapeId = 2,
@@ -39,7 +42,8 @@ namespace Galore.Tests.Repositories
                 DateCreated = DateTime.Now,
                 DateModified = DateTime.Now
             };
-            var review2 = new Review {
+            var review2 = new Review
+            {
                 Id = 2,
                 UserId = 2,
                 TapeId = 2,
@@ -56,9 +60,11 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void UpdateUserReviewForTapeTest_ReturnsNothing() {
+        public void UpdateUserReviewForTapeTest_ReturnsNothing()
+        {
             // act & assert
-            Review updatedReview = new Review {
+            Review updatedReview = new Review
+            {
                 Score = 5
             };
             Review before = repository.GetUserReviewForTape(2, 2);
@@ -69,35 +75,40 @@ namespace Galore.Tests.Repositories
         }
 
         [TestMethod]
-        public void GetAllReviewsForUserTest_ReturnsIEnumerableOfReview() {
+        public void GetAllReviewsForUserTest_ReturnsIEnumerableOfReview()
+        {
             var reviews = repository.GetAllReviewsForUser(1);
             Assert.IsInstanceOfType(reviews, typeof(IEnumerable<Review>));
             Assert.AreEqual(1, reviews.Count());
         }
 
         [TestMethod]
-        public void GetUserReviewForTapeTest_ReturnsReview() {
+        public void GetUserReviewForTapeTest_ReturnsReview()
+        {
             var review = repository.GetUserReviewForTape(1, 2);
             Assert.IsInstanceOfType(review, typeof(Review));
             Assert.IsNotNull(review);
         }
 
         [TestMethod]
-        public void GetAllReviewsForAllTapes_ReturnsIEnumerableOfReview() {
+        public void GetAllReviewsForAllTapes_ReturnsIEnumerableOfReview()
+        {
             var reviews = repository.GetAllReviewsForAllTapes();
             Assert.IsInstanceOfType(reviews, typeof(IEnumerable<Review>));
             Assert.AreEqual(2, reviews.Count());
         }
 
         [TestMethod]
-        public void GetAllReviewsForTapeTest_ReturnsIEnumerableOfReview() {
+        public void GetAllReviewsForTapeTest_ReturnsIEnumerableOfReview()
+        {
             var reviews = repository.GetAllReviewsForTape(2);
             Assert.IsInstanceOfType(reviews, typeof(IEnumerable<Review>));
             Assert.AreEqual(2, reviews.Count());
         }
 
         [TestMethod]
-        public void DeleteUserReviewForTapeTest_ReturnsNothing() {
+        public void DeleteUserReviewForTapeTest_ReturnsNothing()
+        {
             Assert.AreEqual(1, repository.GetAllReviewsForUser(1).Count());
             var review = repository.GetUserReviewForTape(1, 2);
             repository.DeleteUserReviewForTape(review);

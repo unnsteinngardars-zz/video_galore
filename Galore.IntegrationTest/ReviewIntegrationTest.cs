@@ -16,7 +16,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task CreateUserReviewForTape()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.PostAsync("/v1/api/users/100/reviews/10", new StringContent(
                     JsonConvert.SerializeObject(new ReviewInputModel()
@@ -34,7 +34,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task GetAllReviewsForUser()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/users/100/reviews");
                 response.EnsureSuccessStatusCode();
@@ -43,12 +43,12 @@ namespace Galore.IntegrationTest
                 Assert.IsNotNull(reviews);
                 Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             }
-        } 
+        }
 
         [TestMethod]
         public async Task GetUserReviewForTape()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/users/100/reviews/10");
                 response.EnsureSuccessStatusCode();
@@ -65,7 +65,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task UpdateUserReviewForTape()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var data = await client.GetAsync("/v1/api/users/100/reviews/10");
                 data.EnsureSuccessStatusCode();
@@ -93,7 +93,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task DeleteUserReviewForTape()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.DeleteAsync("/v1/api/users/100/reviews/10");
                 response.EnsureSuccessStatusCode();
@@ -105,7 +105,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task CreateUserReviewForTape2()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.PostAsync("/v1/api/users/100/reviews/10", new StringContent(
                     JsonConvert.SerializeObject(new ReviewInputModel()
@@ -123,7 +123,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task GetAllReviewsForAllTapes()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/tapes/reviews");
                 response.EnsureSuccessStatusCode();
@@ -134,7 +134,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task GetUserReviewForTape2()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.GetAsync("/v1/api/tapes/10/reviews/100");
                 response.EnsureSuccessStatusCode();
@@ -150,7 +150,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task UpdateUserReviewForTape2()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var data = await client.GetAsync("/v1/api/tapes/10/reviews/100");
                 data.EnsureSuccessStatusCode();
@@ -178,7 +178,7 @@ namespace Galore.IntegrationTest
         [TestMethod]
         public async Task DeleteUserReviewForTape2()
         {
-            using(var client = new TestClientProvider().Client)
+            using (var client = new TestClientProvider().Client)
             {
                 var response = await client.DeleteAsync("/v1/api/tapes/10/reviews/100");
                 response.EnsureSuccessStatusCode();

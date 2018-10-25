@@ -14,7 +14,7 @@ namespace Galore.WebApi.Controllers
         {
             _loanService = loanService;
         }
-        
+
         ///<summary>Get all tapes on loan for user</summary>
         [HttpGet]
         [Route("users/{userId:int}/tapes")]

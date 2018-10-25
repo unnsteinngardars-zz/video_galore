@@ -20,7 +20,8 @@ namespace Galore.Tests.Services
     public class ReviewServiceTest
     {
         // arrange
-        ReviewInputModel review = new ReviewInputModel {
+        ReviewInputModel review = new ReviewInputModel
+        {
             Score = 8,
         };
 
@@ -34,10 +35,12 @@ namespace Galore.Tests.Services
 
 
         [ClassInitialize]
-        public static void MapperInitialize(TestContext context) {
+        public static void MapperInitialize(TestContext context)
+        {
             // arrange
             AutoMapper.Mapper.Reset();
-            AutoMapper.Mapper.Initialize( c => {
+            AutoMapper.Mapper.Initialize(c =>
+            {
                 c.CreateMap<Review, ReviewDTO>();
                 c.CreateMap<ReviewDTO, Review>();
                 c.CreateMap<ReviewInputModel, Review>()
@@ -47,7 +50,8 @@ namespace Galore.Tests.Services
         }
 
         [TestInitialize]
-        public void Initialize() {
+        public void Initialize()
+        {
             //Set User service
             _userRepository = new Mock<IUserRepository>();
             _loanRepository = new Mock<ILoanRepository>();
@@ -64,7 +68,7 @@ namespace Galore.Tests.Services
                     .IndexOf(0).With(u => u.Id = 1).With(u => u.FirstName = "First Name 1").With(u => u.LastName = "Last Name 1")
                     .IndexOf(1).With(u => u.Id = 2).With(u => u.FirstName = "First Name 2").With(u => u.LastName = "Last Name 2")
                         .Build());
-                
+
             _userRepository.Setup(m => m.GetUserById(1))
                 .Returns(FizzWare.NBuilder.Builder<User>
                     .CreateNew().With(u => u.Id = 1).With(u => u.FirstName = "First Name 1").With(u => u.LastName = "Last Name 1")
@@ -85,7 +89,7 @@ namespace Galore.Tests.Services
                     .IndexOf(0).With(t => t.Id = 1).With(t => t.Title = "Test Movie 1").With(t => t.Type = "vhs")
                     .IndexOf(1).With(t => t.Id = 2).With(t => t.Title = "Test Movie 2").With(t => t.Type = "betamax")
                         .Build());
-            
+
             _tapeRepository.Setup(m => m.GetTapeById(1))
                 .Returns(FizzWare.NBuilder.Builder<Tape>
                     .CreateNew().With(t => t.Id = 1).With(t => t.Title = "Test Movie 1")
@@ -106,30 +110,31 @@ namespace Galore.Tests.Services
                     .IndexOf(0).With(r => r.Id = 1).With(r => r.UserId = 1).With(r => r.TapeId = 2).With(r => r.Score = 7)
                     .IndexOf(1).With(r => r.Id = 2).With(r => r.UserId = 2).With(r => r.TapeId = 2).With(r => r.Score = 5)
                         .Build());
-            
+
             _reviewRepository.Setup(m => m.GetAllReviewsForTape(2))
             .Returns(FizzWare.NBuilder.Builder<Review>
                 .CreateListOfSize(2)
                     .IndexOf(0).With(r => r.Id = 1).With(r => r.UserId = 1).With(r => r.TapeId = 2).With(r => r.Score = 7)
                     .IndexOf(1).With(r => r.Id = 2).With(r => r.UserId = 2).With(r => r.TapeId = 2).With(r => r.Score = 5)
                         .Build());
-            
+
             _reviewRepository.Setup(m => m.GetAllReviewsForUser(1))
             .Returns(FizzWare.NBuilder.Builder<Review>
                 .CreateListOfSize(1)
                     .IndexOf(0).With(r => r.Id = 1).With(r => r.UserId = 1).With(r => r.TapeId = 2).With(r => r.Score = 7)
-                        .Build()); 
+                        .Build());
 
             _reviewRepository.Setup(m => m.GetUserReviewForTape(1, 2))
             .Returns(FizzWare.NBuilder.Builder<Review>
                     .CreateNew().With(r => r.Id = 1).With(r => r.UserId = 1).With(r => r.TapeId = 2).With(r => r.Score = 7)
-                        .Build()); 
-            
+                        .Build());
+
             service = new ReviewService(_reviewRepository.Object, uService, tService);
         }
 
         [TestMethod]
-        public void GetAllReviewsForUser_ReturnsIEnumerableOfReviewDTO() {
+        public void GetAllReviewsForUser_ReturnsIEnumerableOfReviewDTO()
+        {
             var result = service.GetAllReviewsForUser(1);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<ReviewDTO>));
             Assert.AreEqual(1, result.Count());
@@ -137,7 +142,8 @@ namespace Galore.Tests.Services
         }
 
         [TestMethod]
-        public void GetUserReviewForTape_ReturnsReviewDTO() {
+        public void GetUserReviewForTape_ReturnsReviewDTO()
+        {
             var result = service.GetUserReviewForTape(1, 2);
             Assert.IsInstanceOfType(result, typeof(ReviewDTO));
             Assert.AreEqual(7, result.Score);
@@ -164,7 +170,8 @@ namespace Galore.Tests.Services
         }
 */
         [TestMethod]
-        public void GetAllReviewForAllTapes_ReturnsIEnumerableOfReviewDTO() {
+        public void GetAllReviewForAllTapes_ReturnsIEnumerableOfReviewDTO()
+        {
             var result = service.GetAllReviewsForAllTapes();
             Assert.IsInstanceOfType(result, typeof(IEnumerable<ReviewDTO>));
             Assert.AreEqual(2, result.Count());
@@ -172,7 +179,8 @@ namespace Galore.Tests.Services
         }
 
         [TestMethod]
-        public void GetAllReviewForTape_ReturnsIEnumerableOfReviewDTO() {
+        public void GetAllReviewForTape_ReturnsIEnumerableOfReviewDTO()
+        {
             var result = service.GetAllReviewsForTape(2);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<ReviewDTO>));
             Assert.AreEqual(2, result.Count());

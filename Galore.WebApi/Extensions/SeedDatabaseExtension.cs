@@ -13,6 +13,10 @@ using Newtonsoft.Json;
 
 namespace Galore.WebApi.Extensions
 {
+    /**
+        SeedDatabaseExtension.cs
+        Seeds the database with data from json files
+     */
     public static class SeedDatabaseExtension
     {
         public static void SeedDatabase(this GaloreDbContext _dbContext)

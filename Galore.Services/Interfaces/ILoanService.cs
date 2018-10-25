@@ -8,13 +8,9 @@ namespace Galore.Services.Interfaces
     public interface ILoanService
     {
         IEnumerable<TapeDTO> GetTapesOnLoanForUser(int userId);
-
         void RegisterTapeOnLoan(int userId, int tapeId);
-
         void ReturnTapeOnLoan(int userId, int tapeId);
-
         void UpdateTapeOnLoan(LoanInputModel loan, int userId, int tapeId);
-
         IEnumerable<Loan> GetLoans();
     }
 }

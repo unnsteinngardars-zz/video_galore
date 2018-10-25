@@ -16,17 +16,19 @@ namespace Galore.Services.Implementations
         private readonly ITapeService _tapeService;
         private readonly IReviewService _reviewService;
 
-        public RecommendationService(IUserService userService, ITapeService tapeService, IReviewService reviewService) {
+        public RecommendationService(IUserService userService, ITapeService tapeService, IReviewService reviewService)
+        {
             _userService = userService;
             _tapeService = tapeService;
             _reviewService = reviewService;
         }
         //Returns random movie the user hasn't seen
-        public TapeDetailDTO GetRecommendation(int userId) {
+        public TapeDetailDTO GetRecommendation(int userId)
+        {
             var user = _userService.GetUserById(userId);
             var tapes = _tapeService.GetAllTapes("");
             var reviews = _reviewService.GetAllReviewsForAllTapes();
-            
+
             var userBorrowedTapeIds = user.BorrowHistory.Select(u => u.TapeId).ToArray();
             var unseenTapes = tapes.Where(t => !userBorrowedTapeIds.Contains(t.Id)).ToList();
 
@@ -35,25 +37,9 @@ namespace Galore.Services.Implementations
 
             // Getting random movie that user hasn't seen
             Random rnd = new Random();
-            int randomIndex = rnd.Next(0, unseenTapes.Count() -1);
+            int randomIndex = rnd.Next(0, unseenTapes.Count() - 1);
             var tapeId = unseenTapes.Select(t => t.Id).ElementAt(randomIndex);
             return _tapeService.GetTapeById(tapeId);
-
-
-            // Trying to get the highest reviewed but it failed :(
-
-            // if(reviewedTapes.Count() == 0) 
-            // {     
-            //     Random rnd = new Random();
-            //     int randomIndex = rnd.Next(0, unseenTapes.Count() -1);
-            //     var tapeId = unseenTapes.Select(t => t.Id).ElementAt(randomIndex);
-            //     return _tapeService.GetTapeById(tapeId);
-            // } 
-            // else 
-            // {
-            //     var tapeId = reviewedTapes.Select(t => t.Id).FirstOrDefault();
-            //     return _tapeService.GetTapeById(tapeId);
-            // }
         }
     }
 }
