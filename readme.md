@@ -18,7 +18,6 @@ we are using AutoMapper which is the **Mapping** principle. Each controller/serv
 We wrote unit tests for all methods in controllers/services/repositories along with integration tests for all flows. User, Tape, Loan and Review. For the unit tests we are using EF core InMemory which mocks out our database based on our schema so that counts as the **Service Stub**
 
 Our code is written with the **DRY** and **KISS** principles in mind and it is **Loosely Coupled**.
-In general we aimed for the **SOLID** principles.
 
 ## Database
 We chose a SQL database for this project, we wanted to grab the opportunity and get familiar with the azure portal. 
@@ -28,4 +27,4 @@ We used the Entity Framework Core Code First principle to genereate database tab
 Navigate to the Galore.WebApi folder and run `dotnet build` and then `dotnet run`
 
 ## Swagger
-After executing `dotnet build` and `dotnet run` you can navigate to a generated [Swagger Documentation](https://localhost:5001/swagger/)
+After executing `dotnet build` and `dotnet run` you can navigate to a generated [Swagger Documentation](https://localhost:5001/swagger/index.html)
